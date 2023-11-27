@@ -4,7 +4,7 @@ import Navbar from "../components/Shared/Navbar/Navbar";
 
 const Main = () => {
   return (
-    <div className="bg-black font-Roboto">
+    <div className="bg-black text-white font-Roboto">
       <Navbar />
       <Outlet />
       {/* <Footer /> */}

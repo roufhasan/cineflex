@@ -3,6 +3,7 @@ import Logo from "../../../assets/Logo.png";
 import Container from "../Container";
 import { FaBars, FaMagnifyingGlass, FaXmark } from "react-icons/fa6";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const Navbar = () => {
   const [showSearchField, setShowSearchField] = useState(false);
@@ -31,10 +32,12 @@ const Navbar = () => {
   );
 
   return (
-    <Container>
+    <Container px="5%">
       <nav className="flex items-center justify-between relative">
         <div>
-          <img className="w-32 sm:w-40" src={Logo} alt="cineflex logo" />
+          <Link to="/">
+            <img className="w-32 sm:w-40" src={Logo} alt="cineflex logo" />
+          </Link>
         </div>
         <div>
           <ul className="text-white font-Roboto font-medium hidden md:flex gap-x-4">
@@ -78,7 +81,16 @@ const Navbar = () => {
           />
 
           {showSearchField && (
-            <div className="absolute right-0 top-[210%] bg-orange-400 p-1 rounded">
+            <motion.div
+              className="absolute right-0 top-[210%] text-black bg-orange-400 p-1 rounded z-10"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.5,
+                delay: 0.2,
+                ease: [0, 0.71, 0.2, 1.01],
+              }}
+            >
               <form>
                 <div className="flex">
                   <div>
@@ -97,13 +109,22 @@ const Navbar = () => {
                   </div>
                 </div>
               </form>
-            </div>
+            </motion.div>
           )}
         </div>
         {showMenu && (
-          <div className="absolute right-0 top-full w-full py-6 bg-[#1f1f1f]">
+          <motion.div
+            className="absolute right-0 top-full w-full py-6 bg-[#1f1f1f] z-10"
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.6,
+              delay: 0.3,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
+          >
             {menuLinks}
-          </div>
+          </motion.div>
         )}
       </nav>
     </Container>
