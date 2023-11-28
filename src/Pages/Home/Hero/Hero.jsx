@@ -6,9 +6,36 @@ import { useEffect, useState } from "react";
 import { apiFetch } from "../../../api/api";
 import { FaPlay, FaRegCalendar, FaStar, FaSwatchbook } from "react-icons/fa6";
 import { motion } from "framer-motion";
+import { allGenresData } from "../../../customData/allGenresData";
 
 const Hero = () => {
   const [myShows, setMyShows] = useState([]);
+  const genresData = allGenresData;
+
+  const getGenre = (ids) => {
+    const genreIds = ids.slice(0, 2);
+
+    const getGenreNames = (genreIds, genres) => {
+      const genreNames = [];
+
+      for (const genreId of genreIds) {
+        const genre = genres.find((item) => item.id === genreId);
+        if (genre) {
+          genreNames.push(genre.name);
+        } else {
+          console.error(`Genre with ID ${genreId} not found.`);
+        }
+      }
+      return genreNames;
+    };
+
+    return getGenreNames(genreIds, genresData);
+  };
+
+  const showGenreNames = (genreIds) => {
+    const genreNames = getGenre(genreIds).join("/");
+    return genreNames;
+  };
 
   useEffect(() => {
     apiFetch("popular").then((data) => setMyShows(data.slice(0, 5)));
@@ -30,7 +57,6 @@ const Hero = () => {
             myShows.length > 0 &&
             myShows.map((myshow) => (
               <SwiperSlide key={myshow.id}>
-                {console.log(myshow)}
                 <div
                   style={{
                     backgroundImage: `linear-gradient(to top,rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)),url(${`https://image.tmdb.org/t/p/original${
@@ -56,6 +82,7 @@ const Hero = () => {
                           </div>
                           <div className="flex items-center gap-3 text-lg">
                             <FaSwatchbook />
+                            <p>{showGenreNames(myshow.genre_ids)}</p>
                           </div>
                         </div>
                       </div>
