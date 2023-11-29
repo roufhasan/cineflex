@@ -1,15 +1,16 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Autoplay, Pagination } from "swiper/modules";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { useEffect, useState } from "react";
-import { apiFetch } from "../../../api/api";
+import { movieLists } from "../../../api/api";
 import { FaPlay, FaRegCalendar, FaStar, FaSwatchbook } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import { allGenresData } from "../../../customData/allGenresData";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
-  const [myShows, setMyShows] = useState([]);
+  const [movies, setMovies] = useState([]);
   const genresData = allGenresData;
 
   const getGenre = (ids) => {
@@ -38,24 +39,25 @@ const Hero = () => {
   };
 
   useEffect(() => {
-    apiFetch("popular").then((data) => setMyShows(data.slice(0, 5)));
+    movieLists("popular").then((data) => setMovies(data.slice(0, 5)));
   }, []);
   return (
     <>
-      {myShows && myShows.length > 0 && (
+      {movies && movies.length > 0 && (
         <Swiper
           spaceBetween={30}
           centeredSlides={true}
+          loop={true}
           autoplay={{
             delay: 7500,
             disableOnInteraction: false,
           }}
-          modules={[Autoplay, Pagination]}
+          modules={[Autoplay, Pagination, Navigation]}
           className="mySwiper h-[calc(100vh-64.5px)] max-h-[1080px] md:min-h-[600px]"
         >
-          {myShows &&
-            myShows.length > 0 &&
-            myShows.map((myshow) => (
+          {movies &&
+            movies.length > 0 &&
+            movies.map((myshow) => (
               <SwiperSlide key={myshow.id}>
                 <div
                   style={{
@@ -90,20 +92,20 @@ const Hero = () => {
                         {myshow.overview.slice(0, 170)}...
                       </p>
                       <div className="flex items-center gap-x-6">
-                        <motion.button
+                        <motion.div
                           whileHover={{ translateY: -3 }}
                           whileTap={{ scale: 0.9 }}
                           className="flex items-center gap-x-2 bg-[#f98606] px-6 py-3 rounded-full font-medium"
                         >
                           <FaPlay /> <span>Watch Now</span>
-                        </motion.button>
-                        <motion.button
+                        </motion.div>
+                        <motion.div
                           whileHover={{ translateY: -3 }}
                           whileTap={{ scale: 0.9 }}
                           className="bg-black/40 border-2 px-6 py-3 rounded-full font-medium"
                         >
-                          View Details
-                        </motion.button>
+                          <Link to={`/movie/${myshow.id}`}>View Details</Link>
+                        </motion.div>
                       </div>
                     </div>
 

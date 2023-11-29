@@ -1,0 +1,17 @@
+.swiper-button-next,
+.swiper-rtl,
+.swiper-button-prev {
+  backdrop-filter: blur(20px);
+  border: 2px solid white;
+  padding: 25px 16px;
+}
+
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-next.swiper-button-disabled {
+  display: none;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  color: white !important;
+}
