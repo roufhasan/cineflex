@@ -1,20 +1,20 @@
-import Container from "../../../components/Shared/Container";
 import { useEffect, useState } from "react";
-import { trandingLists } from "../../../api/api";
 import { motion } from "framer-motion";
-
-import "./Trending.css";
+import Container from "../../../components/Shared/Container";
+import { trendingLists } from "../../../api/api";
 import Slider from "../../../components/Slider/Slider";
 
 const Trending = () => {
-  const [trendingLists, setTrendingLists] = useState();
+  const [trendingMovies, setTrendingMovies] = useState();
   const [timeWindow, setTimeWindow] = useState("day");
 
   useEffect(() => {
-    trandingLists("movie", timeWindow)
-      .then((data) => setTrendingLists(data))
+    trendingLists("movie", timeWindow)
+      .then((data) => {
+        setTrendingMovies(data);
+      })
       .catch((err) => console.log(err));
-  }, [timeWindow]);
+  }, [timeWindow, trendingMovies]);
 
   return (
     <Container px="5%">
@@ -22,7 +22,7 @@ const Trending = () => {
         <div className="flex flex-wrap items-center justify-between gap-y-3 mb-8">
           <h3 className="text-xl md:text-3xl font-bold">Trending Movies</h3>
           <div className="inline-block">
-            <div className="flex items-center border rounded-full">
+            <div className="flex items-center border border-[#f98606] rounded-full">
               <motion.div
                 onClick={() => setTimeWindow("day")}
                 whileTap={{ scale: 0.9 }}
@@ -44,8 +44,9 @@ const Trending = () => {
             </div>
           </div>
         </div>
-
-        <Slider sliderData={trendingLists} />
+        {trendingMovies && trendingMovies.length > 0 && (
+          <Slider sliderData={trendingMovies} />
+        )}
       </section>
     </Container>
   );

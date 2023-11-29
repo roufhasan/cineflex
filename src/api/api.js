@@ -11,7 +11,7 @@ export const movieLists = async (movieType) => {
 };
 
 // Get the trending movies, TV shows and people.
-export const trandingLists = async (trendingType, time_window) => {
+export const trendingLists = async (trendingType, time_window) => {
   const url = `https://api.themoviedb.org/3/trending/${
     trendingType ? trendingType : "movie"
   }/${time_window ? time_window : "day"}?&api_key=${

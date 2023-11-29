@@ -1,5 +1,6 @@
 import Container from "../../../components/Shared/Container";
 import Hero from "../Hero/Hero";
+import NowPlaying from "../NowPlaying/NowPlaying";
 import Trending from "../Trending/Trending";
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
     <Container>
       <Hero />
       <Trending />
+      <NowPlaying />
     </Container>
   );
 };

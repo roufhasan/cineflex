@@ -1,9 +1,10 @@
 import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Navigation } from "swiper/modules";
+import Card from "../Card/Card";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
-import Card from "../Card/Card";
-import { FreeMode, Navigation } from "swiper/modules";
+import "./slider.css";
 
 const Slider = ({ sliderData }) => {
   return (
@@ -66,24 +67,26 @@ const Slider = ({ sliderData }) => {
         </Swiper>
       </div>
       {/* Cards for Large to Upper Devices */}
-      <div className="hidden lg:block">
-        <Swiper
-          slidesPerView={5}
-          spaceBetween={30}
-          freeMode={true}
-          modules={[FreeMode, Navigation]}
-          navigation={true}
-          className="mySwiper"
-        >
-          {sliderData &&
-            sliderData.length > 0 &&
-            sliderData.slice(0, 10).map((trending) => (
-              <SwiperSlide key={trending.id}>
-                <Card trending={trending} />
-              </SwiperSlide>
-            ))}
-        </Swiper>
-      </div>
+      {sliderData && (
+        <div className="hidden lg:block">
+          <Swiper
+            slidesPerView={5}
+            spaceBetween={30}
+            freeMode={true}
+            modules={[FreeMode, Navigation]}
+            navigation={true}
+            className="mySwiper"
+          >
+            {sliderData &&
+              sliderData.length > 0 &&
+              sliderData.slice(0, 10).map((trending) => (
+                <SwiperSlide key={trending.id}>
+                  <Card trending={trending} />
+                </SwiperSlide>
+              ))}
+          </Swiper>
+        </div>
+      )}
     </>
   );
 };
