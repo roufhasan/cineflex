@@ -1,37 +1,38 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { useEffect, useState } from "react";
-import { movieLists } from "../../../api/api";
+import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { FaPlay, FaRegCalendar, FaStar, FaSwatchbook } from "react-icons/fa6";
 import { motion } from "framer-motion";
-import { allGenresData } from "../../../customData/allGenresData";
-import { Link } from "react-router-dom";
+import { movieLists } from "../../../api/api";
+// import { allGenresData } from "../../../customData/allGenresData";
+import "swiper/css/pagination";
+import "swiper/css";
+import { getGenre } from "../../../customData/generateGenre";
 
 const Hero = () => {
   const [movies, setMovies] = useState([]);
-  const genresData = allGenresData;
+  // const genresData = allGenresData;
 
-  const getGenre = (ids) => {
-    const genreIds = ids.slice(0, 2);
+  // const getGenre = (ids) => {
+  //   const genreIds = ids.slice(0, 2);
 
-    const getGenreNames = (genreIds, genres) => {
-      const genreNames = [];
+  //   const getGenreNames = (genreIds, genres) => {
+  //     const genreNames = [];
 
-      for (const genreId of genreIds) {
-        const genre = genres.find((item) => item.id === genreId);
-        if (genre) {
-          genreNames.push(genre.name);
-        } else {
-          console.error(`Genre with ID ${genreId} not found.`);
-        }
-      }
-      return genreNames;
-    };
+  //     for (const genreId of genreIds) {
+  //       const genre = genres.find((item) => item.id === genreId);
+  //       if (genre) {
+  //         genreNames.push(genre.name);
+  //       } else {
+  //         console.error(`Genre with ID ${genreId} not found.`);
+  //       }
+  //     }
+  //     return genreNames;
+  //   };
 
-    return getGenreNames(genreIds, genresData);
-  };
+  //   return getGenreNames(genreIds, genresData);
+  // };
 
   const showGenreNames = (genreIds) => {
     const genreNames = getGenre(genreIds).join("/");

@@ -23,3 +23,14 @@ export const trendingLists = async (trendingType, time_window) => {
 
   return data.results;
 };
+
+// Get the airing today, on the air, popular, top rated, latest TV Series Lists
+export const tvSeriesLists = async (seriesType) => {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/tv/${seriesType}?api_key=${
+      import.meta.env.VITE_API_KEY
+    }`
+  );
+  const data = await res.json();
+  return data.results;
+};
