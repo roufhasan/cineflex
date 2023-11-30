@@ -60,10 +60,10 @@ const PopularShows = () => {
                           alt=""
                           className="w-full h-[500px] object-cover border-2 md:w-80 md:h-80 md:border-0 xl:h-[400px] 2xl:h-[500px]"
                         />
-                        <div className="text-xl font-bold py-4 bg-black md:hidden">
-                          <Link to="/">{popularSeries.original_name}</Link>
-                        </div>
                       </Link>
+                      <div className="text-xl font-bold py-4 bg-black md:hidden">
+                        <Link to="/">{popularSeries.original_name}</Link>
+                      </div>
                       <div className="md:inline-block cursor-pointer">
                         <motion.div
                           whileHover={{ translateY: -3 }}

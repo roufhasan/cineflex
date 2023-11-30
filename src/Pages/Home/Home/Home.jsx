@@ -1,8 +1,8 @@
 import Container from "../../../components/Shared/Container";
 import Hero from "../Hero/Hero";
-import LatestShows from "../LatestShows/LatestShows";
 import NowPlaying from "../NowPlaying/NowPlaying";
 import PopularShows from "../PopularShows/PopularShows";
+import TopRated from "../TopRated/TopRated";
 import Trending from "../Trending/Trending";
 import Upcoming from "../Upcoming/Upcoming";
 
@@ -18,7 +18,7 @@ const Home = () => {
           <PopularShows />
         </div>
         <div className="w-full lg:w-1/4">
-          <LatestShows />
+          <TopRated />
         </div>
       </div>
     </Container>
