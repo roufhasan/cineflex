@@ -20,7 +20,9 @@ const Trending = () => {
     <Container px="5%">
       <section className="py-12">
         <div className="flex flex-wrap items-center justify-between gap-y-3 mb-8">
-          <h3 className="text-xl md:text-3xl font-bold">Trending Movies</h3>
+          <h3 className="text-xl md:text-3xl font-bold border-l-4 border-[#f98606] pl-3">
+            <span className="">Trending</span> Movies
+          </h3>
           <div className="inline-block">
             <div className="flex items-center border border-[#f98606] rounded-full">
               <motion.div

@@ -4,12 +4,12 @@ import { movieLists } from "../../../api/api";
 import Slider from "../../../components/Slider/Slider";
 import { Link } from "react-router-dom";
 
-const NowPlaying = () => {
-  const [nowPlaying, setNowPlaying] = useState([]);
+const Upcoming = () => {
+  const [upcoming, setUpComing] = useState([]);
 
   useEffect(() => {
-    movieLists("now_playing")
-      .then((data) => setNowPlaying(data))
+    movieLists("upcoming")
+      .then((data) => setUpComing(data))
       .catch((err) => console.log(err));
   }, []);
   return (
@@ -17,19 +17,19 @@ const NowPlaying = () => {
       <section className="py-14">
         <div className="flex flex-wrap items-center justify-between gap-y-3 mb-8">
           <h3 className="text-xl md:text-3xl font-bold border-l-4 border-[#f98606] pl-3">
-            Currently In Theatres
+            Coming Soon
           </h3>
           <Link
-            to="/movies/now_playing"
+            to="/movies/upcoming"
             className="border-b-2 border-[#f98606] transition duration-500 hover:text-[#f98606]"
           >
             View All
           </Link>
         </div>
-        <Slider sliderData={nowPlaying} />
+        <Slider sliderData={upcoming} />
       </section>
     </Container>
   );
 };
 
-export default NowPlaying;
+export default Upcoming;
