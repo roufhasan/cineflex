@@ -1,6 +1,7 @@
 import Container from "../../../components/Shared/Container";
 import Hero from "../Hero/Hero";
 import NowPlaying from "../NowPlaying/NowPlaying";
+import PopularPerson from "../PopularPerson/PopularPerson";
 import PopularShows from "../PopularShows/PopularShows";
 import TopRated from "../TopRated/TopRated";
 import Trending from "../Trending/Trending";
@@ -13,9 +14,10 @@ const Home = () => {
       <Trending />
       <NowPlaying />
       <Upcoming />
-      <div className="lg:flex gap-12 px-[5%]">
+      <div className="lg:flex gap-12 px-[5%] lg:max-h-[1400px]">
         <div className="w-full lg:w-3/4">
           <PopularShows />
+          <PopularPerson />
         </div>
         <div className="w-full lg:w-1/4">
           <TopRated />

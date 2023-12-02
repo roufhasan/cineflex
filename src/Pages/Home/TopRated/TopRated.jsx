@@ -37,10 +37,10 @@ const TopRated = () => {
               Movies
             </span>
           </p>
-          <ul>
+          <ul className="lg:[&>*:nth-child(9)]:hidden lg:[&>*:nth-child(8)]:border-b-0 2xl:[&>*:nth-child(9)]:block 2xl:[&>*:nth-child(8)]:border-b">
             {topRatedList &&
               topRatedList.length > 0 &&
-              topRatedList.slice(0, 10).map((topRated) => (
+              topRatedList.slice(0, 9).map((topRated) => (
                 <li
                   key={topRated.id}
                   className="flex border-b border-b-gray-300 py-2 last:border-b-0 gap-4"
