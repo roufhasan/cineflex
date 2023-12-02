@@ -1,5 +1,4 @@
 const MovieLists = ({ apiPath, title }) => {
-  console.log(apiPath, title);
   return (
     <div>
       <div>{apiPath}</div>
