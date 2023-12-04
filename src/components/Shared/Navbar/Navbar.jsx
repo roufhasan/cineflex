@@ -1,13 +1,19 @@
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { motion } from "framer-motion";
 import Logo from "../../../assets/Logo.png";
 import Container from "../Container";
-import { FaBars, FaMagnifyingGlass, FaXmark } from "react-icons/fa6";
-import { useState } from "react";
-import { motion } from "framer-motion";
+import {
+  FaBars,
+  FaClockRotateLeft,
+  FaFireFlameCurved,
+  FaHourglass,
+  FaMagnifyingGlass,
+  FaXmark,
+} from "react-icons/fa6";
 import { BsHouseDoor } from "react-icons/bs";
 import { TbMovie } from "react-icons/tb";
-import { AiOutlineFire } from "react-icons/ai";
-import { BsFire } from "react-icons/bs";
+import { PiTelevisionBold } from "react-icons/pi";
 
 const Navbar = () => {
   const [showSearchField, setShowSearchField] = useState(false);
@@ -15,33 +21,64 @@ const Navbar = () => {
 
   const menuLinks = (
     <>
-      <ul className="text-white font-Roboto font-medium flex flex-col gap-y-4 pt-12 px-8">
+      <ul className="text-white font-Roboto flex flex-col gap-y-[10px] pt-12 px-8">
         <li>
-          <NavLink to="/" className="flex items-center gap-2">
+          <NavLink to="/" className="flex items-center gap-2 text-sm">
             <BsHouseDoor />
             Home
           </NavLink>
         </li>
-        <li>Movies</li>
+        <li className="mt-2 font-semibold">Movies</li>
         <li>
-          <NavLink to="/" className="flex items-center gap-2">
-            <TbMovie />
+          <NavLink to="/" className="flex items-center gap-2 text-sm">
+            <TbMovie color="#fff" />
             Popular
           </NavLink>
         </li>
         <li>
-          <NavLink to="/" className="flex items-center gap-2">
-            <AiOutlineFire />
+          <NavLink to="/" className="flex items-center gap-2 text-sm">
+            <FaFireFlameCurved color="#fff" />
             Top Rated
           </NavLink>
         </li>
         <li>
-          <NavLink to="/movies/upcoming" className="flex items-center gap-2">
-            <BsFire color="red" />
+          <NavLink
+            to="/movies/upcoming"
+            className="flex items-center gap-2 text-sm"
+          >
+            <FaHourglass color="#fff" />
             Upcoming
           </NavLink>
         </li>
+        <li className="mt-2 font-semibold">TV Series</li>
         <li>
+          <NavLink
+            to="/movies/upcoming"
+            className="flex items-center gap-2 text-sm"
+          >
+            <PiTelevisionBold color="#fff" />
+            Popular
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/movies/upcoming"
+            className="flex items-center gap-2 text-sm"
+          >
+            <FaFireFlameCurved color="#fff" />
+            Top Rated
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/movies/upcoming"
+            className="flex items-center gap-2 text-sm"
+          >
+            <FaClockRotateLeft color="#fff" />
+            Latest
+          </NavLink>
+        </li>
+        <li className="mt-[calc(100vh-420px)]">
           <NavLink
             to="/login"
             className="flex items-center justify-center gap-2 bg-[#f98616] rounded py-1"
