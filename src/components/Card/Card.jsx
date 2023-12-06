@@ -33,7 +33,7 @@ const Card = ({ trending }) => {
           </p>
           <div className="flex items-center gap-1 sm:gap-3 font-medium">
             <FaStar color="#f5c518" />
-            {vote_average.toFixed(1)}
+            {vote_average > 0 && vote_average.toFixed(1)}
           </div>
         </div>
       </Link>

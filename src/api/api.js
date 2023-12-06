@@ -10,6 +10,17 @@ export const movieLists = async (movieType) => {
   return data.results;
 };
 
+// Similar Movies
+export const similarMoviesApi = async (id) => {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${
+      import.meta.env.VITE_API_KEY
+    }`
+  );
+  const data = await res.json();
+  return data.results;
+};
+
 // Get the trending movies, TV shows and people.
 export const trendingLists = async (trendingType, time_window) => {
   const url = `https://api.themoviedb.org/3/trending/${
