@@ -26,6 +26,12 @@ export const router = createBrowserRouter([
       {
         path: "/movie/:id",
         element: <MovieDetails />,
+        loader: ({ params }) =>
+          fetch(
+            `https://api.themoviedb.org/3/movie/${params.id}?api_key=${
+              import.meta.env.VITE_API_KEY
+            }`
+          ),
       },
     ],
   },

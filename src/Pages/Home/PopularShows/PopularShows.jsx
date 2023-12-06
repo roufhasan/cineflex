@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { FaPlay, FaRegCalendar, FaStar, FaSwatchbook } from "react-icons/fa6";
+import { FaPlay, FaRegCalendar, FaStar } from "react-icons/fa6";
+import { LiaTagSolid } from "react-icons/lia";
 import { motion } from "framer-motion";
 import { tvSeriesLists } from "../../../api/api";
 import { getGenre } from "../../../customData/generateGenre";
@@ -90,7 +91,7 @@ const PopularShows = () => {
                           {popularSeries.first_air_date.slice(0, 4)}
                         </div>
                         <div className="flex items-center gap-3 text-lg">
-                          <FaSwatchbook />
+                          <LiaTagSolid size="22" />
                           <p>{showGenreNames(popularSeries.genre_ids)}</p>
                         </div>
                       </div>

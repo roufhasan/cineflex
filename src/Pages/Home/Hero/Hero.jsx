@@ -2,37 +2,17 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { FaPlay, FaRegCalendar, FaStar, FaSwatchbook } from "react-icons/fa6";
+import { FaPlay, FaRegCalendar, FaStar } from "react-icons/fa6";
+import { LiaTagSolid } from "react-icons/lia";
 import { motion } from "framer-motion";
 import { movieLists } from "../../../api/api";
-// import { allGenresData } from "../../../customData/allGenresData";
 import "swiper/css/pagination";
 import "swiper/css";
 import { getGenre } from "../../../customData/generateGenre";
+import { MdArrowForwardIos } from "react-icons/md";
 
 const Hero = () => {
   const [movies, setMovies] = useState([]);
-  // const genresData = allGenresData;
-
-  // const getGenre = (ids) => {
-  //   const genreIds = ids.slice(0, 2);
-
-  //   const getGenreNames = (genreIds, genres) => {
-  //     const genreNames = [];
-
-  //     for (const genreId of genreIds) {
-  //       const genre = genres.find((item) => item.id === genreId);
-  //       if (genre) {
-  //         genreNames.push(genre.name);
-  //       } else {
-  //         console.error(`Genre with ID ${genreId} not found.`);
-  //       }
-  //     }
-  //     return genreNames;
-  //   };
-
-  //   return getGenreNames(genreIds, genresData);
-  // };
 
   const showGenreNames = (genreIds) => {
     const genreNames = getGenre(genreIds).join("/");
@@ -64,7 +44,7 @@ const Hero = () => {
                   style={{
                     backgroundImage: `linear-gradient(to top,rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)),url(${`https://image.tmdb.org/t/p/original${
                       myshow.backdrop_path
-                    }?api_key=${import.meta.env.VITE_API_KEY}`}) `,
+                    }?api_key=${import.meta.env.VITE_API_KEY}`})`,
                   }}
                   className="h-full bg-no-repeat bg-cover bg-center px-[5%]"
                 >
@@ -84,7 +64,7 @@ const Hero = () => {
                             {myshow.release_date.slice(0, 4)}
                           </div>
                           <div className="flex items-center gap-3 text-lg">
-                            <FaSwatchbook />
+                            <LiaTagSolid size={22} />
                             <p>{showGenreNames(myshow.genre_ids)}</p>
                           </div>
                         </div>
@@ -98,14 +78,20 @@ const Hero = () => {
                           whileTap={{ scale: 0.9 }}
                           className="flex items-center gap-x-2 bg-[#f98606] px-6 py-3 rounded-full font-medium"
                         >
-                          <FaPlay /> <span>Watch Now</span>
+                          <span>Watch Now</span> <FaPlay />
                         </motion.div>
                         <motion.div
                           whileHover={{ translateY: -3 }}
                           whileTap={{ scale: 0.9 }}
-                          className="bg-black/40 border-2 px-6 py-3 rounded-full font-medium"
                         >
-                          <Link to={`/movie/${myshow.id}`}>View Details</Link>
+                          <Link
+                            to={`/movie/${myshow.id}`}
+                            className="bg-black/40 border-2 px-6 py-3 rounded-full font-medium inline-block"
+                          >
+                            <div className="flex items-center gap-x-2">
+                              <span>Details</span> <MdArrowForwardIos />
+                            </div>
+                          </Link>
                         </motion.div>
                       </div>
                     </div>
