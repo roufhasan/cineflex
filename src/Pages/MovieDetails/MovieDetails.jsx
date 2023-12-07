@@ -142,12 +142,14 @@ const MovieDetails = () => {
           </Container>
         </div>
       </div>
+
       <Container px="5%">
+        {/* <==*** Cast Section ***==> */}
         <div className="py-14">
           <p className="text-xl md:text-3xl font-bold border-l-4 border-[#f98606] pl-3 mb-8">
             Top Cast
           </p>
-          <div className="flex flex-wrap gap-10">
+          <div className="grid place-items-start grid-cols-2 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
             {credits.cast.slice(0, 6).map((actor) => (
               <div key={actor.id} className="text-center">
                 <img
@@ -159,7 +161,7 @@ const MovieDetails = () => {
                       : AvatarImg
                   }
                   alt=""
-                  className="w-32 h-32 object-cover rounded-full"
+                  className="w-32 h-32 object-cover rounded-full mx-auto"
                   loading="lazy"
                 />
                 <p className="text-lg font-semibold mt-4">
@@ -170,6 +172,8 @@ const MovieDetails = () => {
             ))}
           </div>
         </div>
+
+        {/* <==*** Simliar Movies Slider Section ***==> */}
         <div>
           <p className="text-xl md:text-3xl font-bold border-l-4 border-[#f98606] pl-3 mb-8">
             Similar Movies
