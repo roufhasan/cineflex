@@ -5,6 +5,8 @@ import { LuClock } from "react-icons/lu";
 import { useEffect, useState } from "react";
 import { similarMoviesApi } from "../../api/api";
 import Slider from "../../components/Slider/Slider";
+import AvatarImg from "../../assets/avatar.png";
+import CardImg from "../../assets/movie-card.jpg";
 
 const MovieDetails = () => {
   const {
@@ -53,7 +55,11 @@ const MovieDetails = () => {
                 <div className="w-full max-w-sm rounded-md">
                   <div className="relative group">
                     <img
-                      src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                      src={
+                        poster_path
+                          ? `https://image.tmdb.org/t/p/w500${poster_path}`
+                          : CardImg
+                      }
                       alt=""
                       className="w-full rounded-md"
                     />
@@ -145,9 +151,13 @@ const MovieDetails = () => {
             {credits.cast.slice(0, 6).map((actor) => (
               <div key={actor.id} className="text-center">
                 <img
-                  src={`https://image.tmdb.org/t/p/original${
+                  src={
                     actor.profile_path
-                  }?api_key=${import.meta.env.VITE_API_KEY}`}
+                      ? `https://image.tmdb.org/t/p/w500${
+                          actor.profile_path
+                        }?api_key=${import.meta.env.VITE_API_KEY}`
+                      : AvatarImg
+                  }
                   alt=""
                   className="w-32 h-32 object-cover rounded-full"
                   loading="lazy"

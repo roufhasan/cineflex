@@ -1,5 +1,6 @@
 import { FaStar } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import CardImg from "../../assets/movie-card.jpg";
 
 const Card = ({ trending }) => {
   const { id, original_title, poster_path, vote_average } = trending;
@@ -8,9 +9,13 @@ const Card = ({ trending }) => {
     <div className="relative group">
       <Link to={`/movie/${id}`}>
         <img
-          src={`https://image.tmdb.org/t/p/w500${poster_path}?api_key=${
-            import.meta.env.VITE_API_KEY
-          }`}
+          src={
+            poster_path
+              ? `https://image.tmdb.org/t/p/w500${poster_path}?api_key=${
+                  import.meta.env.VITE_API_KEY
+                }`
+              : CardImg
+          }
           alt={`${original_title} movie poster`}
           loading="lazy"
           className="h-72 max-h-96 w-full sm:h-auto object-cover"
