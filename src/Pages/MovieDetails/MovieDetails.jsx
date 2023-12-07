@@ -174,12 +174,14 @@ const MovieDetails = () => {
         </div>
 
         {/* <==*** Simliar Movies Slider Section ***==> */}
-        <div>
-          <p className="text-xl md:text-3xl font-bold border-l-4 border-[#f98606] pl-3 mb-8">
-            Similar Movies
-          </p>
-          <Slider sliderData={similarMovies} />
-        </div>
+        {similarMovies.length > 0 && (
+          <div>
+            <p className="text-xl md:text-3xl font-bold border-l-4 border-[#f98606] pl-3 mb-8">
+              Similar Movies
+            </p>
+            <Slider sliderData={similarMovies} />
+          </div>
+        )}
       </Container>
     </section>
   );

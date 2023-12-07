@@ -14,14 +14,16 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/movies/now_playing",
-        element: (
-          <MovieLists apiPath={"now_playing"} title="Currently Playing" />
-        ),
+        path: "/movies/popular",
+        element: <MovieLists apiPath={"popular"} title="Popular Movies" />,
+      },
+      {
+        path: "/movies/top_rated",
+        element: <MovieLists apiPath={"top_rated"} title="Top Rated Movies" />,
       },
       {
         path: "/movies/upcoming",
-        element: <MovieLists apiPath={"upcoming"} title="Coming Soon" />,
+        element: <MovieLists apiPath={"upcoming"} title="Upcoming Movies" />,
       },
       {
         path: "/movie/:id",

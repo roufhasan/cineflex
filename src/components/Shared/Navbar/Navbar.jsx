@@ -105,13 +105,13 @@ const Navbar = () => {
                 <NavLink to="/">Home</NavLink>
               </li>
               <li>
-                <NavLink to="/">Popular</NavLink>
+                <NavLink to="/movies/popular">Popular</NavLink>
               </li>
               <li>
-                <NavLink to="/">Top Rated</NavLink>
+                <NavLink to="/movies/top_rated">Top Rated</NavLink>
               </li>
               <li>
-                <NavLink to="/">Upcoming</NavLink>
+                <NavLink to="/movies/upcoming">Upcoming</NavLink>
               </li>
             </ul>
           </div>
