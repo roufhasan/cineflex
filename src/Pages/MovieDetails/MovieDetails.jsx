@@ -3,12 +3,14 @@ import Container from "../../components/Shared/Container";
 import { FaPlay, FaPlus, FaRegCalendar, FaStar } from "react-icons/fa6";
 import { LuClock } from "react-icons/lu";
 import { useEffect, useState } from "react";
+import YouTube from "react-youtube";
 import { similarMoviesApi } from "../../api/api";
 import Slider from "../../components/Slider/Slider";
 import AvatarImg from "../../assets/avatar.png";
 import CardImg from "../../assets/movie-card.jpg";
 
 const MovieDetails = () => {
+  const movies = useLoaderData();
   const {
     backdrop_path,
     credits,
@@ -20,15 +22,35 @@ const MovieDetails = () => {
     release_date,
     runtime,
     status,
+    videos,
     vote_average,
-  } = useLoaderData();
+  } = movies;
+  console.log(movies);
+
   const [similarMovies, setSimilarMovies] = useState([]);
+  const [playTrailer, setPlayTrailer] = useState(false);
+  const [officialTrailer, setOfficialTrailer] = useState("");
 
   const runtimeConvert = (totalMinutes) => {
     const minutes = totalMinutes % 60;
     const hours = Math.floor(totalMinutes / 60);
 
     return `${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`;
+  };
+
+  const findOfficialTrailer = () => {
+    const trailer = videos.results.find(
+      (vid) => vid.name === "Official Trailer"
+    );
+    const anyTrailer = videos.results[0];
+
+    if (trailer) {
+      setOfficialTrailer(trailer);
+    } else {
+      setOfficialTrailer(anyTrailer);
+    }
+
+    setPlayTrailer(true);
   };
 
   useEffect(() => {
@@ -38,7 +60,7 @@ const MovieDetails = () => {
   }, [id]);
 
   return (
-    <section>
+    <Container>
       <div
         style={{
           background: `linear-gradient(to left,rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4)),url(${`https://image.tmdb.org/t/p/w500${backdrop_path}?api_key=${
@@ -47,7 +69,7 @@ const MovieDetails = () => {
         }}
         className="min-h-[91vh] flex items-center"
       >
-        <div className="py-12 w-full backdrop-blur-3xl min-h-[91vh]">
+        <div className="py-12 w-full max-w-[1920px] mx-auto backdrop-blur-3xl min-h-[91vh] h-full relative">
           <Container px="5%">
             <div className="md:flex gap-10">
               {/* Movie Poster */}
@@ -64,7 +86,10 @@ const MovieDetails = () => {
                       className="w-full rounded-md"
                     />
                     <div className="hidden absolute top-0 left-0 w-full h-full group-hover:grid place-items-center bg-gradient-to-b from-black/30 to-black/50">
-                      <button className="w-14 h-14 grid place-items-center rounded-full bg-white/30">
+                      <button
+                        onClick={findOfficialTrailer}
+                        className="w-14 h-14 grid place-items-center rounded-full bg-white/30"
+                      >
                         <FaPlay size={24} />
                       </button>
                     </div>
@@ -130,7 +155,10 @@ const MovieDetails = () => {
                   <p className="text-white/50">{overview}</p>
                 </div>
                 <div className="flex gap-4 mt-8">
-                  <button className="flex items-center gap-x-1 bg-[#f98606] px-6 py-3 rounded-md font-medium uppercase text-sm">
+                  <button
+                    onClick={findOfficialTrailer}
+                    className="flex items-center gap-x-1 bg-[#f98606] px-6 py-3 rounded-md font-medium uppercase text-sm"
+                  >
                     <FaPlay></FaPlay>play trailer
                   </button>
                   <button className="bg-black/40 border-2 px-6 py-3 rounded-md font-medium flex items-center gap-x-1 uppercase text-sm">
@@ -140,6 +168,28 @@ const MovieDetails = () => {
               </div>
             </div>
           </Container>
+
+          {/* ==>*** Youtube Trailer Modal *** <== */}
+          {playTrailer && officialTrailer && (
+            <div
+              onClick={() => setPlayTrailer(false)}
+              className="hidden md:block absolute top-0 left-0 w-full h-full bg-black/60 z-10 backdrop-blur-xl"
+            >
+              <div className="px-[5%] relative h-full">
+                <YouTube
+                  videoId={officialTrailer.key}
+                  className="h-full w-full flex items-center justify-center mt-12"
+                  iframeClassName="w-full h-auto md:w-[80%] md:h-[80%]"
+                />
+                <button
+                  onClick={() => setPlayTrailer(false)}
+                  className="absolute top-[0%] right-[5%] border px-3"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -183,7 +233,27 @@ const MovieDetails = () => {
           </div>
         )}
       </Container>
-    </section>
+      {playTrailer && officialTrailer && (
+        <div
+          onClick={() => setPlayTrailer(false)}
+          className="md:hidden fixed top-0 left-0 w-full h-full bg-black z-10"
+        >
+          <div className="px-[5%] relative h-full">
+            <YouTube
+              videoId={officialTrailer.key}
+              className="h-full w-full mt-12 flex items-center"
+              iframeClassName="w-full h-[50%] sm:h-[70%]"
+            />
+            <button
+              onClick={() => setPlayTrailer(false)}
+              className="absolute top-0 right-[5%] border px-3"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+    </Container>
   );
 };
 
