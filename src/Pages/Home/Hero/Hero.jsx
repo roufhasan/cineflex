@@ -10,20 +10,47 @@ import "swiper/css/pagination";
 import "swiper/css";
 import { getGenre } from "../../../customData/generateGenre";
 import { MdArrowForwardIos } from "react-icons/md";
+import YouTube from "react-youtube";
 
 const Hero = () => {
   const [movies, setMovies] = useState([]);
+  const [playTrailer, setPlayTrailer] = useState({});
+  const [showPlayer, setShowPlayer] = useState(false);
 
   const showGenreNames = (genreIds) => {
     const genreNames = getGenre(genreIds).join("/");
     return genreNames;
   };
 
+  const getTrailers = async (id) => {
+    const res = await fetch(
+      `https://api.themoviedb.org/3/movie/${id}?api_key=${
+        import.meta.env.VITE_API_KEY
+      }&append_to_response=credits,videos`
+    );
+    const data = await res.json();
+
+    const trailers = data?.videos?.results;
+
+    const trailer = trailers.find((vid) => vid.name === "Official Trailer");
+    const anyTrailer = trailers[0];
+
+    if (trailer) {
+      setPlayTrailer(trailer);
+    } else {
+      setPlayTrailer(anyTrailer);
+    }
+    setShowPlayer(true);
+  };
+
   useEffect(() => {
     movieLists("popular").then((data) => setMovies(data.slice(0, 5)));
   }, []);
+
+  // console.log(playTrailer);
+
   return (
-    <>
+    <div>
       {movies && movies.length > 0 && (
         <Swiper
           spaceBetween={30}
@@ -46,7 +73,7 @@ const Hero = () => {
                       myshow.backdrop_path
                     }?api_key=${import.meta.env.VITE_API_KEY}`})`,
                   }}
-                  className="h-full bg-no-repeat bg-cover bg-center px-[5%]"
+                  className="h-full bg-no-repeat bg-cover bg-center px-[5%] relative"
                 >
                   <div className="md:flex items-center gap-[15%] h-full">
                     <div className="h-full md:w-1/2 flex flex-col justify-center gap-8">
@@ -74,9 +101,10 @@ const Hero = () => {
                       </p>
                       <div className="flex items-center gap-x-6">
                         <motion.div
+                          onClick={() => getTrailers(myshow.id)}
                           whileHover={{ translateY: -3 }}
                           whileTap={{ scale: 0.9 }}
-                          className="flex items-center gap-x-2 bg-[#f98606] px-6 py-3 rounded-full font-medium"
+                          className="flex items-center gap-x-2 bg-[#f98606] px-6 py-3 rounded-full font-medium cursor-pointer"
                         >
                           <span>Watch Now</span> <FaPlay />
                         </motion.div>
@@ -96,6 +124,7 @@ const Hero = () => {
                       </div>
                     </div>
 
+                    {/* Movie Image Card */}
                     <div className="hidden md:block w-1/2">
                       <img
                         src={`https://image.tmdb.org/t/p/original${
@@ -112,7 +141,17 @@ const Hero = () => {
             ))}
         </Swiper>
       )}
-    </>
+      {/* Play Movie Trailer */}
+      {/* {showPlayer && playTrailer && (
+        <YouTube
+          videoId={playTrailer.key}
+          style={{
+            width: "100%",
+            height: "600px",
+          }}
+        />
+      )} */}
+    </div>
   );
 };
 

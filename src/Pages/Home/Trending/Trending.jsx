@@ -5,7 +5,7 @@ import { trendingLists } from "../../../api/api";
 import Slider from "../../../components/Slider/Slider";
 
 const Trending = () => {
-  const [trendingMovies, setTrendingMovies] = useState();
+  const [trendingMovies, setTrendingMovies] = useState([]);
   const [timeWindow, setTimeWindow] = useState("day");
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const Trending = () => {
         setTrendingMovies(data);
       })
       .catch((err) => console.log(err));
-  }, [timeWindow, trendingMovies]);
+  }, [timeWindow]);
 
   return (
     <Container px="5%">

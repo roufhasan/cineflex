@@ -25,7 +25,6 @@ const MovieDetails = () => {
     videos,
     vote_average,
   } = movies;
-  console.log(movies);
 
   const [similarMovies, setSimilarMovies] = useState([]);
   const [playTrailer, setPlayTrailer] = useState(false);
