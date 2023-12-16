@@ -19,7 +19,7 @@ const MovieLists = ({ apiPath, title }) => {
   console.log(movies);
   return (
     <Container px="5%">
-      <section className="py-12">
+      <section className="pt-20 md:pt-32 pb-12">
         <h2 className="text-2xl font-semibold inline-block">
           {title} <div className="bg-[#ffb43a] w-[45%] h-1 mt-2"></div>
         </h2>
@@ -40,15 +40,22 @@ const MovieLists = ({ apiPath, title }) => {
                   className="w-full hover:scale-105 transition-all duration-500"
                 />
               </Link>
-              <Link
-                to={`/movie/${movie.id}`}
-                className="pt-4 font-medium hover:text-[#ffb43a] inline-block transition-all"
-              >
-                {movie.original_title}
-              </Link>
-              <p className="text-sm text-white/50 pt-1">
-                {showGenreNames(movie.genre_ids)}
-              </p>
+              <div className="flex justify-between pt-4">
+                <div>
+                  <Link
+                    to={`/movie/${movie.id}`}
+                    className="font-medium hover:text-[#ffb43a] inline-block transition-all"
+                  >
+                    {movie.original_title}
+                  </Link>
+                  <p className="text-sm text-white/50 pt-1">
+                    {showGenreNames(movie.genre_ids)}
+                  </p>
+                </div>
+                <div className="w-10 h-5 rounded-full bg-custom-orange flex items-center justify-center font-medium text-sm">
+                  {movie.vote_average.toFixed(1)}
+                </div>
+              </div>
             </div>
           ))}
         </div>

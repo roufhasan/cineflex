@@ -22,6 +22,12 @@ export const router = createBrowserRouter([
         element: <MovieLists apiPath={"top_rated"} title="Top Rated Movies" />,
       },
       {
+        path: "/movies/now_playing",
+        element: (
+          <MovieLists apiPath={"now_playing"} title="Currently In Theaters" />
+        ),
+      },
+      {
         path: "/movies/upcoming",
         element: <MovieLists apiPath={"upcoming"} title="Upcoming Movies" />,
       },

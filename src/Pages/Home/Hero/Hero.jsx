@@ -86,7 +86,12 @@ const Hero = () => {
                   className="h-full bg-no-repeat bg-cover bg-center px-[5%] relative"
                 >
                   <div className="md:flex items-center gap-[15%] h-full">
-                    <div className="h-full md:w-1/2 flex flex-col justify-center gap-8">
+                    <motion.div
+                      initial={{ y: "-20vh" }}
+                      animate={{ y: 0 }}
+                      transition={{ duration: 2 }}
+                      className="h-full md:w-1/2 flex flex-col justify-center gap-8"
+                    >
                       <div>
                         <h1 className="text-4xl md:text-5xl leading-tight font-bold">
                           {myshow.original_title}
@@ -142,7 +147,12 @@ const Hero = () => {
                           onClick={autoPlayStart}
                           className="hidden md:block absolute top-0 left-0 w-full h-full bg-blue-gray/60 z-10 backdrop-blur-xl py-16"
                         >
-                          <div className="px-[5%] relative h-full">
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 1.5, duration: 4 }}
+                            className="px-[5%] relative h-full"
+                          >
                             <YouTube
                               videoId={playTrailer}
                               className="h-full w-full flex items-center justify-center"
@@ -155,13 +165,18 @@ const Hero = () => {
                             >
                               Close
                             </motion.button>
-                          </div>
+                          </motion.div>
                         </div>
                       )}
-                    </div>
+                    </motion.div>
 
                     {/* Movie Image Card */}
-                    <div className="hidden md:block w-1/2">
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 1.5 }}
+                      className="hidden md:block w-1/2"
+                    >
                       <img
                         src={`https://image.tmdb.org/t/p/original${
                           myshow.poster_path
@@ -170,7 +185,7 @@ const Hero = () => {
                         className="w-80 h-[500px] object-cover rounded-xl"
                         loading="lazy"
                       />
-                    </div>
+                    </motion.div>
                   </div>
                 </div>
               </SwiperSlide>
