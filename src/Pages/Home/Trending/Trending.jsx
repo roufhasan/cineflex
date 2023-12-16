@@ -20,16 +20,16 @@ const Trending = () => {
     <Container px="5%">
       <section className="py-12">
         <div className="flex flex-wrap items-center justify-between gap-y-3 mb-8">
-          <h3 className="text-xl md:text-3xl font-bold border-l-4 border-[#f98606] pl-3">
+          <h3 className="text-xl md:text-3xl font-bold border-l-4 border-custom-orange pl-3">
             Trending Movies
           </h3>
           <div className="inline-block">
-            <div className="flex items-center border border-[#f98606] rounded-full">
+            <div className="flex items-center border border-custom-orange rounded-full">
               <motion.div
                 onClick={() => setTimeWindow("day")}
                 whileTap={{ scale: 0.9 }}
                 className={`flex items-center gap-x-2 px-2 md:px-3 text-sm py-1 rounded-full font-medium cursor-pointer ${
-                  timeWindow == "day" ? "bg-[#f98606]" : "bg-black/40"
+                  timeWindow == "day" ? "bg-custom-orange" : "bg-blue-gray/40"
                 }`}
               >
                 Today
@@ -38,7 +38,7 @@ const Trending = () => {
                 onClick={() => setTimeWindow("week")}
                 whileTap={{ scale: 0.9 }}
                 className={`${
-                  timeWindow == "week" ? "bg-[#f98606]" : "bg-black/40"
+                  timeWindow == "week" ? "bg-custom-orange" : "bg-blue-gray/40"
                 } px-2 md:px-3 py-1 rounded-full text-sm font-medium cursor-pointer`}
               >
                 This Week

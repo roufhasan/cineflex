@@ -11,7 +11,7 @@ const PopularPerson = () => {
 
   return (
     <section>
-      <h3 className="text-xl md:text-3xl font-bold border-l-4 border-[#f98606] pl-3 mb-8">
+      <h3 className="text-xl md:text-3xl font-bold border-l-4 border-[#ffb43a] pl-3 mb-8">
         Popular Person
       </h3>
       {popularPersonList && popularPersonList.length > 0 && (

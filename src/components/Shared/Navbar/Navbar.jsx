@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
-import Logo from "../../../assets/Logo.png";
+import Logo from "../../../assets/newLogo.png";
 import Container from "../Container";
 import {
   FaBars,
@@ -18,6 +18,7 @@ import { PiTelevisionBold } from "react-icons/pi";
 const Navbar = () => {
   const [showSearchField, setShowSearchField] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const [colorChange, setColorchange] = useState(false);
 
   const menuLinks = (
     <>
@@ -90,10 +91,25 @@ const Navbar = () => {
     </>
   );
 
+  const changeNavbarColor = () => {
+    if (window.scrollY >= 200) {
+      setColorchange(true);
+    } else {
+      setColorchange(false);
+    }
+  };
+  window.addEventListener("scroll", changeNavbarColor);
+
+  console.log(colorChange);
+
   return (
     <Container>
       <div className="relative">
-        <nav className="flex items-center justify-between px-[5%]">
+        <nav
+          className={`flex items-center justify-between px-[5%] py-[10px] fixed top-0 w-full max-w-[1920px] z-10 ${
+            colorChange ? "bg-blue-gray" : "bg-transparent"
+          }`}
+        >
           <div>
             <Link to="/">
               <img className="w-32 sm:w-40" src={Logo} alt="cineflex logo" />

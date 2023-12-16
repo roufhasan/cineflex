@@ -21,7 +21,7 @@ const MovieLists = ({ apiPath, title }) => {
     <Container px="5%">
       <section className="py-12">
         <h2 className="text-2xl font-semibold inline-block">
-          {title} <div className="bg-[#f98606] w-[45%] h-1 mt-2"></div>
+          {title} <div className="bg-[#ffb43a] w-[45%] h-1 mt-2"></div>
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 2xl:grid-cols-5 gap-x-4 gap-y-8 md:gap-10 mt-12">
           {movies.map((movie) => (
@@ -42,7 +42,7 @@ const MovieLists = ({ apiPath, title }) => {
               </Link>
               <Link
                 to={`/movie/${movie.id}`}
-                className="pt-4 font-medium hover:text-[#f98606] inline-block transition-all"
+                className="pt-4 font-medium hover:text-[#ffb43a] inline-block transition-all"
               >
                 {movie.original_title}
               </Link>

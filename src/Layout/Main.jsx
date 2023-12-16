@@ -4,7 +4,7 @@ import Footer from "../components/Shared/Footer/Footer";
 
 const Main = () => {
   return (
-    <div className="bg-black text-white font-Roboto">
+    <div className="bg-blue-gray text-custom-white font-Roboto">
       <ScrollRestoration />
       <Navbar />
       <Outlet />

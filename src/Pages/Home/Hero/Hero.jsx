@@ -71,7 +71,7 @@ const Hero = () => {
               ? [Pagination, Navigation]
               : [Autoplay, Pagination, Navigation]
           }
-          className="mySwiper h-[calc(100vh-64.5px)] max-h-[1080px] md:min-h-[600px]"
+          className="mySwiper h-screen max-h-[1080px] md:min-h-[600px]"
         >
           {movies &&
             movies.length > 0 &&
@@ -79,7 +79,7 @@ const Hero = () => {
               <SwiperSlide key={myshow.id}>
                 <div
                   style={{
-                    backgroundImage: `linear-gradient(to top,rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)),url(${`https://image.tmdb.org/t/p/original${
+                    backgroundImage: `linear-gradient(to top right,rgba(22,24,29,0.85) 45%, rgba(33,36,44,0.2)),url(${`https://image.tmdb.org/t/p/original${
                       myshow.backdrop_path
                     }?api_key=${import.meta.env.VITE_API_KEY}`})`,
                   }}
@@ -93,15 +93,18 @@ const Hero = () => {
                         </h1>
                         <div className="flex items-center flex-wrap gap-x-3 gap-y-1 md:gap-x-10">
                           <div className="flex items-center gap-3 text-lg">
-                            <FaStar />
+                            <FaStar className="text-custom-orange" />
                             {myshow.vote_average.toFixed(1)}
                           </div>
                           <div className="flex items-center gap-3 text-lg">
-                            <FaRegCalendar />
+                            <FaRegCalendar className="text-custom-orange" />
                             {myshow.release_date.slice(0, 4)}
                           </div>
                           <div className="flex items-center gap-3 text-lg">
-                            <LiaTagSolid size={22} />
+                            <LiaTagSolid
+                              size={22}
+                              className="text-custom-orange"
+                            />
                             <p>{showGenreNames(myshow.genre_ids)}</p>
                           </div>
                         </div>
@@ -114,7 +117,7 @@ const Hero = () => {
                           onClick={() => getTrailers(myshow.id)}
                           whileHover={{ translateY: -3 }}
                           whileTap={{ scale: 0.9 }}
-                          className="flex items-center gap-x-2 bg-[#f98606] px-6 py-3 rounded-full font-medium cursor-pointer"
+                          className="flex items-center gap-x-2 bg-[#ffb43a] px-6 py-3 rounded-full font-medium cursor-pointer"
                         >
                           <span>Watch Now</span> <FaPlay />
                         </motion.div>
@@ -124,7 +127,7 @@ const Hero = () => {
                         >
                           <Link
                             to={`/movie/${myshow.id}`}
-                            className="bg-black/40 border-2 px-6 py-3 rounded-full font-medium inline-block"
+                            className="bg-blue-gray/40 border-2 px-6 py-3 rounded-full font-medium inline-block"
                           >
                             <div className="flex items-center gap-x-2">
                               <span>Details</span> <MdArrowForwardIos />
@@ -137,7 +140,7 @@ const Hero = () => {
                       {playTrailer && showPlayer && (
                         <div
                           onClick={autoPlayStart}
-                          className="hidden md:block absolute top-0 left-0 w-full h-full bg-black/60 z-10 backdrop-blur-xl"
+                          className="hidden md:block absolute top-0 left-0 w-full h-full bg-blue-gray/60 z-10 backdrop-blur-xl py-16"
                         >
                           <div className="px-[5%] relative h-full">
                             <YouTube
@@ -145,12 +148,13 @@ const Hero = () => {
                               className="h-full w-full flex items-center justify-center"
                               iframeClassName="w-full h-auto md:w-[80%] md:h-[80%]"
                             />
-                            <button
+                            <motion.button
+                              whileTap={{ scale: 0.9 }}
                               onClick={() => setPlayTrailer(false)}
-                              className="absolute top-[4%] right-[14%] border px-3"
+                              className="absolute top-[4%] right-[14%] border border-custom-orange px-3"
                             >
                               Close
-                            </button>
+                            </motion.button>
                           </div>
                         </div>
                       )}

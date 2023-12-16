@@ -16,12 +16,12 @@ const Upcoming = () => {
     <Container px="5%">
       <section className="py-14">
         <div className="flex flex-wrap items-center justify-between gap-y-3 mb-8">
-          <h3 className="text-xl md:text-3xl font-bold border-l-4 border-[#f98606] pl-3">
+          <h3 className="text-xl md:text-3xl font-bold border-l-4 border-[#ffb43a] pl-3">
             Coming Soon
           </h3>
           <Link
             to="/movies/upcoming"
-            className="border-b-2 border-[#f98606] transition duration-500 hover:text-[#f98606]"
+            className="border-b-2 border-[#ffb43a] transition duration-500 hover:text-[#ffb43a]"
           >
             View All
           </Link>

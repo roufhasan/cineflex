@@ -8,6 +8,7 @@ import { similarMoviesApi } from "../../api/api";
 import Slider from "../../components/Slider/Slider";
 import AvatarImg from "../../assets/avatar.png";
 import CardImg from "../../assets/movie-card.jpg";
+import { motion } from "framer-motion";
 
 const MovieDetails = () => {
   const movies = useLoaderData();
@@ -62,13 +63,13 @@ const MovieDetails = () => {
     <Container>
       <div
         style={{
-          background: `linear-gradient(to left,rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4)),url(${`https://image.tmdb.org/t/p/w500${backdrop_path}?api_key=${
+          background: `linear-gradient(to left,rgba(22,24,29,0.8), rgba(22,24,29,0.4)),url(${`https://image.tmdb.org/t/p/w500${backdrop_path}?api_key=${
             import.meta.env.VITE_API_KEY
           }`}) center/cover no-repeat`,
         }}
-        className="min-h-[91vh] flex items-center"
+        className="h-full md:h-[96vh] md:max-h-[1080px] flex items-center"
       >
-        <div className="py-12 w-full max-w-[1920px] mx-auto backdrop-blur-3xl min-h-[91vh] h-full relative">
+        <div className="pt-20 md:pt-32 pb-12 w-full max-w-[1920px] mx-auto backdrop-blur-3xl md:max-h-[1080px] h-full relative">
           <Container px="5%">
             <div className="md:flex gap-10">
               {/* Movie Poster */}
@@ -156,7 +157,7 @@ const MovieDetails = () => {
                 <div className="flex gap-4 mt-8">
                   <button
                     onClick={findOfficialTrailer}
-                    className="flex items-center gap-x-1 bg-[#f98606] px-6 py-3 rounded-md font-medium uppercase text-sm"
+                    className="flex items-center gap-x-1 bg-[#ffb43a] px-6 py-3 rounded-md font-medium uppercase text-sm"
                   >
                     <FaPlay></FaPlay>play trailer
                   </button>
@@ -172,7 +173,7 @@ const MovieDetails = () => {
           {playTrailer && officialTrailer && (
             <div
               onClick={() => setPlayTrailer(false)}
-              className="hidden md:block absolute top-0 left-0 w-full h-full bg-black/60 z-10 backdrop-blur-xl"
+              className="hidden md:block absolute top-0 left-0 w-full h-full bg-blue-gray/90 z-10 py-16"
             >
               <div className="px-[5%] relative h-full">
                 <YouTube
@@ -180,12 +181,13 @@ const MovieDetails = () => {
                   className="h-full w-full flex items-center justify-center mt-12"
                   iframeClassName="w-full h-auto md:w-[80%] md:h-[80%]"
                 />
-                <button
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
                   onClick={() => setPlayTrailer(false)}
-                  className="absolute top-[0%] right-[5%] border px-3"
+                  className="absolute top-[4%] right-[14%] border border-custom-orange px-3"
                 >
                   Close
-                </button>
+                </motion.button>
               </div>
             </div>
           )}
@@ -195,7 +197,7 @@ const MovieDetails = () => {
       <Container px="5%">
         {/* <==*** Cast Section ***==> */}
         <div className="py-14">
-          <p className="text-xl md:text-3xl font-bold border-l-4 border-[#f98606] pl-3 mb-8">
+          <p className="text-xl md:text-3xl font-bold border-l-4 border-[#ffb43a] pl-3 mb-8">
             Top Cast
           </p>
           <div className="grid place-items-start grid-cols-2 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
@@ -225,7 +227,7 @@ const MovieDetails = () => {
         {/* <==*** Simliar Movies Slider Section ***==> */}
         {similarMovies.length > 0 && (
           <div>
-            <p className="text-xl md:text-3xl font-bold border-l-4 border-[#f98606] pl-3 mb-8">
+            <p className="text-xl md:text-3xl font-bold border-l-4 border-[#ffb43a] pl-3 mb-8">
               Similar Movies
             </p>
             <Slider sliderData={similarMovies} />

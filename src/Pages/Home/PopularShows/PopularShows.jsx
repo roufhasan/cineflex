@@ -23,7 +23,7 @@ const PopularShows = () => {
   }, []);
   return (
     <section className="py-14">
-      <h3 className="text-xl font-bold border-l-4 border-[#f98606] pl-3 mb-8 md:text-3xl">
+      <h3 className="text-xl font-bold border-l-4 border-[#ffb43a] pl-3 mb-8 md:text-3xl">
         Popular TV Shows
       </h3>
       <div>
@@ -69,7 +69,7 @@ const PopularShows = () => {
                         <motion.div
                           whileHover={{ translateY: -3 }}
                           whileTap={{ scale: 0.9 }}
-                          className="flex items-center justify-center gap-x-2 bg-[#f98606] px-6 py-3 font-medium md:justify-normal md:mt-7 md:rounded-md"
+                          className="flex items-center justify-center gap-x-2 bg-[#ffb43a] px-6 py-3 font-medium md:justify-normal md:mt-7 md:rounded-md"
                         >
                           <FaPlay /> <span>Watch Now</span>
                         </motion.div>
