@@ -14,14 +14,21 @@ import YouTube from "react-youtube";
 
 const Hero = () => {
   const [movies, setMovies] = useState([]);
-  const [playTrailer, setPlayTrailer] = useState({});
+  const [playTrailer, setPlayTrailer] = useState(null);
   const [showPlayer, setShowPlayer] = useState(false);
 
+  const autoPlayStart = () => {
+    setShowPlayer(false);
+    setPlayTrailer(null);
+  };
+
+  // This function's convert genre code into genre name
   const showGenreNames = (genreIds) => {
     const genreNames = getGenre(genreIds).join("/");
     return genreNames;
   };
 
+  // Get movie trailer videos along with cast names
   const getTrailers = async (id) => {
     const res = await fetch(
       `https://api.themoviedb.org/3/movie/${id}?api_key=${
@@ -36,31 +43,34 @@ const Hero = () => {
     const anyTrailer = trailers[0];
 
     if (trailer) {
-      setPlayTrailer(trailer);
+      setPlayTrailer(trailer.key);
     } else {
-      setPlayTrailer(anyTrailer);
+      setPlayTrailer(anyTrailer.key);
     }
     setShowPlayer(true);
   };
 
+  // Get popular movies
   useEffect(() => {
     movieLists("popular").then((data) => setMovies(data.slice(0, 5)));
   }, []);
-
-  // console.log(playTrailer);
 
   return (
     <div>
       {movies && movies.length > 0 && (
         <Swiper
+          key={playTrailer ? "withTrailer" : "withoutTrailer"}
           spaceBetween={30}
           centeredSlides={true}
           loop={true}
-          autoplay={{
-            delay: 7500,
-            disableOnInteraction: false,
-          }}
-          modules={[Autoplay, Pagination, Navigation]}
+          autoplay={
+            playTrailer ? null : { delay: 7500, disableOnInteraction: false }
+          }
+          modules={
+            playTrailer
+              ? [Pagination, Navigation]
+              : [Autoplay, Pagination, Navigation]
+          }
           className="mySwiper h-[calc(100vh-64.5px)] max-h-[1080px] md:min-h-[600px]"
         >
           {movies &&
@@ -122,6 +132,28 @@ const Hero = () => {
                           </Link>
                         </motion.div>
                       </div>
+
+                      {/* Youtube Video Trailer Modal For Medium to Upper Devices */}
+                      {playTrailer && showPlayer && (
+                        <div
+                          onClick={autoPlayStart}
+                          className="hidden md:block absolute top-0 left-0 w-full h-full bg-black/60 z-10 backdrop-blur-xl"
+                        >
+                          <div className="px-[5%] relative h-full">
+                            <YouTube
+                              videoId={playTrailer}
+                              className="h-full w-full flex items-center justify-center"
+                              iframeClassName="w-full h-auto md:w-[80%] md:h-[80%]"
+                            />
+                            <button
+                              onClick={() => setPlayTrailer(false)}
+                              className="absolute top-[4%] right-[14%] border px-3"
+                            >
+                              Close
+                            </button>
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     {/* Movie Image Card */}
@@ -141,16 +173,27 @@ const Hero = () => {
             ))}
         </Swiper>
       )}
-      {/* Play Movie Trailer */}
-      {/* {showPlayer && playTrailer && (
-        <YouTube
-          videoId={playTrailer.key}
-          style={{
-            width: "100%",
-            height: "600px",
-          }}
-        />
-      )} */}
+      {/* Youtube Trailer Video From 0px to 768px Devices */}
+      {playTrailer && showPlayer && (
+        <div
+          onClick={() => setPlayTrailer(false)}
+          className="md:hidden fixed top-0 left-0 w-full h-full bg-black z-10"
+        >
+          <div className="px-[5%] relative h-full">
+            <YouTube
+              videoId={playTrailer}
+              className="h-full w-full mt-12 flex items-center"
+              iframeClassName="w-full h-[50%] sm:h-[70%]"
+            />
+            <button
+              onClick={() => setPlayTrailer(false)}
+              className="absolute top-0 right-[5%] border px-3"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

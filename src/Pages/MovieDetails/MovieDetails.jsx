@@ -168,7 +168,7 @@ const MovieDetails = () => {
             </div>
           </Container>
 
-          {/* ==>*** Youtube Trailer Modal *** <== */}
+          {/* ==>*** Youtube Trailer Modal For Medium to Upper Devices *** <== */}
           {playTrailer && officialTrailer && (
             <div
               onClick={() => setPlayTrailer(false)}
@@ -232,6 +232,7 @@ const MovieDetails = () => {
           </div>
         )}
       </Container>
+      {/* Youtube Trailer Video From 0px to 768px Devices */}
       {playTrailer && officialTrailer && (
         <div
           onClick={() => setPlayTrailer(false)}
