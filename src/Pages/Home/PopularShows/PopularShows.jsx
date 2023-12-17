@@ -65,15 +65,18 @@ const PopularShows = () => {
                       <div className="text-xl font-bold py-4 bg-black md:hidden">
                         <Link to="/">{popularSeries.original_name}</Link>
                       </div>
-                      <div className="md:inline-block cursor-pointer">
+                      <Link
+                        to={`/tv/${popularSeries.id}`}
+                        className="md:inline-block cursor-pointer"
+                      >
                         <motion.div
                           whileHover={{ translateY: -3 }}
                           whileTap={{ scale: 0.9 }}
                           className="flex items-center justify-center gap-x-2 bg-[#ffb43a] px-6 py-3 font-medium md:justify-normal md:mt-7 md:rounded-md"
                         >
-                          <FaPlay /> <span>Watch Now</span>
+                          <FaPlay /> <span>Start Watch</span>
                         </motion.div>
-                      </div>
+                      </Link>
                     </div>
 
                     {/* Title, name etc... */}
@@ -99,7 +102,9 @@ const PopularShows = () => {
                         <p>
                           {popularSeries.overview.slice(0, 200)}{" "}
                           <span className="text-[#f98616]">
-                            <Link to={`/`}>see more...</Link>
+                            <Link to={`/tv/${popularSeries.id}`}>
+                              see more...
+                            </Link>
                           </span>
                         </p>
                       </div>

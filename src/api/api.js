@@ -11,11 +11,11 @@ export const movieLists = async (movieType) => {
 };
 
 // Similar Movies
-export const similarMoviesApi = async (id) => {
+export const similarMoviesApi = async (id, original_name) => {
   const res = await fetch(
-    `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${
-      import.meta.env.VITE_API_KEY
-    }`
+    `https://api.themoviedb.org/3/${
+      original_name ? "tv" : "movie"
+    }/${id}/similar?api_key=${import.meta.env.VITE_API_KEY}`
   );
   const data = await res.json();
   return data.results;

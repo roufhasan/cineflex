@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { movieLists, tvSeriesLists } from "../../../api/api";
 import Container from "../../../components/Shared/Container";
+import { Link } from "react-router-dom";
 
 const TopRated = () => {
   const [topRatedList, setTopRatedList] = useState([]);
   const [apiPath, setApiPath] = useState(true);
+
   useEffect(() => {
     if (apiPath) {
       tvSeriesLists("top_rated").then((data) => setTopRatedList(data));
@@ -12,6 +14,7 @@ const TopRated = () => {
       movieLists("top_rated").then((data) => setTopRatedList(data));
     }
   }, [apiPath]);
+
   return (
     <Container px="0%">
       {topRatedList && topRatedList.length > 0 && (
@@ -45,18 +48,24 @@ const TopRated = () => {
                   key={topRated.id}
                   className="flex border-b border-b-gray-300 py-2 last:border-b-0 gap-4"
                 >
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500${
-                      topRated.poster_path
-                    }?api_key=${import.meta.env.VITE_API_KEY}`}
-                    alt={`poster of ${
-                      topRated.original_name
-                        ? topRated.original_name
-                        : topRated.original_title
-                    }`}
-                    loading="lazy"
-                    className="w-[74px]"
-                  />
+                  <Link
+                    to={
+                      apiPath ? `/tv/${topRated.id}` : `/movie/${topRated.id}`
+                    }
+                  >
+                    <img
+                      src={`https://image.tmdb.org/t/p/w500${
+                        topRated.poster_path
+                      }?api_key=${import.meta.env.VITE_API_KEY}`}
+                      alt={`poster of ${
+                        topRated.original_name
+                          ? topRated.original_name
+                          : topRated.original_title
+                      }`}
+                      loading="lazy"
+                      className="w-[74px]"
+                    />
+                  </Link>
                   <div>
                     <p className="text-sm text-[#ffffff9c]">
                       {topRated.first_air_date
@@ -64,9 +73,17 @@ const TopRated = () => {
                         : topRated.release_date.slice(0, 4)}
                     </p>
                     <p className="text-lg font-medium">
-                      {topRated.original_name
-                        ? topRated.original_name
-                        : topRated.original_title}
+                      <Link
+                        to={
+                          apiPath
+                            ? `/tv/${topRated.id}`
+                            : `/movie/${topRated.id}`
+                        }
+                      >
+                        {topRated.original_name
+                          ? topRated.original_name
+                          : topRated.original_title}
+                      </Link>
                     </p>
                     <p className="text-sm text-[#ffffff9c]">
                       {topRated.vote_average.toFixed(1)}

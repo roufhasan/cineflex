@@ -2,6 +2,7 @@ import { useLoaderData } from "react-router-dom";
 import Container from "../../components/Shared/Container";
 import { FaPlay, FaPlus, FaRegCalendar, FaStar } from "react-icons/fa6";
 import { LuClock } from "react-icons/lu";
+import { PiTelevision } from "react-icons/pi";
 import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
 import { similarMoviesApi } from "../../api/api";
@@ -15,13 +16,16 @@ const MovieDetails = () => {
   const {
     backdrop_path,
     credits,
+    first_air_date,
     genres,
     id,
+    original_name,
     original_title,
     overview,
     poster_path,
     release_date,
     runtime,
+    seasons,
     status,
     videos,
     vote_average,
@@ -55,9 +59,11 @@ const MovieDetails = () => {
 
   useEffect(() => {
     if (id) {
-      similarMoviesApi(id).then((data) => setSimilarMovies(data));
+      similarMoviesApi(id, original_name).then((data) =>
+        setSimilarMovies(data)
+      );
     }
-  }, [id]);
+  }, [id, original_name]);
 
   return (
     <Container>
@@ -85,14 +91,16 @@ const MovieDetails = () => {
                       alt=""
                       className="w-full rounded-md"
                     />
-                    <div className="hidden absolute top-0 left-0 w-full h-full group-hover:grid place-items-center bg-gradient-to-b from-black/30 to-black/50">
-                      <button
-                        onClick={findOfficialTrailer}
-                        className="w-14 h-14 grid place-items-center rounded-full bg-white/30"
-                      >
-                        <FaPlay size={24} />
-                      </button>
-                    </div>
+                    {videos.results && videos.results.length > 0 && (
+                      <div className="hidden absolute top-0 left-0 w-full h-full group-hover:grid place-items-center bg-gradient-to-b from-black/30 to-black/50">
+                        <button
+                          onClick={findOfficialTrailer}
+                          className="w-14 h-14 grid place-items-center rounded-full bg-white/30"
+                        >
+                          <FaPlay size={24} />
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -101,9 +109,11 @@ const MovieDetails = () => {
               <div className="md:w-3/4">
                 <div className="flex justify-between flex-1 gap-3">
                   <h2 className="text-4xl md:text-5xl font-bold flex items-center gap-3 mt-10">
-                    {original_title}
+                    {original_title ? original_title : original_name}
                     <span className="text-sm text-white/50 font-normal border border-white/50 rounded px-[4px] py-[1px]">
-                      {release_date.slice(0, 4)}
+                      {release_date
+                        ? release_date.slice(0, 4)
+                        : first_air_date.slice(0, 4)}
                     </span>
                   </h2>
                   <p className="hidden md:flex items-center gap-2">
@@ -141,26 +151,38 @@ const MovieDetails = () => {
                   </p>
                   <p className="flex items-center gap-2">
                     <FaRegCalendar size={17} />
-                    <span className="text-white/50">{release_date}</span>
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <LuClock size={18} />
                     <span className="text-white/50">
-                      {runtimeConvert(runtime)}
+                      {release_date ? release_date : first_air_date}
                     </span>
                   </p>
+                  {runtime && (
+                    <p className="flex items-center gap-2">
+                      <LuClock size={18} />
+                      <span className="text-white/50">
+                        {runtimeConvert(runtime)}
+                      </span>
+                    </p>
+                  )}
+                  {seasons && (
+                    <p className="flex items-center gap-2">
+                      <PiTelevision size={21} />
+                      <span className="text-white/50">{seasons.length}</span>
+                    </p>
+                  )}
                 </div>
                 <div>
                   <p className="text-xl mb-2">Overview</p>
                   <p className="text-white/50">{overview}</p>
                 </div>
                 <div className="flex gap-4 mt-8">
-                  <button
-                    onClick={findOfficialTrailer}
-                    className="flex items-center gap-x-1 bg-[#ffb43a] px-6 py-3 rounded-md font-medium uppercase text-sm"
-                  >
-                    <FaPlay></FaPlay>play trailer
-                  </button>
+                  {videos.results.length > 0 && (
+                    <button
+                      onClick={findOfficialTrailer}
+                      className="flex items-center gap-x-1 bg-[#ffb43a] px-6 py-3 rounded-md font-medium uppercase text-sm"
+                    >
+                      <FaPlay></FaPlay>play trailer
+                    </button>
+                  )}
                   <button className="bg-black/40 border-2 px-6 py-3 rounded-md font-medium flex items-center gap-x-1 uppercase text-sm">
                     <FaPlus /> Watchlist
                   </button>

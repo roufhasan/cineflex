@@ -100,8 +100,6 @@ const Navbar = () => {
   };
   window.addEventListener("scroll", changeNavbarColor);
 
-  console.log(colorChange);
-
   return (
     <Container>
       <div className="relative">
