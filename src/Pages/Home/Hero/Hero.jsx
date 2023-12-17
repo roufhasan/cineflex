@@ -89,7 +89,7 @@ const Hero = () => {
                     <motion.div
                       initial={{ y: "-20vh" }}
                       animate={{ y: 0 }}
-                      transition={{ duration: 2 }}
+                      transition={{ duration: 1 }}
                       className="h-full md:w-1/2 flex flex-col justify-center gap-8"
                     >
                       <div>
@@ -140,41 +140,13 @@ const Hero = () => {
                           </Link>
                         </motion.div>
                       </div>
-
-                      {/* Youtube Video Trailer Modal For Medium to Upper Devices */}
-                      {playTrailer && showPlayer && (
-                        <div
-                          onClick={autoPlayStart}
-                          className="hidden md:block absolute top-0 left-0 w-full h-full bg-blue-gray/60 z-10 backdrop-blur-xl py-16"
-                        >
-                          <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 1.5, duration: 4 }}
-                            className="px-[5%] relative h-full"
-                          >
-                            <YouTube
-                              videoId={playTrailer}
-                              className="h-full w-full flex items-center justify-center"
-                              iframeClassName="w-full h-auto md:w-[80%] md:h-[80%]"
-                            />
-                            <motion.button
-                              whileTap={{ scale: 0.9 }}
-                              onClick={() => setPlayTrailer(false)}
-                              className="absolute top-[4%] right-[14%] border border-custom-orange px-3"
-                            >
-                              Close
-                            </motion.button>
-                          </motion.div>
-                        </div>
-                      )}
                     </motion.div>
 
                     {/* Movie Image Card */}
                     <motion.div
                       initial={{ opacity: 0, scale: 0 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 1.5 }}
+                      transition={{ duration: 1 }}
                       className="hidden md:block w-1/2"
                     >
                       <img
@@ -187,6 +159,33 @@ const Hero = () => {
                       />
                     </motion.div>
                   </div>
+                  {/* Youtube Video Trailer Modal For Medium to Upper Devices */}
+                  {playTrailer && showPlayer && (
+                    <div
+                      onClick={autoPlayStart}
+                      className="hidden md:block absolute top-0 left-0 w-full h-full bg-blue-gray/60 z-10 backdrop-blur-xl py-16"
+                    >
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 1.5, duration: 4 }}
+                        className="px-[5%] relative h-full"
+                      >
+                        <YouTube
+                          videoId={playTrailer}
+                          className="h-full w-full flex items-center justify-center"
+                          iframeClassName="w-full h-auto md:w-[80%] md:h-[80%]"
+                        />
+                        <motion.button
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => setPlayTrailer(false)}
+                          className="absolute top-[4%] right-[14%] border border-custom-orange px-3"
+                        >
+                          Close
+                        </motion.button>
+                      </motion.div>
+                    </div>
+                  )}
                 </div>
               </SwiperSlide>
             ))}
