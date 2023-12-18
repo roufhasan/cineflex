@@ -3,6 +3,7 @@ import Main from "../Layout/Main";
 import Home from "../Pages/Home/Home/Home";
 import MovieDetails from "../Pages/MovieDetails/MovieDetails";
 import MovieLists from "../Pages/MovieLists/MovieLists";
+import PersonDetails from "../Pages/PersonDetails/PersonDetails/PersonDetails";
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +50,16 @@ export const router = createBrowserRouter([
             `https://api.themoviedb.org/3/tv/${params.id}?api_key=${
               import.meta.env.VITE_API_KEY
             }&append_to_response=credits,videos`
+          ),
+      },
+      {
+        path: "/person/:id",
+        element: <PersonDetails />,
+        loader: ({ params }) =>
+          fetch(
+            `https://api.themoviedb.org/3/person/${params.id}?api_key=${
+              import.meta.env.VITE_API_KEY
+            }`
           ),
       },
     ],

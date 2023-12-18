@@ -56,3 +56,15 @@ export const popularPerson = async () => {
   const data = await res.json();
   return data.results;
 };
+
+// Get External Social Id Links For A Person
+
+export const externalIds = async (id) => {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/person/${id}/external_ids?api_key=${
+      import.meta.env.VITE_API_KEY
+    }`
+  );
+  const data = await res.json();
+  return data;
+};
