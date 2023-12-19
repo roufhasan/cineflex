@@ -79,3 +79,14 @@ export const getPhotos = async (id) => {
   const data = await res.json();
   return data.profiles;
 };
+
+// Get combined/movie/tv-shows credits.
+export const getCredits = async (id, apiPath) => {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/person/${id}/${
+      apiPath ? apiPath : "combined_credits"
+    }?api_key=${import.meta.env.VITE_API_KEY}`
+  );
+  const data = await res.json();
+  return data.cast;
+};

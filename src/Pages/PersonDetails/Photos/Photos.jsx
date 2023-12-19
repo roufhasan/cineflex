@@ -12,7 +12,6 @@ const Photos = ({ id }) => {
     getPhotos(id).then((data) => setPhotos(data));
   }, [id]);
 
-  console.log(photos);
   return (
     <>
       <h3 className="text-xl text-black md:text-3xl font-bold border-l-4 border-custom-orange pl-3 mb-8">
@@ -48,6 +47,7 @@ const Photos = ({ id }) => {
               <SwiperSlide key={index}>
                 <img
                   key={index}
+                  loading="lazy"
                   src={`https://image.tmdb.org/t/p/w300${
                     photo.file_path
                   }?api_key=${import.meta.env.VITE_API_KEY}`}
@@ -61,6 +61,7 @@ const Photos = ({ id }) => {
               <SwiperSlide key={index}>
                 <img
                   key={index}
+                  loading="lazy"
                   src={`https://image.tmdb.org/t/p/w300${
                     photo.file_path
                   }?api_key=${import.meta.env.VITE_API_KEY}`}
@@ -71,6 +72,7 @@ const Photos = ({ id }) => {
             <SwiperSlide>
               <div className="relative">
                 <img
+                  loading="lazy"
                   src={`https://image.tmdb.org/t/p/w300${
                     photos[0]?.file_path
                   }?api_key=${import.meta.env.VITE_API_KEY}`}
