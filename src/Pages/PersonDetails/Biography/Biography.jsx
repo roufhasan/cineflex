@@ -15,11 +15,9 @@ const Biography = ({ personDetails }) => {
     place_of_birth,
     profile_path,
   } = personDetails;
-
   const [fullBio, setFullBio] = useState(false);
   const [socialIds, setSocialIds] = useState({});
   const { facebook_id, imdb_id, instagram_id, twitter_id } = socialIds;
-  console.log(socialIds);
 
   useEffect(() => {
     externalIds(id).then((data) => setSocialIds(data));
@@ -45,49 +43,60 @@ const Biography = ({ personDetails }) => {
         </p>
         <p className="text-white/80 mt-2">
           <span className="font-medium text-custom-white">Birthday: </span>
-          {birthday}
+          {birthday ? birthday : "not available"}
         </p>
         <p className="text-white/80 mt-2">
           <span className="font-medium text-custom-white">
             Place of Birth:{" "}
           </span>
-          {place_of_birth}
+          {place_of_birth ? place_of_birth : "not available"}
         </p>
-        <div className="mt-2 flex items-center gap-2">
-          <p className="font-medium text-custom-white">Available On:</p>
-          <div className="flex flex-wrap items-center gap-2">
-            {facebook_id && (
-              <a
-                href={`https://www.facebook.com/${facebook_id}`}
-                target="_blanck"
-              >
-                <img src={FacebookIcon} className="w-7" alt="facebook logo" />
-              </a>
-            )}
-            {instagram_id && (
-              <a
-                href={`https://www.instagram.com/${instagram_id}`}
-                target="_blanck"
-              >
-                <img src={InstagramIcon} className="w-7" alt="instagram logo" />
-              </a>
-            )}
-            {twitter_id && (
-              <a
-                href={`https://www.twitter.com/${twitter_id}`}
-                target="_blanck"
-              >
-                <img src={TwitterIcon} className="w-7" alt="twitter logo" />
-              </a>
-            )}
-            <p>|</p>
-            {imdb_id && (
-              <a href={`https://www.imdb.com/name/${imdb_id}`} target="_blanck">
-                <img src={ImdbIcon} className="w-10" alt="imdb logo" />
-              </a>
-            )}
+        {facebook_id || instagram_id || twitter_id || imdb_id ? (
+          <div className="mt-2 flex items-center gap-2">
+            <p className="font-medium text-custom-white">Available On:</p>
+            <div className="flex flex-wrap items-center gap-2">
+              {facebook_id && (
+                <a
+                  href={`https://www.facebook.com/${facebook_id}`}
+                  target="_blanck"
+                >
+                  <img src={FacebookIcon} className="w-7" alt="facebook logo" />
+                </a>
+              )}
+              {instagram_id && (
+                <a
+                  href={`https://www.instagram.com/${instagram_id}`}
+                  target="_blanck"
+                >
+                  <img
+                    src={InstagramIcon}
+                    className="w-7"
+                    alt="instagram logo"
+                  />
+                </a>
+              )}
+              {twitter_id && (
+                <a
+                  href={`https://www.twitter.com/${twitter_id}`}
+                  target="_blanck"
+                >
+                  <img src={TwitterIcon} className="w-7" alt="twitter logo" />
+                </a>
+              )}
+              {facebook_id || instagram_id || twitter_id ? <p>|</p> : ""}
+              {imdb_id && (
+                <a
+                  href={`https://www.imdb.com/name/${imdb_id}`}
+                  target="_blanck"
+                >
+                  <img src={ImdbIcon} className="w-10" alt="imdb logo" />
+                </a>
+              )}
+            </div>
           </div>
-        </div>
+        ) : (
+          ""
+        )}
         <p className="text-2xl font-medium mt-6 mb-2">Biography</p>
         {biography.length > 400 && !fullBio ? (
           <div>

@@ -68,3 +68,14 @@ export const externalIds = async (id) => {
   const data = await res.json();
   return data;
 };
+
+// Get Person Phtos
+export const getPhotos = async (id) => {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/person/${id}/images?api_key=${
+      import.meta.env.VITE_API_KEY
+    }`
+  );
+  const data = await res.json();
+  return data.profiles;
+};
