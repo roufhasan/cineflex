@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import Container from "../../components/Shared/Container";
 import { FaPlay, FaPlus, FaRegCalendar, FaStar } from "react-icons/fa6";
 import { LuClock } from "react-icons/lu";
@@ -69,7 +69,7 @@ const MovieDetails = () => {
     <Container>
       <div
         style={{
-          background: `linear-gradient(to left,rgba(22,24,29,0.8), rgba(22,24,29,0.4)),url(${`https://image.tmdb.org/t/p/w500${backdrop_path}?api_key=${
+          background: `linear-gradient(to left,rgba(22,24,29,0.8), rgba(22,24,29,0.4)),url(${`https://image.tmdb.org/t/p/w200${backdrop_path}?api_key=${
             import.meta.env.VITE_API_KEY
           }`}) center/cover no-repeat`,
         }}
@@ -85,7 +85,7 @@ const MovieDetails = () => {
                     <img
                       src={
                         poster_path
-                          ? `https://image.tmdb.org/t/p/w500${poster_path}`
+                          ? `https://image.tmdb.org/t/p/w400${poster_path}`
                           : CardImg
                       }
                       alt=""
@@ -225,21 +225,26 @@ const MovieDetails = () => {
           <div className="grid place-items-start grid-cols-2 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
             {credits.cast.slice(0, 6).map((actor) => (
               <div key={actor.id} className="text-center">
-                <img
-                  src={
-                    actor.profile_path
-                      ? `https://image.tmdb.org/t/p/w500${
-                          actor.profile_path
-                        }?api_key=${import.meta.env.VITE_API_KEY}`
-                      : AvatarImg
-                  }
-                  alt=""
-                  className="w-32 h-32 object-cover rounded-full mx-auto"
-                  loading="lazy"
-                />
-                <p className="text-lg font-semibold mt-4">
+                <Link to={`/person/${actor.id}`}>
+                  <img
+                    src={
+                      actor.profile_path
+                        ? `https://image.tmdb.org/t/p/w200${
+                            actor.profile_path
+                          }?api_key=${import.meta.env.VITE_API_KEY}`
+                        : AvatarImg
+                    }
+                    alt=""
+                    className="w-32 h-32 object-cover rounded-full mx-auto"
+                    loading="lazy"
+                  />
+                </Link>
+                <Link
+                  to={`/person/${actor.id}`}
+                  className="text-lg font-semibold inline-block mt-4"
+                >
                   {actor.original_name}
-                </p>
+                </Link>
                 <p className="text-sm text-white/90">{actor.character}</p>
               </div>
             ))}

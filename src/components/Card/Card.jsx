@@ -12,7 +12,7 @@ const Card = ({ trending }) => {
         <img
           src={
             poster_path
-              ? `https://image.tmdb.org/t/p/w500${poster_path}?api_key=${
+              ? `https://image.tmdb.org/t/p/w300${poster_path}?api_key=${
                   import.meta.env.VITE_API_KEY
                 }`
               : CardImg
