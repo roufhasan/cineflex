@@ -75,9 +75,7 @@ const Credits = ({ id }) => {
                     alt={
                       credit.poster_path
                         ? `poster image of${
-                            credit.original_title
-                              ? credit.original_name
-                              : credit.original_title
+                            credit.title ? credit.name : credit.title
                           }`
                         : `erro image from the noun project`
                     }

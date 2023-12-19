@@ -28,6 +28,10 @@ const Slider = ({ sliderData }) => {
             slidesPerView: 5,
             spaceBetween: 30,
           },
+          1441: {
+            slidesPerView: 6,
+            spaceBetween: 30,
+          },
         }}
         className="mySwiper"
       >

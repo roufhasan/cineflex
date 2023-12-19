@@ -17,27 +17,32 @@ const PersonSlider = ({ personData }) => {
           640: {
             slidesPerView: 4,
           },
+          1920: {
+            slidesPerView: 5,
+          },
         }}
         navigation={true}
-        className="mySwiper"
+        className="mySwiper flex items-center"
       >
         {personData &&
           personData.length > 0 &&
           personData.slice(0, 10).map((person) => (
             <SwiperSlide key={person.id}>
               <div className="group text-center">
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${
-                    person.profile_path
-                  }?api_key=${import.meta.env.VITE_API_KEY}`}
-                  alt=""
-                  className="max-h-96"
-                />
+                <Link to={`/person/${person.id}`}>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${
+                      person.profile_path
+                    }?api_key=${import.meta.env.VITE_API_KEY}`}
+                    alt=""
+                    className="h-full w-full"
+                  />
+                </Link>
                 <Link
                   to={`/person/${person.id}`}
                   className="text-lg font-medium inline-block mt-2 text-center group-hover:text-white/70"
                 >
-                  {person.original_name}
+                  {person.name}
                 </Link>
               </div>
             </SwiperSlide>

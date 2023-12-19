@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 import CardImg from "../../assets/movie-card.jpg";
 
 const Card = ({ trending }) => {
-  const { id, original_title, original_name, poster_path, vote_average } =
-    trending;
+  const { id, title, name, poster_path, vote_average } = trending;
 
   return (
     <div className="relative group">
-      <Link to={original_name ? `/tv/${id}` : `/movie/${id}`}>
+      <Link to={name ? `/tv/${id}` : `/movie/${id}`}>
         <img
           src={
             poster_path
@@ -17,9 +16,7 @@ const Card = ({ trending }) => {
                 }`
               : CardImg
           }
-          alt={`${
-            original_title ? original_title : original_name
-          } movie poster`}
+          alt={`${title ? title : name} movie poster`}
           loading="lazy"
           className="h-72 max-h-96 w-full sm:h-auto object-cover"
         />
@@ -29,31 +26,23 @@ const Card = ({ trending }) => {
           </p>
         </div>
         <div className="w-full flex justify-between bg-gradient-to-t from-black/50 to-black/30 backdrop-blur-sm opacity-100 group-hover:opacity-0 px-2 py-3 absolute bottom-0 left-0 transition ease-in-out group-hover:duration-500">
-          {original_title && (
+          {title && (
             <>
               <p className="font-medium lg:hidden">
-                {original_title.length > 9
-                  ? original_title.slice(0, 7) + ".."
-                  : original_title}
+                {title.length > 9 ? title.slice(0, 7) + ".." : title}
               </p>
               <p className="text-lg font-medium hidden lg:block">
-                {original_title.length > 15
-                  ? original_title.slice(0, 13) + "..."
-                  : original_title}
+                {title.length > 15 ? title.slice(0, 13) + "..." : title}
               </p>
             </>
           )}
-          {original_name && (
+          {name && (
             <>
               <p className="font-medium lg:hidden">
-                {original_name.length > 9
-                  ? original_name.slice(0, 7) + ".."
-                  : original_name}
+                {name.length > 9 ? name.slice(0, 7) + ".." : name}
               </p>
               <p className="text-lg font-medium hidden lg:block">
-                {original_name.length > 15
-                  ? original_name.slice(0, 13) + "..."
-                  : original_name}
+                {name.length > 15 ? name.slice(0, 13) + "..." : name}
               </p>
             </>
           )}

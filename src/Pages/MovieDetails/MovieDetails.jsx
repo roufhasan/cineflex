@@ -19,8 +19,8 @@ const MovieDetails = () => {
     first_air_date,
     genres,
     id,
-    original_name,
-    original_title,
+    name,
+    title,
     overview,
     poster_path,
     release_date,
@@ -59,11 +59,9 @@ const MovieDetails = () => {
 
   useEffect(() => {
     if (id) {
-      similarMoviesApi(id, original_name).then((data) =>
-        setSimilarMovies(data)
-      );
+      similarMoviesApi(id, name).then((data) => setSimilarMovies(data));
     }
-  }, [id, original_name]);
+  }, [id, name]);
 
   return (
     <Container>
@@ -109,7 +107,7 @@ const MovieDetails = () => {
               <div className="md:w-3/4">
                 <div className="flex justify-between flex-1 gap-3">
                   <h2 className="text-4xl md:text-5xl font-bold flex items-center gap-3 mt-10">
-                    {original_title ? original_title : original_name}
+                    {title ? title : name}
                     <span className="text-sm text-white/50 font-normal border border-white/50 rounded px-[4px] py-[1px]">
                       {release_date
                         ? release_date.slice(0, 4)
@@ -243,7 +241,7 @@ const MovieDetails = () => {
                   to={`/person/${actor.id}`}
                   className="text-lg font-semibold inline-block mt-4"
                 >
-                  {actor.original_name}
+                  {actor.name}
                 </Link>
                 <p className="text-sm text-white/90">{actor.character}</p>
               </div>
@@ -255,7 +253,7 @@ const MovieDetails = () => {
         {similarMovies.length > 0 && (
           <div>
             <p className="text-xl md:text-3xl font-bold border-l-4 border-[#ffb43a] pl-3 mb-8">
-              Similar Movies
+              Similar {title ? "Movies" : "TV Shows"}
             </p>
             <Slider sliderData={similarMovies} />
           </div>

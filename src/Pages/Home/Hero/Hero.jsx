@@ -94,7 +94,7 @@ const Hero = () => {
                     >
                       <div>
                         <h1 className="text-4xl md:text-5xl leading-tight font-bold">
-                          {myshow.original_title}
+                          {myshow.title}
                         </h1>
                         <div className="flex items-center flex-wrap gap-x-3 gap-y-1 md:gap-x-10">
                           <div className="flex items-center gap-3 text-lg">
@@ -150,7 +150,7 @@ const Hero = () => {
                       className="hidden md:block w-1/2"
                     >
                       <img
-                        src={`https://image.tmdb.org/t/p/original${
+                        src={`https://image.tmdb.org/t/p/w500${
                           myshow.poster_path
                         }?api_key=${import.meta.env.VITE_API_KEY}`}
                         alt=""

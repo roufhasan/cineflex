@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { movieLists, tvSeriesLists } from "../../../api/api";
 import Container from "../../../components/Shared/Container";
+import { movieLists, tvSeriesLists } from "../../../api/api";
 import { Link } from "react-router-dom";
+import { FaStar } from "react-icons/fa6";
 
 const TopRated = () => {
   const [topRatedList, setTopRatedList] = useState([]);
@@ -48,24 +49,24 @@ const TopRated = () => {
                   key={topRated.id}
                   className="flex border-b border-b-gray-300 py-2 last:border-b-0 gap-4"
                 >
-                  <Link
-                    to={
-                      apiPath ? `/tv/${topRated.id}` : `/movie/${topRated.id}`
-                    }
-                  >
-                    <img
-                      src={`https://image.tmdb.org/t/p/w200${
-                        topRated.poster_path
-                      }?api_key=${import.meta.env.VITE_API_KEY}`}
-                      alt={`poster of ${
-                        topRated.original_name
-                          ? topRated.original_name
-                          : topRated.original_title
-                      }`}
-                      loading="lazy"
-                      className="w-[74px]"
-                    />
-                  </Link>
+                  <div className="w-[74px] min-w-[74px]">
+                    <Link
+                      to={
+                        apiPath ? `/tv/${topRated.id}` : `/movie/${topRated.id}`
+                      }
+                    >
+                      <img
+                        src={`https://image.tmdb.org/t/p/w200${
+                          topRated.poster_path
+                        }?api_key=${import.meta.env.VITE_API_KEY}`}
+                        alt={`poster of ${
+                          topRated.name ? topRated.name : topRated.title
+                        }`}
+                        loading="lazy"
+                        className="w-full object-cover"
+                      />
+                    </Link>
+                  </div>
                   <div>
                     <p className="text-sm text-[#ffffff9c]">
                       {topRated.first_air_date
@@ -80,14 +81,15 @@ const TopRated = () => {
                             : `/movie/${topRated.id}`
                         }
                       >
-                        {topRated.original_name
-                          ? topRated.original_name
-                          : topRated.original_title}
+                        {topRated.name ? topRated.name : topRated.title}
                       </Link>
                     </p>
-                    <p className="text-sm text-[#ffffff9c]">
-                      {topRated.vote_average.toFixed(1)}
-                    </p>
+                    <div className="flex gap-1">
+                      <FaStar className="text-custom-orange/90" />
+                      <p className="text-sm text-[#ffffff9c]">
+                        {topRated.vote_average.toFixed(1)}
+                      </p>
+                    </div>
                   </div>
                 </li>
               ))}

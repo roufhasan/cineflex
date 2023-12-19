@@ -45,7 +45,7 @@ const PopularShows = () => {
                 <SwiperSlide key={popularSeries.id}>
                   <div
                     style={{
-                      backgroundImage: `linear-gradient(to top,rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)),url(${`https://image.tmdb.org/t/p/original${
+                      backgroundImage: `linear-gradient(to top,rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)),url(${`https://image.tmdb.org/t/p/w500${
                         popularSeries.backdrop_path
                       }?api_key=${import.meta.env.VITE_API_KEY}`}) `,
                     }}
@@ -53,9 +53,9 @@ const PopularShows = () => {
                   >
                     {/* Card image and watch button */}
                     <div className="text-center">
-                      <Link to="/">
+                      <Link to={`/tv/${popularSeries.id}`}>
                         <img
-                          src={`https://image.tmdb.org/t/p/original${
+                          src={`https://image.tmdb.org/t/p/w400${
                             popularSeries.poster_path
                           }?api_key=${import.meta.env.VITE_API_KEY}`}
                           alt=""
@@ -63,7 +63,7 @@ const PopularShows = () => {
                         />
                       </Link>
                       <div className="text-xl font-bold py-4 bg-black md:hidden">
-                        <Link to="/">{popularSeries.original_name}</Link>
+                        <Link to="/">{popularSeries.name}</Link>
                       </div>
                       <Link
                         to={`/tv/${popularSeries.id}`}
@@ -81,9 +81,12 @@ const PopularShows = () => {
 
                     {/* Title, name etc... */}
                     <div className="hidden md:block">
-                      <h1 className="text-5xl font-bold mb-2">
-                        {popularSeries.original_name}
-                      </h1>
+                      <Link
+                        to={`/tv/${popularSeries.id}`}
+                        className="text-5xl font-bold mb-2 inline-block"
+                      >
+                        {popularSeries.name}
+                      </Link>
                       <div className="flex items-center flex-wrap gap-x-10 gap-y-1">
                         <div className="flex items-center gap-3 text-lg">
                           <FaStar />

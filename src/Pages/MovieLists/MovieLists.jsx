@@ -35,7 +35,7 @@ const MovieLists = ({ apiPath, title }) => {
                         }?api_key=${import.meta.env.VITE_API_KEY}`
                       : CardImg
                   }
-                  alt={`${movie?.original_title} movie poster`}
+                  alt={`${movie?.title} movie poster`}
                   loading="lazy"
                   className="w-full hover:scale-105 transition-all duration-500"
                 />
@@ -46,7 +46,7 @@ const MovieLists = ({ apiPath, title }) => {
                     to={`/movie/${movie.id}`}
                     className="font-medium hover:text-[#ffb43a] inline-block transition-all"
                   >
-                    {movie.original_title}
+                    {movie.title}
                   </Link>
                   <p className="text-sm text-white/50 pt-1">
                     {showGenreNames(movie.genre_ids)}
