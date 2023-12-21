@@ -220,40 +220,44 @@ const MovieDetails = () => {
           <p className="text-xl md:text-3xl font-bold border-l-4 border-[#ffb43a] pl-3 mb-8">
             Top Cast
           </p>
-          <div className="grid place-items-start grid-cols-2 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-            {credits.cast.slice(0, 6).map((actor) => (
-              <div key={actor.id} className="text-center">
-                <Link to={`/person/${actor.id}`}>
-                  <img
-                    src={
-                      actor.profile_path
-                        ? `https://image.tmdb.org/t/p/w200${
-                            actor.profile_path
-                          }?api_key=${import.meta.env.VITE_API_KEY}`
-                        : AvatarImg
-                    }
-                    alt=""
-                    className="w-32 h-32 object-cover rounded-full mx-auto"
-                    loading="lazy"
-                  />
-                </Link>
-                <Link
-                  to={`/person/${actor.id}`}
-                  className="text-lg font-semibold inline-block mt-4"
-                >
-                  {actor.name}
-                </Link>
-                <p className="text-sm text-white/90">{actor.character}</p>
-              </div>
-            ))}
-          </div>
+          {credits.cast && credits.cast.length > 0 ? (
+            <div className="grid place-items-start grid-cols-2 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+              {credits.cast.slice(0, 6).map((actor) => (
+                <div key={actor.id} className="text-center">
+                  <Link to={`/person/${actor.id}`}>
+                    <img
+                      src={
+                        actor.profile_path
+                          ? `https://image.tmdb.org/t/p/w200${
+                              actor.profile_path
+                            }?api_key=${import.meta.env.VITE_API_KEY}`
+                          : AvatarImg
+                      }
+                      alt=""
+                      className="w-32 h-32 object-cover rounded-full mx-auto"
+                      loading="lazy"
+                    />
+                  </Link>
+                  <Link
+                    to={`/person/${actor.id}`}
+                    className="text-lg font-semibold inline-block mt-4"
+                  >
+                    {actor.name}
+                  </Link>
+                  <p className="text-sm text-white/90">{actor.character}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center">No Data Found :(</p>
+          )}
         </div>
 
         {/* <==*** Simliar Movies Slider Section ***==> */}
         {similarMovies.length > 0 && (
           <div>
             <p className="text-xl md:text-3xl font-bold border-l-4 border-[#ffb43a] pl-3 mb-8">
-              Similar {title ? "Movies" : "TV Shows"}
+              Similar {release_date ? "Movies" : "TV Shows"}
             </p>
             <Slider sliderData={similarMovies} />
           </div>

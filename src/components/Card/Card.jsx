@@ -18,7 +18,7 @@ const Card = ({ trending }) => {
           }
           alt={`${title ? title : name} movie poster`}
           loading="lazy"
-          className="h-72 max-h-96 w-full sm:h-auto object-cover"
+          className="w-full h-72 sm:h-[315px] md:h-[352px] 2xl:h-[384px] object-fill"
         />
         <div className="w-full h-full bg-black/40 opacity-0 group-hover:opacity-100 absolute top-0 left-0  transition ease-in-out group-hover:duration-500">
           <p className="h-full w-full grid place-items-center text-xl font-medium">
