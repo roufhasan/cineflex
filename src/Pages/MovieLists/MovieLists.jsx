@@ -41,7 +41,7 @@ const MovieLists = ({ mediaType, apiPath, title }) => {
                   }
                   alt={`poster of ${show.title ? show.title : show.name}`}
                   loading="lazy"
-                  className="w-full hover:scale-105 transition-all duration-500"
+                  className="w-full object-fill h-[250px] sm:h-[329px] md:h-[300px] lg:h-[385px] xl:h-[440px] 2xl:h-[470px] hover:scale-105 transition-all duration-500"
                 />
               </Link>
               <div className="flex justify-between pt-4">
@@ -54,7 +54,32 @@ const MovieLists = ({ mediaType, apiPath, title }) => {
                     }
                     className="font-medium hover:text-[#ffb43a] inline-block transition-all"
                   >
-                    {show.title ? show.title : show.name}
+                    <p className="md:hidden">
+                      {show.title
+                        ? `${
+                            show.title.length >= 10
+                              ? `${show.title.slice(0, 10)}...`
+                              : show.title
+                          }`
+                        : `${
+                            show.name.length >= 10
+                              ? `${show.name.slice(0, 10)}...`
+                              : show.name
+                          }`}
+                    </p>
+                    <p className="hidden md:inline-block">
+                      {show.title
+                        ? `${
+                            show.title.length >= 20
+                              ? `${show.title.slice(0, 20)}...`
+                              : show.title
+                          }`
+                        : `${
+                            show.name.length >= 20
+                              ? `${show.name.slice(0, 20)}...`
+                              : show.name
+                          }`}
+                    </p>
                   </Link>
                   <p className="text-sm text-white/50 pt-1">
                     {showGenreNames(show.genre_ids)}
