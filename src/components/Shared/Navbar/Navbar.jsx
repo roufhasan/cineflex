@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import Logo from "../../../assets/newLogo.png";
@@ -11,9 +11,11 @@ import {
   FaMagnifyingGlass,
   FaXmark,
 } from "react-icons/fa6";
+import { MdArrowForwardIos } from "react-icons/md";
 import { BsHouseDoor } from "react-icons/bs";
 import { TbMovie } from "react-icons/tb";
 import { PiTelevisionBold } from "react-icons/pi";
+import { Menu, Transition } from "@headlessui/react";
 
 const Navbar = () => {
   const [showSearchField, setShowSearchField] = useState(false);
@@ -119,13 +121,214 @@ const Navbar = () => {
                 <NavLink to="/">Home</NavLink>
               </li>
               <li>
-                <NavLink to="/movies/popular">Popular</NavLink>
+                <Menu as="div" className="relative inline-block text-left">
+                  <div>
+                    <Menu.Button>Movies</Menu.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute left-0 mt-2 w-40 divide-y divide-gray-100 rounded bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+                      <div className="px-1 py-1 ">
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              to="/movies/popular"
+                              className={`${
+                                active
+                                  ? "bg-custom-orange text-white"
+                                  : "text-gray-900"
+                              } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                            >
+                              {active ? (
+                                <div className="flex w-full justify-between items-center">
+                                  <p>Popular</p>
+                                  <MdArrowForwardIos size={16} />
+                                </div>
+                              ) : (
+                                "Popular"
+                              )}
+                            </Link>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              to="/movies/top_rated"
+                              className={`${
+                                active
+                                  ? "bg-custom-orange text-white"
+                                  : "text-gray-900"
+                              } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                            >
+                              {active ? (
+                                <div className="flex w-full justify-between items-center">
+                                  <p>Top Rated</p>
+                                  <MdArrowForwardIos size={16} />
+                                </div>
+                              ) : (
+                                "Top Rated"
+                              )}
+                            </Link>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              to="/movies/now_playing"
+                              className={`${
+                                active
+                                  ? "bg-custom-orange text-white"
+                                  : "text-gray-900"
+                              } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                            >
+                              {active ? (
+                                <div className="flex w-full justify-between items-center">
+                                  <p>Now Playing</p>
+                                  <MdArrowForwardIos size={16} />
+                                </div>
+                              ) : (
+                                "Now Playing"
+                              )}
+                            </Link>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              to="/movies/upcoming"
+                              className={`${
+                                active
+                                  ? "bg-custom-orange text-white"
+                                  : "text-gray-900"
+                              } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                            >
+                              {active ? (
+                                <div className="flex w-full justify-between items-center">
+                                  <p>Upcoming</p>
+                                  <MdArrowForwardIos size={16} />
+                                </div>
+                              ) : (
+                                "Upcoming"
+                              )}
+                            </Link>
+                          )}
+                        </Menu.Item>
+                      </div>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
               </li>
               <li>
-                <NavLink to="/movies/top_rated">Top Rated</NavLink>
-              </li>
-              <li>
-                <NavLink to="/movies/upcoming">Upcoming</NavLink>
+                <Menu as="div" className="relative inline-block text-left">
+                  <div>
+                    <Menu.Button className="">TV Shows</Menu.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute left-0 mt-2 w-40 divide-y divide-gray-100 rounded bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+                      <div className="px-1 py-1 ">
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              to="/tv-shows/popular"
+                              className={`${
+                                active
+                                  ? "bg-custom-orange text-white"
+                                  : "text-gray-900"
+                              } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                            >
+                              {active ? (
+                                <div className="flex w-full justify-between items-center">
+                                  <p>Popular</p>
+                                  <MdArrowForwardIos size={16} />
+                                </div>
+                              ) : (
+                                "Popular"
+                              )}
+                            </Link>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              to="/tv-shows/top_rated"
+                              className={`${
+                                active
+                                  ? "bg-custom-orange text-white"
+                                  : "text-gray-900"
+                              } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                            >
+                              {active ? (
+                                <div className="flex w-full justify-between items-center">
+                                  <p>Top Rated</p>
+                                  <MdArrowForwardIos size={16} />
+                                </div>
+                              ) : (
+                                "Top Rated"
+                              )}
+                            </Link>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              to="/tv-shows/airing_today"
+                              className={`${
+                                active
+                                  ? "bg-custom-orange text-white"
+                                  : "text-gray-900"
+                              } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                            >
+                              {active ? (
+                                <div className="flex w-full justify-between items-center">
+                                  <p>Airing Today</p>
+                                  <MdArrowForwardIos size={16} />
+                                </div>
+                              ) : (
+                                "Airing Today"
+                              )}
+                            </Link>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              to="/tv-shows/on_the_air"
+                              className={`${
+                                active
+                                  ? "bg-custom-orange text-white"
+                                  : "text-gray-900"
+                              } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                            >
+                              {active ? (
+                                <div className="flex w-full justify-between items-center">
+                                  <p>Upcoming</p>
+                                  <MdArrowForwardIos size={16} />
+                                </div>
+                              ) : (
+                                "Upcoming"
+                              )}
+                            </Link>
+                          )}
+                        </Menu.Item>
+                      </div>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
               </li>
             </ul>
           </div>

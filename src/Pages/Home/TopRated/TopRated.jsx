@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Container from "../../../components/Shared/Container";
-import { movieLists, tvSeriesLists } from "../../../api/api";
+import { movieLists } from "../../../api/api";
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa6";
 
@@ -9,11 +9,9 @@ const TopRated = () => {
   const [apiPath, setApiPath] = useState(true);
 
   useEffect(() => {
-    if (apiPath) {
-      tvSeriesLists("top_rated").then((data) => setTopRatedList(data));
-    } else {
-      movieLists("top_rated").then((data) => setTopRatedList(data));
-    }
+    movieLists(apiPath ? "tv" : "movie", "top_rated").then((data) =>
+      setTopRatedList(data)
+    );
   }, [apiPath]);
 
   return (

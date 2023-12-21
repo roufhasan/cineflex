@@ -14,23 +14,87 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
+
+      // ==> Movies & TV-Shows Lists <==
       {
         path: "/movies/popular",
-        element: <MovieLists apiPath={"popular"} title="Popular Movies" />,
+        element: (
+          <MovieLists
+            apiPath={"popular"}
+            mediaType={"movie"}
+            title="Popular Movies"
+          />
+        ),
       },
       {
         path: "/movies/top_rated",
-        element: <MovieLists apiPath={"top_rated"} title="Top Rated Movies" />,
+        element: (
+          <MovieLists
+            apiPath={"top_rated"}
+            mediaType={"movie"}
+            title="Top Rated Movies"
+          />
+        ),
       },
       {
         path: "/movies/now_playing",
         element: (
-          <MovieLists apiPath={"now_playing"} title="Currently In Theaters" />
+          <MovieLists
+            apiPath={"now_playing"}
+            mediaType={"movie"}
+            title="Currently In Theaters"
+          />
         ),
       },
       {
         path: "/movies/upcoming",
-        element: <MovieLists apiPath={"upcoming"} title="Upcoming Movies" />,
+        element: (
+          <MovieLists
+            apiPath={"upcoming"}
+            mediaType={"movie"}
+            title="Upcoming Movies"
+          />
+        ),
+      },
+      {
+        path: "/tv-shows/popular",
+        element: (
+          <MovieLists
+            mediaType={"tv"}
+            apiPath={"popular"}
+            title="Popular Shows"
+          />
+        ),
+      },
+      {
+        path: "/tv-shows/top_rated",
+        element: (
+          <MovieLists
+            mediaType={"tv"}
+            apiPath={"top_rated"}
+            title="Top Rated Shows"
+          />
+        ),
+      },
+      {
+        path: "/tv-shows/airing_today",
+        element: (
+          <MovieLists
+            mediaType={"tv"}
+            apiPath={"airing_today"}
+            title="Airing Shows Today"
+          />
+        ),
+      },
+      {
+        path: "/tv-shows/on_the_air",
+        element: (
+          <MovieLists
+            mediaType={"tv"}
+            apiPath={"on_the_air"}
+            title="Upcoming Shows"
+          />
+        ),
       },
       {
         path: "/movie/:id",

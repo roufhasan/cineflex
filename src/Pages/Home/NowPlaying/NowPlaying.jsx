@@ -8,7 +8,7 @@ const NowPlaying = () => {
   const [nowPlaying, setNowPlaying] = useState([]);
 
   useEffect(() => {
-    movieLists("now_playing")
+    movieLists("movie", "now_playing")
       .then((data) => setNowPlaying(data))
       .catch((err) => console.log(err));
   }, []);

@@ -52,7 +52,6 @@ const Credits = ({ id }) => {
               key={index}
               className="flex gap-4 border-b last:border-b-0 py-3"
             >
-              {console.log(credit)}
               <div className="w-14 h-[84px]">
                 <Link
                   to={

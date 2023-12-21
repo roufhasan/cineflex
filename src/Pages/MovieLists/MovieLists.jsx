@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import CardImg from "../../assets/movie-card.jpg";
 import { getGenre } from "../../customData/generateGenre";
 
-const MovieLists = ({ apiPath, title }) => {
+const MovieLists = ({ mediaType, apiPath, title }) => {
+  console.log(mediaType);
   const [movies, setMovies] = useState([]);
 
   const showGenreNames = (genreIds) => {
@@ -14,9 +15,9 @@ const MovieLists = ({ apiPath, title }) => {
   };
 
   useEffect(() => {
-    movieLists(apiPath).then((data) => setMovies(data));
-  }, [apiPath]);
-  console.log(movies);
+    movieLists(mediaType, apiPath).then((data) => setMovies(data));
+  }, [mediaType, apiPath]);
+
   return (
     <Container px="5%">
       <section className="pt-20 md:pt-32 pb-12">

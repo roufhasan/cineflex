@@ -1,7 +1,7 @@
 // Get movie lists of now playing, popular, top rated, upcoming.
-export const movieLists = async (movieType) => {
+export const movieLists = async (mediaType, apiPath) => {
   const res = await fetch(
-    `https://api.themoviedb.org/3/movie/${movieType}?api_key=${
+    `https://api.themoviedb.org/3/${mediaType}/${apiPath}?api_key=${
       import.meta.env.VITE_API_KEY
     }`
   );
@@ -36,7 +36,7 @@ export const trendingLists = async (trendingType, time_window) => {
 };
 
 // Get the airing today, on the air, popular, top rated, latest TV Series Lists
-export const tvSeriesLists = async (seriesType) => {
+/* export const tvSeriesLists = async (seriesType) => {
   const res = await fetch(
     `https://api.themoviedb.org/3/tv/${seriesType}?api_key=${
       import.meta.env.VITE_API_KEY
@@ -44,7 +44,7 @@ export const tvSeriesLists = async (seriesType) => {
   );
   const data = await res.json();
   return data.results;
-};
+}; */
 
 // Get list of popular person.
 export const popularPerson = async () => {

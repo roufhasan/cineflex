@@ -8,7 +8,7 @@ const Upcoming = () => {
   const [upcoming, setUpComing] = useState([]);
 
   useEffect(() => {
-    movieLists("upcoming")
+    movieLists("movie", "upcoming")
       .then((data) => setUpComing(data))
       .catch((err) => console.log(err));
   }, []);
