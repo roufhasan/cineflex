@@ -31,17 +31,34 @@ const Navbar = () => {
             Home
           </NavLink>
         </li>
-        <li className="mt-2 font-semibold">Movies</li>
+        <li className="mt-3 font-semibold border-b-2 border-custom-orange">
+          Movies
+        </li>
         <li>
-          <NavLink to="/" className="flex items-center gap-2 text-sm">
+          <NavLink
+            to="/movies/popular"
+            className="flex items-center gap-2 text-sm"
+          >
             <TbMovie color="#fff" />
             Popular
           </NavLink>
         </li>
         <li>
-          <NavLink to="/" className="flex items-center gap-2 text-sm">
+          <NavLink
+            to="/movies/top_rated"
+            className="flex items-center gap-2 text-sm"
+          >
             <FaFireFlameCurved color="#fff" />
             Top Rated
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/movies/now_playing"
+            className="flex items-center gap-2 text-sm"
+          >
+            <FaClockRotateLeft color="#fff" />
+            Now Playing
           </NavLink>
         </li>
         <li>
@@ -53,10 +70,12 @@ const Navbar = () => {
             Upcoming
           </NavLink>
         </li>
-        <li className="mt-2 font-semibold">TV Series</li>
+        <li className="mt-5 font-semibold border-b-2 border-custom-orange">
+          TV Series
+        </li>
         <li>
           <NavLink
-            to="/movies/upcoming"
+            to="/tv-shows/popular"
             className="flex items-center gap-2 text-sm"
           >
             <PiTelevisionBold color="#fff" />
@@ -65,7 +84,7 @@ const Navbar = () => {
         </li>
         <li>
           <NavLink
-            to="/movies/upcoming"
+            to="/tv-shows/top_rated"
             className="flex items-center gap-2 text-sm"
           >
             <FaFireFlameCurved color="#fff" />
@@ -74,11 +93,20 @@ const Navbar = () => {
         </li>
         <li>
           <NavLink
-            to="/movies/upcoming"
+            to="/tv-shows/airing_today"
             className="flex items-center gap-2 text-sm"
           >
             <FaClockRotateLeft color="#fff" />
-            Latest
+            Airing Today
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/tv-shows/on_the_air"
+            className="flex items-center gap-2 text-sm"
+          >
+            <FaHourglass color="#fff" />
+            Upcoming
           </NavLink>
         </li>
         <li className="mt-[calc(100vh-420px)]">
