@@ -1,5 +1,5 @@
-// Get movie lists of now playing, popular, top rated, upcoming.
-export const movieLists = async (mediaType, apiPath) => {
+// Get movie lists of now playing, popular, top rated, upcoming & also tv series list of popular, top rated, airing today, on the air.
+export const listOfShows = async (mediaType, apiPath) => {
   const res = await fetch(
     `https://api.themoviedb.org/3/${mediaType}/${apiPath}?api_key=${
       import.meta.env.VITE_API_KEY

@@ -5,7 +5,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { FaPlay, FaRegCalendar, FaStar } from "react-icons/fa6";
 import { LiaTagSolid } from "react-icons/lia";
 import { motion } from "framer-motion";
-import { movieLists } from "../../../api/api";
+import { listOfShows } from "../../../api/api";
 import { getGenre } from "../../../customData/generateGenre";
 import "swiper/css/pagination";
 import "swiper/css";
@@ -19,7 +19,7 @@ const PopularShows = () => {
   };
 
   useEffect(() => {
-    movieLists("tv", "popular").then((data) => setPopularSeries(data));
+    listOfShows("tv", "popular").then((data) => setPopularSeries(data));
   }, []);
   return (
     <section className="py-14">

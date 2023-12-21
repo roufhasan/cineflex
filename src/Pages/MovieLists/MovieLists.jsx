@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { movieLists } from "../../api/api";
+import { listOfShows } from "../../api/api";
 import Container from "../../components/Shared/Container";
 import { Link } from "react-router-dom";
 import CardImg from "../../assets/movie-card.jpg";
 import { getGenre } from "../../customData/generateGenre";
 
 const MovieLists = ({ mediaType, apiPath, title }) => {
-  console.log(mediaType);
-  const [movies, setMovies] = useState([]);
+  const [shows, setMovies] = useState([]);
 
   const showGenreNames = (genreIds) => {
     const genreNames = getGenre(genreIds).join("/");
@@ -15,7 +14,7 @@ const MovieLists = ({ mediaType, apiPath, title }) => {
   };
 
   useEffect(() => {
-    movieLists(mediaType, apiPath).then((data) => setMovies(data));
+    listOfShows(mediaType, apiPath).then((data) => setMovies(data));
   }, [mediaType, apiPath]);
 
   return (
@@ -25,18 +24,22 @@ const MovieLists = ({ mediaType, apiPath, title }) => {
           {title} <div className="bg-[#ffb43a] w-[45%] h-1 mt-2"></div>
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 2xl:grid-cols-5 gap-x-4 gap-y-8 md:gap-10 mt-12">
-          {movies.map((movie) => (
-            <div key={movie.id}>
-              <Link to={`/movie/${movie.id}`}>
+          {shows.map((show) => (
+            <div key={show.id}>
+              <Link
+                to={
+                  mediaType === "movie" ? `/movie/${show.id}` : `/tv/${show.id}`
+                }
+              >
                 <img
                   src={
-                    movie.poster_path
+                    show.poster_path
                       ? `https://image.tmdb.org/t/p/w500${
-                          movie.poster_path
+                          show.poster_path
                         }?api_key=${import.meta.env.VITE_API_KEY}`
                       : CardImg
                   }
-                  alt={`${movie?.title} movie poster`}
+                  alt={`poster of ${show.title ? show.title : show.name}`}
                   loading="lazy"
                   className="w-full hover:scale-105 transition-all duration-500"
                 />
@@ -44,18 +47,24 @@ const MovieLists = ({ mediaType, apiPath, title }) => {
               <div className="flex justify-between pt-4">
                 <div>
                   <Link
-                    to={`/movie/${movie.id}`}
+                    to={
+                      mediaType === "movie"
+                        ? `/movie/${show.id}`
+                        : `/tv/${show.id}`
+                    }
                     className="font-medium hover:text-[#ffb43a] inline-block transition-all"
                   >
-                    {movie.title}
+                    {show.title ? show.title : show.name}
                   </Link>
                   <p className="text-sm text-white/50 pt-1">
-                    {showGenreNames(movie.genre_ids)}
+                    {showGenreNames(show.genre_ids)}
                   </p>
                 </div>
-                <div className="w-10 h-5 rounded-full bg-custom-orange flex items-center justify-center font-medium text-sm">
-                  {movie.vote_average.toFixed(1)}
-                </div>
+                {show.vote_average > 0 && (
+                  <div className="w-10 h-5 rounded-full bg-custom-orange flex items-center justify-center font-medium text-sm">
+                    {show.vote_average.toFixed(1)}
+                  </div>
+                )}
               </div>
             </div>
           ))}

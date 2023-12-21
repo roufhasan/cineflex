@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Container from "../../../components/Shared/Container";
-import { movieLists } from "../../../api/api";
+import { listOfShows } from "../../../api/api";
 import Slider from "../../../components/Slider/Slider";
 import { Link } from "react-router-dom";
 
@@ -8,7 +8,7 @@ const NowPlaying = () => {
   const [nowPlaying, setNowPlaying] = useState([]);
 
   useEffect(() => {
-    movieLists("movie", "now_playing")
+    listOfShows("movie", "now_playing")
       .then((data) => setNowPlaying(data))
       .catch((err) => console.log(err));
   }, []);
