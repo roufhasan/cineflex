@@ -401,7 +401,7 @@ const Navbar = () => {
         </nav>
         {showSearchField && (
           <motion.div
-            className={`w-full max-w-[1920px] text-black px-[5%] py-4 mx-auto rounded fixed top-16 z-10 ${
+            className={`w-full max-w-[1920px] text-black px-[5%] py-4 mx-auto rounded fixed top-12 sm:top-16 z-10 ${
               colorChange ? "bg-blue-gray" : "bg-transparent"
             }`}
             initial={{ opacity: 0, scale: 0.5 }}
