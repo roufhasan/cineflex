@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Logo from "../../../assets/newLogo.png";
 import Container from "../Container";
@@ -21,6 +21,7 @@ const Navbar = () => {
   const [showSearchField, setShowSearchField] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [colorChange, setColorchange] = useState(false);
+  const navigate = useNavigate();
 
   const menuLinks = (
     <>
@@ -129,6 +130,15 @@ const Navbar = () => {
     }
   };
   window.addEventListener("scroll", changeNavbarColor);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const category = form.category.value;
+    const query = form.searchValue.value;
+    navigate(`/search/${category.toLowerCase()}/${query.toLowerCase()}`);
+    setShowSearchField(false);
+  };
 
   return (
     <Container>
@@ -387,40 +397,51 @@ const Navbar = () => {
               size={20}
               className="text-white cursor-pointer md:hidden"
             />
-
-            {showSearchField && (
-              <motion.div
-                className="absolute right-0 top-[210%] text-black bg-orange-400 p-1 rounded z-10"
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                  duration: 0.5,
-                  delay: 0.2,
-                  ease: [0, 0.71, 0.2, 1.01],
-                }}
-              >
-                <form>
-                  <div className="flex">
-                    <div>
-                      <input
-                        type="text"
-                        name="searchText"
-                        placeholder="Search..."
-                        className="px-2 p-1 rounded-l outline-none"
-                      />
-                    </div>
-                    <div className=" bg-orange-400 p-2 pt-1">
-                      <FaMagnifyingGlass
-                        size={20}
-                        className="text-white cursor-pointer"
-                      />
-                    </div>
-                  </div>
-                </form>
-              </motion.div>
-            )}
           </div>
         </nav>
+        {showSearchField && (
+          <motion.div
+            className={`w-full max-w-[1920px] text-black px-[5%] py-4 mx-auto rounded fixed top-16 z-10 ${
+              colorChange ? "bg-blue-gray" : "bg-transparent"
+            }`}
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.5,
+              delay: 0.2,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
+          >
+            <form
+              onSubmit={handleSearch}
+              className="flex w-full bg-white items-center justify-between border"
+            >
+              <select name="category" id="" className="px-3 py-3 bg-white">
+                <option value="movie">Movies</option>
+                <option value="tv">TV Shows</option>
+                <option value="person">Person</option>
+                <option value="multi">All</option>
+              </select>
+              <div className="w-full">
+                <input
+                  type="text"
+                  name="searchValue"
+                  id=""
+                  placeholder="Search for movies, shows, people"
+                  className="w-full p-3 md:px-5 outline-none border-l-2"
+                />
+              </div>
+              <div className="">
+                <button
+                  type="submit"
+                  className="inline-block p-3 md:px-6 bg-custom-orange text-custom-white font-semibold"
+                >
+                  Search
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        )}
         {showMenu && (
           <motion.div
             onClick={() => setShowMenu(!showMenu)}

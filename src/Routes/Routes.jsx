@@ -4,6 +4,7 @@ import Home from "../Pages/Home/Home/Home";
 import MovieDetails from "../Pages/MovieDetails/MovieDetails";
 import MovieLists from "../Pages/MovieLists/MovieLists";
 import PersonDetails from "../Pages/PersonDetails/PersonDetails/PersonDetails";
+import SearchResults from "../Pages/SearchResults/SearchResults";
 
 export const router = createBrowserRouter([
   {
@@ -96,6 +97,13 @@ export const router = createBrowserRouter([
           />
         ),
       },
+
+      // ==> Search Results <==
+      {
+        path: "/search/:category/:query",
+        element: <SearchResults />,
+      },
+
       {
         path: "/movie/:id",
         element: <MovieDetails />,

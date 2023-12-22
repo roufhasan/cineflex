@@ -90,3 +90,14 @@ export const getCredits = async (id, apiPath) => {
   const data = await res.json();
   return data.cast;
 };
+
+// Seach API
+export const search = async (category, query) => {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/search/${category}?query=${query}&api_key=${
+      import.meta.env.VITE_API_KEY
+    }`
+  );
+  const data = await res.json();
+  return data.results;
+};
