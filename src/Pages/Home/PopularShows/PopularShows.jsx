@@ -5,7 +5,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { FaPlay, FaRegCalendar, FaStar } from "react-icons/fa6";
 import { LiaTagSolid } from "react-icons/lia";
 import { motion } from "framer-motion";
-import { listOfShows } from "../../../api/api";
+import { listOfShows } from "../../../api/moviesAndShowsApi";
 import { getGenre } from "../../../customData/generateGenre";
 import "swiper/css/pagination";
 import "swiper/css";

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { popularPerson } from "../../../api/api";
 import PersonSlider from "../../../components/PersonSilder/PersonSlider";
+import { popularPersons } from "../../../api/personApi";
 
 const PopularPerson = () => {
   const [popularPersonList, setPopularPersonList] = useState([]);
 
   useEffect(() => {
-    popularPerson().then((data) => setPopularPersonList(data));
+    popularPersons().then((data) => setPopularPersonList(data));
   }, []);
 
   return (

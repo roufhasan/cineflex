@@ -5,11 +5,11 @@ import { LuClock } from "react-icons/lu";
 import { PiTelevision } from "react-icons/pi";
 import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
-import { similarMoviesApi } from "../../api/api";
 import Slider from "../../components/Slider/Slider";
 import AvatarImg from "../../assets/avatar.png";
 import CardImg from "../../assets/movie-card.jpg";
 import { motion } from "framer-motion";
+import { similarMoviesApi } from "../../api/moviesAndShowsApi";
 
 const MovieDetails = () => {
   const movies = useLoaderData();

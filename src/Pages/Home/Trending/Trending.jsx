@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Container from "../../../components/Shared/Container";
-import { trendingLists } from "../../../api/api";
+import { trendingLists } from "../../../api/moviesAndShowsApi";
 import Slider from "../../../components/Slider/Slider";
 
 const Trending = () => {

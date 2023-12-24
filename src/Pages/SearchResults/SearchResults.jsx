@@ -3,7 +3,7 @@ import Container from "../../components/Shared/Container";
 import { Link, useParams } from "react-router-dom";
 import CardImg from "../../assets/movie-card.jpg";
 import { getGenre } from "../../customData/generateGenre";
-import { search } from "../../api/api";
+import { searchApi } from "../../api/searchApi";
 
 const SearchResults = () => {
   const { category, query } = useParams();
@@ -15,7 +15,7 @@ const SearchResults = () => {
   };
 
   useEffect(() => {
-    search(category, query).then((data) => setSearchResults(data));
+    searchApi(category, query).then((data) => setSearchResults(data));
   }, [category, query]);
 
   return (

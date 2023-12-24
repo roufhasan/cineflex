@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { externalIds } from "../../../api/api";
 import FacebookIcon from "../../../assets/icons/facebook-icon.png";
 import InstagramIcon from "../../../assets/icons/instagram-icon.png";
 import TwitterIcon from "../../../assets/icons/twitter-icon.png";
 import ImdbIcon from "../../../assets/icons/imdb-icon.png";
+import { externalIds } from "../../../api/personApi";
 
 const Biography = ({ personDetails }) => {
   const {

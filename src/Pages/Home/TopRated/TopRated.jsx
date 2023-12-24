@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Container from "../../../components/Shared/Container";
-import { listOfShows } from "../../../api/api";
+import { listOfShows } from "../../../api/moviesAndShowsApi";
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa6";
 

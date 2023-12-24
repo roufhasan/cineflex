@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper/modules";
-import { getPhotos } from "../../../api/api";
+import { getPhotos } from "../../../api/personApi";
 import "swiper/css";
 
 const Photos = ({ id }) => {

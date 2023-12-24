@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCredits } from "../../../api/api";
+import { getCredits } from "../../../api/personApi";
 import { FaStar } from "react-icons/fa6";
 import { IoEllipsisHorizontalCircle } from "react-icons/io5";
 import ErrorImage from "../../../assets/icons/image-error.png";

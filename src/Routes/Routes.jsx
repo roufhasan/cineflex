@@ -5,6 +5,7 @@ import MovieDetails from "../Pages/MovieDetails/MovieDetails";
 import MovieLists from "../Pages/MovieLists/MovieLists";
 import PersonDetails from "../Pages/PersonDetails/PersonDetails/PersonDetails";
 import SearchResults from "../Pages/SearchResults/SearchResults";
+import Login from "../Pages/Login/Login";
 
 export const router = createBrowserRouter([
   {
@@ -103,7 +104,7 @@ export const router = createBrowserRouter([
         path: "/search/:category/:query",
         element: <SearchResults />,
       },
-
+      // ==> Movie, Tv Shows & Person Details Page <==
       {
         path: "/movie/:id",
         element: <MovieDetails />,
@@ -133,6 +134,11 @@ export const router = createBrowserRouter([
               import.meta.env.VITE_API_KEY
             }`
           ),
+      },
+      // ==> Login & Sign Up <==
+      {
+        path: "/login",
+        element: <Login />,
       },
     ],
   },
