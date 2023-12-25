@@ -68,7 +68,7 @@ const MovieDetails = () => {
       <div
         style={{
           background: `linear-gradient(to left,rgba(22,24,29,0.8), rgba(22,24,29,0.4)),url(${`https://image.tmdb.org/t/p/w200${backdrop_path}?api_key=${
-            import.meta.env.VITE_API_KEY
+            import.meta.env.VITE_TMDB_API_KEY
           }`}) center/cover no-repeat`,
         }}
         className="h-full md:h-[96vh] md:max-h-[1080px] flex items-center"
@@ -230,7 +230,7 @@ const MovieDetails = () => {
                         actor.profile_path
                           ? `https://image.tmdb.org/t/p/w200${
                               actor.profile_path
-                            }?api_key=${import.meta.env.VITE_API_KEY}`
+                            }?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
                           : AvatarImg
                       }
                       alt=""

@@ -33,7 +33,7 @@ const PersonSlider = ({ personData }) => {
                   <img
                     src={`https://image.tmdb.org/t/p/w500${
                       person.profile_path
-                    }?api_key=${import.meta.env.VITE_API_KEY}`}
+                    }?api_key=${import.meta.env.VITE_TMDB_API_KEY}`}
                     alt=""
                     className="h-full w-full"
                   />

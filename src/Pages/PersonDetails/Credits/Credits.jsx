@@ -68,7 +68,7 @@ const Credits = ({ id }) => {
                       credit.poster_path
                         ? `https://image.tmdb.org/t/p/w200${
                             credit.poster_path
-                          }?api_key=${import.meta.env.VITE_API_KEY}`
+                          }?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
                         : ErrorImage
                     }
                     alt={

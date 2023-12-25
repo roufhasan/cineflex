@@ -1,18 +1,32 @@
 import { useForm } from "react-hook-form";
 import Container from "../../components/Shared/Container";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const SignUp = () => {
+  const { createUser, loading } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
   const [togglePass, setTogglePass] = useState(false);
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    if (data) {
+      createUser(data.email, data.password)
+        .then((res) => {
+          const loggedUser = res.user;
+          console.log(loggedUser);
+        })
+        .catch((err) => {
+          const errCode = err.code;
+          const errMsg = err.message;
+          console.log(errCode, errMsg);
+        });
+    }
+  };
 
   return (
     <Container px="5%">
@@ -25,7 +39,11 @@ const SignUp = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label htmlFor="name" className="w-full block mb-2">
-                Name
+                {errors.name?.type === "required" ? (
+                  <span className="text-custom-orange">Name is required *</span>
+                ) : (
+                  "Name"
+                )}
               </label>
               <input
                 className="w-full h-14 text-black px-4 rounded-md outline-none"
@@ -47,7 +65,13 @@ const SignUp = () => {
             </div>
             <div>
               <label htmlFor="email" className="w-full block mb-2">
-                Email address
+                {errors.email?.type === "required" ? (
+                  <span className="text-custom-orange">
+                    Email is required *
+                  </span>
+                ) : (
+                  "Email"
+                )}
               </label>
               <input
                 className="w-full h-14 text-black px-4 rounded-md outline-none"
@@ -58,7 +82,17 @@ const SignUp = () => {
             </div>
             <div className="my-6">
               <div className="w-full flex justify-between mb-2">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">
+                  {errors.password?.type === "pattern" ||
+                  errors.password?.type === "required" ? (
+                    <span className="text-sm text-custom-orange">
+                      Password must be min 8 characters, at least one uppercase
+                      one lowercase and one number *
+                    </span>
+                  ) : (
+                    "Password"
+                  )}
+                </label>
                 {togglePass ? (
                   <span
                     onClick={() => setTogglePass(!togglePass)}
@@ -79,14 +113,21 @@ const SignUp = () => {
                 className="w-full h-14 text-black px-4 rounded-md outline-none"
                 type={togglePass ? "text" : "password"}
                 id="password"
-                {...register("password", { required: true, min: 8 })}
+                {...register("password", {
+                  required: true,
+                  pattern: /(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}/,
+                })}
               />
             </div>
-            <input
-              className="w-full h-14 block text-[22px] font-medium bg-custom-orange rounded-md cursor-pointer"
+            <button
+              disabled={loading}
+              className={`w-full h-14 block text-[22px] font-medium rounded-md cursor-pointer ${
+                loading ? "bg-gray-500" : "bg-custom-orange"
+              }`}
               type="submit"
-              value="Sign Up"
-            />
+            >
+              Sign Up
+            </button>
           </form>
           <div className="text-sm md:text-base text-center mt-16">
             <Link to="/login" className="capitalize underline font-medium">

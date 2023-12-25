@@ -28,7 +28,7 @@ const Biography = ({ personDetails }) => {
       <div className="md:w-1/4">
         <img
           src={`https://image.tmdb.org/t/p/w400${profile_path}?api_key=${
-            import.meta.env.VITE_API_KEY
+            import.meta.env.VITE_TMDB_API_KEY
           }`}
           alt={`poster of ${name}`}
           loading="lazy"

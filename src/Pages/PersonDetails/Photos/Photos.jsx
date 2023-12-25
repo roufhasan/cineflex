@@ -50,7 +50,7 @@ const Photos = ({ id }) => {
                   loading="lazy"
                   src={`https://image.tmdb.org/t/p/w300${
                     photo.file_path
-                  }?api_key=${import.meta.env.VITE_API_KEY}`}
+                  }?api_key=${import.meta.env.VITE_TMDB_API_KEY}`}
                 />
               </SwiperSlide>
             ))}
@@ -64,7 +64,7 @@ const Photos = ({ id }) => {
                   loading="lazy"
                   src={`https://image.tmdb.org/t/p/w300${
                     photo.file_path
-                  }?api_key=${import.meta.env.VITE_API_KEY}`}
+                  }?api_key=${import.meta.env.VITE_TMDB_API_KEY}`}
                 />
               </SwiperSlide>
             ))}
@@ -75,7 +75,7 @@ const Photos = ({ id }) => {
                   loading="lazy"
                   src={`https://image.tmdb.org/t/p/w300${
                     photos[0]?.file_path
-                  }?api_key=${import.meta.env.VITE_API_KEY}`}
+                  }?api_key=${import.meta.env.VITE_TMDB_API_KEY}`}
                 />
                 <div className="absolute top-0 left-0 backdrop-blur-2xl bg-white/10 w-full h-full flex items-center justify-center">
                   <button onClick={() => setAllImages(true)}>

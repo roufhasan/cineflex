@@ -49,7 +49,7 @@ const SearchResults = () => {
                     result.poster_path || result.profile_path
                       ? `https://image.tmdb.org/t/p/w500${
                           result?.poster_path || result?.profile_path
-                        }?api_key=${import.meta.env.VITE_API_KEY}`
+                        }?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
                       : CardImg
                   }
                   alt={`poster of ${result.title ? result.title : result.name}`}

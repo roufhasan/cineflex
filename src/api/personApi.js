@@ -2,7 +2,7 @@
 export const popularPersons = async () => {
   const res = await fetch(
     `https://api.themoviedb.org/3/person/popular?api_key=${
-      import.meta.env.VITE_API_KEY
+      import.meta.env.VITE_TMDB_API_KEY
     }`
   );
   const data = await res.json();
@@ -13,7 +13,7 @@ export const popularPersons = async () => {
 export const externalIds = async (id) => {
   const res = await fetch(
     `https://api.themoviedb.org/3/person/${id}/external_ids?api_key=${
-      import.meta.env.VITE_API_KEY
+      import.meta.env.VITE_TMDB_API_KEY
     }`
   );
   const data = await res.json();
@@ -24,7 +24,7 @@ export const externalIds = async (id) => {
 export const getPhotos = async (id) => {
   const res = await fetch(
     `https://api.themoviedb.org/3/person/${id}/images?api_key=${
-      import.meta.env.VITE_API_KEY
+      import.meta.env.VITE_TMDB_API_KEY
     }`
   );
   const data = await res.json();
@@ -36,7 +36,7 @@ export const getCredits = async (id, apiPath) => {
   const res = await fetch(
     `https://api.themoviedb.org/3/person/${id}/${
       apiPath ? apiPath : "combined_credits"
-    }?api_key=${import.meta.env.VITE_API_KEY}`
+    }?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
   );
   const data = await res.json();
   return data.cast;

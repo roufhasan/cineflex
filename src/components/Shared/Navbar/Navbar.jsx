@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Logo from "../../../assets/newLogo.png";
@@ -16,12 +16,23 @@ import { BsHouseDoor } from "react-icons/bs";
 import { TbMovie } from "react-icons/tb";
 import { PiTelevisionBold } from "react-icons/pi";
 import { Menu, Transition } from "@headlessui/react";
+import { AuthContext } from "../../../Providers/AuthProvider";
+import { RiShutDownLine } from "react-icons/ri";
 
 const Navbar = () => {
+  const { user, loading, logOut, setLoading } = useContext(AuthContext);
   const [showSearchField, setShowSearchField] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [colorChange, setColorchange] = useState(false);
   const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        console.log("sign out successful");
+      })
+      .catch((err) => console.log("an error happend", err));
+  };
 
   const menuLinks = (
     <>
@@ -385,12 +396,97 @@ const Navbar = () => {
               />
             )}
 
-            <Link
-              to="/login"
-              className="hidden md:block font-medium text-white"
-            >
-              Sign In
-            </Link>
+            {user ? (
+              <Menu as="div" className="relative inline-block text-left">
+                <div>
+                  <Menu.Button>Rouf</Menu.Button>
+                </div>
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <Menu.Items className="absolute right-0 mt-2 w-40 divide-y divide-gray-100 rounded bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+                    <div className="px-1 py-1 ">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            to="/movies/popular"
+                            className={`${
+                              active
+                                ? "bg-custom-orange text-white"
+                                : "text-gray-900"
+                            } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                          >
+                            {active ? (
+                              <div className="flex w-full justify-between items-center">
+                                <p>Watchlist</p>
+                                <MdArrowForwardIos size={16} />
+                              </div>
+                            ) : (
+                              "Watchlist"
+                            )}
+                          </Link>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            to="/movies/top_rated"
+                            className={`${
+                              active
+                                ? "bg-custom-orange text-white"
+                                : "text-gray-900"
+                            } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                          >
+                            {active ? (
+                              <div className="flex w-full justify-between items-center">
+                                <p>Account</p>
+                                <MdArrowForwardIos size={16} />
+                              </div>
+                            ) : (
+                              "Account"
+                            )}
+                          </Link>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <div
+                            onClick={handleLogOut}
+                            className={`${
+                              active
+                                ? "bg-custom-orange text-white"
+                                : "text-gray-900"
+                            } group flex w-full items-center rounded-md px-2 py-2 text-sm cursor-pointer`}
+                          >
+                            {active ? (
+                              <div className="flex w-full justify-between items-center">
+                                <p>Sign out</p>
+                                <RiShutDownLine size={16} />
+                              </div>
+                            ) : (
+                              "Sign Out"
+                            )}
+                          </div>
+                        )}
+                      </Menu.Item>
+                    </div>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
+            ) : (
+              <Link
+                to="/login"
+                className="hidden md:block font-medium text-white"
+              >
+                Sign In
+              </Link>
+            )}
 
             <FaBars
               onClick={() => setShowMenu(!showMenu)}

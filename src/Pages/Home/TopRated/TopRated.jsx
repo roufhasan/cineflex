@@ -56,7 +56,7 @@ const TopRated = () => {
                       <img
                         src={`https://image.tmdb.org/t/p/w200${
                           topRated.poster_path
-                        }?api_key=${import.meta.env.VITE_API_KEY}`}
+                        }?api_key=${import.meta.env.VITE_TMDB_API_KEY}`}
                         alt={`poster of ${
                           topRated.name ? topRated.name : topRated.title
                         }`}

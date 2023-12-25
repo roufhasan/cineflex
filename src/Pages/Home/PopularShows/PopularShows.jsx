@@ -47,7 +47,7 @@ const PopularShows = () => {
                     style={{
                       backgroundImage: `linear-gradient(to top,rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)),url(${`https://image.tmdb.org/t/p/w500${
                         popularSeries.backdrop_path
-                      }?api_key=${import.meta.env.VITE_API_KEY}`}) `,
+                      }?api_key=${import.meta.env.VITE_TMDB_API_KEY}`}) `,
                     }}
                     className="bg-no-repeat bg-cover bg-center md:px-[5%] md:py-14 md:flex gap-10"
                   >
@@ -57,7 +57,7 @@ const PopularShows = () => {
                         <img
                           src={`https://image.tmdb.org/t/p/w400${
                             popularSeries.poster_path
-                          }?api_key=${import.meta.env.VITE_API_KEY}`}
+                          }?api_key=${import.meta.env.VITE_TMDB_API_KEY}`}
                           alt=""
                           className="w-full h-[500px] object-cover border-2 md:w-80 md:h-80 md:border-0 xl:h-[400px] 2xl:h-[500px]"
                         />

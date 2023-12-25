@@ -32,7 +32,7 @@ const Hero = () => {
   const getTrailers = async (id) => {
     const res = await fetch(
       `https://api.themoviedb.org/3/movie/${id}?api_key=${
-        import.meta.env.VITE_API_KEY
+        import.meta.env.VITE_TMDB_API_KEY
       }&append_to_response=credits,videos`
     );
     const data = await res.json();
@@ -81,7 +81,7 @@ const Hero = () => {
                   style={{
                     backgroundImage: `linear-gradient(to top right,rgba(22,24,29,0.85) 45%, rgba(33,36,44,0.2)),url(${`https://image.tmdb.org/t/p/original${
                       myshow.backdrop_path
-                    }?api_key=${import.meta.env.VITE_API_KEY}`})`,
+                    }?api_key=${import.meta.env.VITE_TMDB_API_KEY}`})`,
                   }}
                   className="h-full bg-no-repeat bg-cover bg-center px-[5%] relative"
                 >
@@ -152,7 +152,7 @@ const Hero = () => {
                       <img
                         src={`https://image.tmdb.org/t/p/w500${
                           myshow.poster_path
-                        }?api_key=${import.meta.env.VITE_API_KEY}`}
+                        }?api_key=${import.meta.env.VITE_TMDB_API_KEY}`}
                         alt=""
                         className="w-80 h-[500px] object-cover rounded-xl"
                         loading="lazy"

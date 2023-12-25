@@ -36,7 +36,7 @@ const MovieLists = ({ mediaType, apiPath, title }) => {
                     show.poster_path
                       ? `https://image.tmdb.org/t/p/w500${
                           show.poster_path
-                        }?api_key=${import.meta.env.VITE_API_KEY}`
+                        }?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
                       : CardImg
                   }
                   alt={`poster of ${show.title ? show.title : show.name}`}

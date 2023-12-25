@@ -112,7 +112,7 @@ export const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(
             `https://api.themoviedb.org/3/movie/${params.id}?api_key=${
-              import.meta.env.VITE_API_KEY
+              import.meta.env.VITE_TMDB_API_KEY
             }&append_to_response=credits,videos`
           ),
       },
@@ -122,7 +122,7 @@ export const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(
             `https://api.themoviedb.org/3/tv/${params.id}?api_key=${
-              import.meta.env.VITE_API_KEY
+              import.meta.env.VITE_TMDB_API_KEY
             }&append_to_response=credits,videos`
           ),
       },
@@ -132,7 +132,7 @@ export const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(
             `https://api.themoviedb.org/3/person/${params.id}?api_key=${
-              import.meta.env.VITE_API_KEY
+              import.meta.env.VITE_TMDB_API_KEY
             }`
           ),
       },

@@ -9,7 +9,7 @@ export const similarMoviesApi = async (id, name) => {
   const res = await fetch(
     `https://api.themoviedb.org/3/${
       name ? "tv" : "movie"
-    }/${id}/similar?api_key=${import.meta.env.VITE_API_KEY}`
+    }/${id}/similar?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
   );
   const data = await res.json();
   return data.results;
@@ -25,7 +25,7 @@ Movies & Tv-Shows API's
 export const listOfShows = async (mediaType, apiPath) => {
   const res = await fetch(
     `https://api.themoviedb.org/3/${mediaType}/${apiPath}?api_key=${
-      import.meta.env.VITE_API_KEY
+      import.meta.env.VITE_TMDB_API_KEY
     }`
   );
   const data = await res.json();
@@ -44,7 +44,7 @@ export const trendingLists = async (trendingType, time_window) => {
   const url = `https://api.themoviedb.org/3/trending/${
     trendingType ? trendingType : "movie"
   }/${time_window ? time_window : "day"}?&api_key=${
-    import.meta.env.VITE_API_KEY
+    import.meta.env.VITE_TMDB_API_KEY
   }`;
 
   const res = await fetch(url);
