@@ -6,6 +6,7 @@ import MovieLists from "../Pages/MovieLists/MovieLists";
 import PersonDetails from "../Pages/PersonDetails/PersonDetails/PersonDetails";
 import SearchResults from "../Pages/SearchResults/SearchResults";
 import Login from "../Pages/Login/Login";
+import SignUp from "../Pages/SignUp/SignUp";
 
 export const router = createBrowserRouter([
   {
@@ -139,6 +140,10 @@ export const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <SignUp />,
       },
     ],
   },
