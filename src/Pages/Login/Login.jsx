@@ -4,16 +4,18 @@ import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import GitHubIcon from "../../assets/icons/github-icon.svg";
 
 const Login = () => {
-  const { user, loading, setLoading, signIn } = useContext(AuthContext);
+  const { signIn, googleSignIn, gitHubSignIn } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
   const [togglePass, setTogglePass] = useState(false);
+
+  // Email Password Sign In
   const onSubmit = (data) => {
     signIn(data.email, data.password)
       .then((res) => {
@@ -21,9 +23,34 @@ const Login = () => {
         console.log(loggedUser);
       })
       .catch((err) => {
-        const errCode = err.code;
         const errMsg = err.message;
-        console.log(errCode, errMsg);
+        console.log(errMsg);
+      });
+  };
+
+  // Sign in with google
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then((res) => {
+        const loggedUser = res.user;
+        console.log(loggedUser);
+      })
+      .catch((err) => {
+        const errMsg = err.message;
+        console.log(errMsg);
+      });
+  };
+
+  // Sign in with GitHub
+  const handlegitHubSignIn = () => {
+    gitHubSignIn()
+      .then((res) => {
+        const loggedUser = res.user;
+        console.log(loggedUser);
+      })
+      .catch((err) => {
+        const errMsg = err.message;
+        console.log(errMsg);
       });
   };
 
@@ -105,7 +132,10 @@ const Login = () => {
             Or
           </div>
           <div className="w-full">
-            <button className="w-full h-14 flex items-center justify-center gap-4 px-12 mt-2 border rounded-full">
+            <button
+              onClick={handleGoogleSignIn}
+              className="w-full h-14 flex items-center justify-center gap-4 px-12 mt-2 border rounded-full"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -132,21 +162,16 @@ const Login = () => {
               </svg>
               <p className="md:text-xl">Continue with Google</p>
             </button>
-            <button className="w-full h-14 flex items-center justify-center gap-4 px-12 my-6 border rounded-full">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="33"
-                viewBox="0 0 32 33"
-                fill="none"
-              >
-                <circle cx="16" cy="16.5" r="14" fill="#0C82EE" />
-                <path
-                  d="M21.2137 20.7816L21.8356 16.8301H17.9452V14.267C17.9452 13.1857 18.4877 12.1311 20.2302 12.1311H22V8.76699C22 8.76699 20.3945 8.5 18.8603 8.5C15.6548 8.5 13.5617 10.3929 13.5617 13.8184V16.8301H10V20.7816H13.5617V30.3345C14.2767 30.444 15.0082 30.5 15.7534 30.5C16.4986 30.5 17.2302 30.444 17.9452 30.3345V20.7816H21.2137Z"
-                  fill="white"
-                />
-              </svg>
-              <p className="md:text-xl">Continue with Facebook</p>
+            <button
+              onClick={handlegitHubSignIn}
+              className="w-full h-14 flex items-center justify-center gap-4 px-12 my-6 border rounded-full"
+            >
+              <img
+                src={GitHubIcon}
+                alt="github icon"
+                className="w-9 h-9 object-cover"
+              />
+              <p className="md:text-xl">Continue with GitHub</p>
             </button>
             <Link
               to="/signup"

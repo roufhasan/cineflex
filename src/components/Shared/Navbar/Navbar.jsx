@@ -18,9 +18,10 @@ import { PiTelevisionBold } from "react-icons/pi";
 import { Menu, Transition } from "@headlessui/react";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import { RiShutDownLine } from "react-icons/ri";
+import { FaCircleUser } from "react-icons/fa6";
 
 const Navbar = () => {
-  const { user, loading, logOut, setLoading } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const [showSearchField, setShowSearchField] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [colorChange, setColorchange] = useState(false);
@@ -399,7 +400,24 @@ const Navbar = () => {
             {user ? (
               <Menu as="div" className="relative inline-block text-left">
                 <div>
-                  <Menu.Button>Rouf</Menu.Button>
+                  <Menu.Button className="flex items-center gap-2">
+                    <div>
+                      {user.photoURL ? (
+                        <img
+                          src={user.photoURL}
+                          alt=""
+                          className="w-9 h-9 object-cover rounded-full"
+                        />
+                      ) : (
+                        <FaCircleUser size={30} />
+                      )}
+                    </div>
+                    <p>
+                      {user.displayName
+                        ? user.displayName.split(" ")[0]
+                        : "Mr. X"}
+                    </p>
+                  </Menu.Button>
                 </div>
                 <Transition
                   as={Fragment}
@@ -415,7 +433,7 @@ const Navbar = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to="/movies/popular"
+                            to="/watchlist"
                             className={`${
                               active
                                 ? "bg-custom-orange text-white"

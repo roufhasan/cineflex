@@ -2,28 +2,76 @@ import { useForm } from "react-hook-form";
 import Container from "../../components/Shared/Container";
 import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 
 const SignUp = () => {
-  const { createUser, loading } = useContext(AuthContext);
+  const { createUser, loading, updateUserProfile } = useContext(AuthContext);
+  const [togglePass, setTogglePass] = useState(false);
+  const navigate = useNavigate();
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [togglePass, setTogglePass] = useState(false);
+
   const onSubmit = (data) => {
-    if (data) {
+    // ==> Create and update name and profile image <==
+    if (data && data.image.length > 0) {
+      const image = data.image[0];
+      const formData = new FormData();
+      formData.append("image", image);
+
+      const url = `https://api.imgbb.com/1/upload?key=${
+        import.meta.env.VITE_Image_Upload_API_Key
+      }`;
+
+      // Image Upload
+      fetch(url, {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((imageData) => {
+          const imageURL = imageData.data.display_url;
+
+          // Create User
+          createUser(data.email, data.password)
+            .then((res) => {
+              const loggedUser = res.user;
+              console.log(loggedUser);
+
+              // Update User Name and Profile Photo
+              updateUserProfile(data.name, imageURL)
+                .then(() => {
+                  reset();
+                  navigate("/");
+                })
+                .catch((err) => console.log(err.message));
+            })
+            .catch((err) => console.log(err.message));
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
+    // ==> Create and Update name <==
+    else {
       createUser(data.email, data.password)
         .then((res) => {
           const loggedUser = res.user;
           console.log(loggedUser);
+          updateUserProfile(data.name)
+            .then(() => {
+              reset();
+              navigate("/");
+            })
+            .catch((err) => console.log(err.message));
         })
         .catch((err) => {
-          const errCode = err.code;
           const errMsg = err.message;
-          console.log(errCode, errMsg);
+          console.log(errMsg);
         });
     }
   };
@@ -53,14 +101,15 @@ const SignUp = () => {
               />
             </div>
             <div className="my-6">
-              <label htmlFor="photo" className="block mb-2">
+              <label htmlFor="image" className="block mb-2">
                 Profile Photo
               </label>
               <input
                 className="w-full bg-white text-gray-400 rounded-md cursor-pointer file:h-14 file:px-6 file:bg-custom-orange file:border-none file:cursor-pointer"
                 type="file"
-                id="photo"
-                {...register("photo")}
+                id="image"
+                accept="image/*"
+                {...register("image")}
               />
             </div>
             <div>
