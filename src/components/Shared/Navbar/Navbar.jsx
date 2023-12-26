@@ -9,6 +9,8 @@ import {
   FaFireFlameCurved,
   FaHourglass,
   FaMagnifyingGlass,
+  FaRegBookmark,
+  FaRegUser,
   FaXmark,
 } from "react-icons/fa6";
 import { MdArrowForwardIos } from "react-icons/md";
@@ -23,7 +25,7 @@ import { FaCircleUser } from "react-icons/fa6";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [showSearchField, setShowSearchField] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(true);
   const [colorChange, setColorchange] = useState(false);
   const navigate = useNavigate();
 
@@ -37,7 +39,45 @@ const Navbar = () => {
 
   const menuLinks = (
     <>
-      <ul className="text-white font-Roboto flex flex-col gap-y-[10px] pt-12 px-8">
+      <ul className="text-white font-Roboto flex flex-col gap-y-[10px] pt-8 px-8 md:hidden min-h-full overflow-y-scroll">
+        {user ? (
+          <>
+            <li className="text-center">
+              <img
+                src={user.photoURL}
+                alt=""
+                className="w-9 h-9 object-cover rounded-full mx-auto mb-1"
+              />
+              <p className="text-xl font-medium">
+                {user.displayName.split(" ")[0]}
+              </p>
+            </li>
+            <li>
+              <NavLink to="/" className="flex items-center gap-2 text-sm">
+                <FaRegBookmark />
+                Wacthlist
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/" className="flex items-center gap-2 text-sm">
+                <FaRegUser />
+                Account
+              </NavLink>
+            </li>
+          </>
+        ) : (
+          <li>
+            <NavLink
+              to="/login"
+              className="flex items-center justify-center gap-2 bg-[#f98616] rounded mb-4"
+            >
+              Sign In
+            </NavLink>
+          </li>
+        )}
+        <li className="mt-3 font-semibold border-b-2 border-custom-orange">
+          Menu
+        </li>
         <li>
           <NavLink to="/" className="flex items-center gap-2 text-sm">
             <BsHouseDoor />
@@ -122,12 +162,12 @@ const Navbar = () => {
             Upcoming
           </NavLink>
         </li>
-        <li className="mt-[calc(100vh-420px)]">
+        <li>
           <NavLink
             to="/login"
-            className="flex items-center justify-center gap-2 bg-[#f98616] rounded py-1"
+            className="flex items-center justify-center gap-2 bg-[#f98616] rounded mb-4"
           >
-            Sign In
+            Sign Out
           </NavLink>
         </li>
       </ul>
@@ -398,7 +438,10 @@ const Navbar = () => {
             )}
 
             {user ? (
-              <Menu as="div" className="relative inline-block text-left">
+              <Menu
+                as="div"
+                className="relative text-left hidden md:inline-block"
+              >
                 <div>
                   <Menu.Button className="flex items-center gap-2">
                     <div>
@@ -559,7 +602,7 @@ const Navbar = () => {
         {showMenu && (
           <motion.div
             onClick={() => setShowMenu(!showMenu)}
-            className="fixed right-0 -top-6 bg-black/30  w-screen h-screen py-6 z-10 flex justify-end"
+            className="fixed right-0 -top-6 bg-black/30 w-screen min-h-full py-6 z-10 flex justify-end overflow-y-scroll md:hidden"
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{
@@ -568,7 +611,9 @@ const Navbar = () => {
               ease: [0, 0.71, 0.2, 1.01],
             }}
           >
-            <div className="backdrop-blur h-screen w-[50%]">{menuLinks}</div>
+            <div className="backdrop-blur h-screen min-h-full w-[50%] overflow-y-scroll">
+              {menuLinks}
+            </div>
           </motion.div>
         )}
       </div>

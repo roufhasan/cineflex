@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
+import { motion } from "framer-motion";
 
 const SignUp = () => {
   const { createUser, loading, updateUserProfile } = useContext(AuthContext);
@@ -168,15 +169,16 @@ const SignUp = () => {
                 })}
               />
             </div>
-            <button
+            <motion.button
               disabled={loading}
               className={`w-full h-14 block text-[22px] font-medium rounded-md cursor-pointer ${
                 loading ? "bg-gray-500" : "bg-custom-orange"
               }`}
               type="submit"
+              whileTap={{ scale: 0.9 }}
             >
               Sign Up
-            </button>
+            </motion.button>
           </form>
           <div className="text-sm md:text-base text-center mt-16">
             <Link to="/login" className="capitalize underline font-medium">

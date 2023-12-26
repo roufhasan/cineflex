@@ -3,15 +3,17 @@ import Container from "../../components/Shared/Container";
 import { FaPlay, FaPlus, FaRegCalendar, FaStar } from "react-icons/fa6";
 import { LuClock } from "react-icons/lu";
 import { PiTelevision } from "react-icons/pi";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import YouTube from "react-youtube";
 import Slider from "../../components/Slider/Slider";
 import AvatarImg from "../../assets/avatar.png";
 import CardImg from "../../assets/movie-card.jpg";
 import { motion } from "framer-motion";
 import { similarMoviesApi } from "../../api/moviesAndShowsApi";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const MovieDetails = () => {
+  const { user } = useContext(AuthContext);
   const movies = useLoaderData();
   const {
     backdrop_path,
@@ -181,9 +183,18 @@ const MovieDetails = () => {
                       <FaPlay></FaPlay>play trailer
                     </button>
                   )}
-                  <button className="bg-black/40 border-2 px-6 py-3 rounded-md font-medium flex items-center gap-x-1 uppercase text-sm">
-                    <FaPlus /> Watchlist
-                  </button>
+                  {user ? (
+                    <button className="bg-black/40 border-2 px-6 py-3 rounded-md font-medium flex items-center gap-x-1 uppercase text-sm">
+                      <FaPlus /> Watchlist
+                    </button>
+                  ) : (
+                    <Link
+                      to="/login"
+                      className="bg-black/40 border-2 px-6 py-3 rounded-md font-medium flex items-center gap-x-1 uppercase text-sm"
+                    >
+                      <FaPlus /> Watchlist
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

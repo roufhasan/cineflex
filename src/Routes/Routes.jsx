@@ -7,6 +7,8 @@ import PersonDetails from "../Pages/PersonDetails/PersonDetails/PersonDetails";
 import SearchResults from "../Pages/SearchResults/SearchResults";
 import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
+import PrivateRoute from "./PrivateRoute";
+import WatchList from "../Pages/WatchList/WatchList";
 
 export const router = createBrowserRouter([
   {
@@ -144,6 +146,14 @@ export const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp />,
+      },
+      {
+        path: "/watchlist",
+        element: (
+          <PrivateRoute>
+            <WatchList />
+          </PrivateRoute>
+        ),
       },
     ],
   },

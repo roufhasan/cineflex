@@ -1,19 +1,23 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Container from "../../components/Shared/Container";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import GitHubIcon from "../../assets/icons/github-icon.svg";
+import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 const Login = () => {
-  const { signIn, googleSignIn, gitHubSignIn } = useContext(AuthContext);
+  const { loading, setLoading, signIn, googleSignIn, gitHubSignIn } =
+    useContext(AuthContext);
+  const [togglePass, setTogglePass] = useState(false);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [togglePass, setTogglePass] = useState(false);
 
   // Email Password Sign In
   const onSubmit = (data) => {
@@ -21,10 +25,14 @@ const Login = () => {
       .then((res) => {
         const loggedUser = res.user;
         console.log(loggedUser);
+        navigate(-1);
+        toast.success("Login Successful!");
       })
       .catch((err) => {
         const errMsg = err.message;
         console.log(errMsg);
+        setLoading(false);
+        toast.error("Something went wrong!!");
       });
   };
 
@@ -34,10 +42,13 @@ const Login = () => {
       .then((res) => {
         const loggedUser = res.user;
         console.log(loggedUser);
+        navigate(-1);
+        toast.success("Login Successful!");
       })
       .catch((err) => {
         const errMsg = err.message;
         console.log(errMsg);
+        toast.error("Something went wrong!!");
       });
   };
 
@@ -47,10 +58,13 @@ const Login = () => {
       .then((res) => {
         const loggedUser = res.user;
         console.log(loggedUser);
+        navigate(-1);
+        toast.success("Login Successful!");
       })
       .catch((err) => {
         const errMsg = err.message;
         console.log(errMsg);
+        toast.error("Something went wrong!!");
       });
   };
 
@@ -121,20 +135,26 @@ const Login = () => {
                   })}
                 />
               </div>
-              <input
-                className="w-full h-14 block text-[22px] font-medium bg-custom-orange rounded-md cursor-pointer"
+              <motion.button
+                className={`w-full h-14 block text-[22px] font-medium rounded-md cursor-pointer ${
+                  loading ? "bg-gray-500" : "bg-custom-orange"
+                }`}
                 type="submit"
-                value="Sign In"
-              />
+                disabled={loading}
+                whileTap={{ scale: 0.9 }}
+              >
+                Sign In
+              </motion.button>
             </form>
           </div>
           <div className="w-full divider lg:divider-horizontal uppercase mt-16 mb-10 md:my-0 before:bg-gray-400 after:bg-gray-400">
             Or
           </div>
           <div className="w-full">
-            <button
+            <motion.button
               onClick={handleGoogleSignIn}
               className="w-full h-14 flex items-center justify-center gap-4 px-12 mt-2 border rounded-full"
+              whileTap={{ scale: 0.9 }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -161,10 +181,11 @@ const Login = () => {
                 />
               </svg>
               <p className="md:text-xl">Continue with Google</p>
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               onClick={handlegitHubSignIn}
               className="w-full h-14 flex items-center justify-center gap-4 px-12 my-6 border rounded-full"
+              whileTap={{ scale: 0.9 }}
             >
               <img
                 src={GitHubIcon}
@@ -172,37 +193,39 @@ const Login = () => {
                 className="w-9 h-9 object-cover"
               />
               <p className="md:text-xl">Continue with GitHub</p>
-            </button>
-            <Link
-              to="/signup"
-              className="w-full h-14 flex items-center justify-center gap-4 px-12 border rounded-full"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="25"
-                viewBox="0 0 24 25"
-                fill="none"
+            </motion.button>
+            <motion.div whileTap={{ scale: 0.9 }}>
+              <Link
+                to="/signup"
+                className="w-full h-14 flex items-center justify-center gap-4 px-12 border rounded-full"
               >
-                <g clipPath="url(#clip0_119_331)">
-                  <path
-                    d="M20 4.5H4C2.9 4.5 2.01 5.4 2.01 6.5L2 18.5C2 19.6 2.9 20.5 4 20.5H20C21.1 20.5 22 19.6 22 18.5V6.5C22 5.4 21.1 4.5 20 4.5ZM20 8.5L12 13.5L4 8.5V6.5L12 11.5L20 6.5V8.5Z"
-                    fill="#fff"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_119_331">
-                    <rect
-                      width="24"
-                      height="24"
-                      fill="white"
-                      transform="translate(0 0.5)"
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="25"
+                  viewBox="0 0 24 25"
+                  fill="none"
+                >
+                  <g clipPath="url(#clip0_119_331)">
+                    <path
+                      d="M20 4.5H4C2.9 4.5 2.01 5.4 2.01 6.5L2 18.5C2 19.6 2.9 20.5 4 20.5H20C21.1 20.5 22 19.6 22 18.5V6.5C22 5.4 21.1 4.5 20 4.5ZM20 8.5L12 13.5L4 8.5V6.5L12 11.5L20 6.5V8.5Z"
+                      fill="#fff"
                     />
-                  </clipPath>
-                </defs>
-              </svg>
-              <p className="md:text-xl">Continue with Email</p>
-            </Link>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_119_331">
+                      <rect
+                        width="24"
+                        height="24"
+                        fill="white"
+                        transform="translate(0 0.5)"
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>
+                <p className="md:text-xl">Continue with Email</p>
+              </Link>
+            </motion.div>
           </div>
         </div>
         <div className="text-sm md:text-base text-center mt-16">
