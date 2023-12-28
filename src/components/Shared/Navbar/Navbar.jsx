@@ -21,6 +21,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import { RiShutDownLine } from "react-icons/ri";
 import { FaCircleUser } from "react-icons/fa6";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -32,15 +33,16 @@ const Navbar = () => {
   const handleLogOut = () => {
     logOut()
       .then(() => {
-        console.log("sign out successful");
+        toast.success("Logged out!");
       })
-      .catch((err) => console.log("an error happend", err));
+      .catch((error) => console.log(error.message));
   };
 
+  /* Mobile Sidebar Menu Lists */
   const menuLinks = (
     <>
       <ul className="text-white font-Roboto flex flex-col gap-y-[10px] pt-8 px-8 md:hidden min-h-full overflow-y-scroll">
-        {user ? (
+        {user && (
           <>
             <li className="text-center">
               <img
@@ -53,27 +55,24 @@ const Navbar = () => {
               </p>
             </li>
             <li>
-              <NavLink to="/" className="flex items-center gap-2 text-sm">
+              <NavLink
+                to="/watchlist"
+                className="flex items-center gap-2 text-sm"
+              >
                 <FaRegBookmark />
                 Wacthlist
               </NavLink>
             </li>
             <li>
-              <NavLink to="/" className="flex items-center gap-2 text-sm">
+              <NavLink
+                to="/account"
+                className="flex items-center gap-2 text-sm"
+              >
                 <FaRegUser />
                 Account
               </NavLink>
             </li>
           </>
-        ) : (
-          <li>
-            <NavLink
-              to="/login"
-              className="flex items-center justify-center gap-2 bg-[#f98616] rounded mb-4"
-            >
-              Sign In
-            </NavLink>
-          </li>
         )}
         <li className="mt-3 font-semibold border-b-2 border-custom-orange">
           Menu
@@ -156,20 +155,29 @@ const Navbar = () => {
         <li>
           <NavLink
             to="/tv-shows/on_the_air"
-            className="flex items-center gap-2 text-sm"
+            className="flex items-center gap-2 text-sm mb-4"
           >
             <FaHourglass color="#fff" />
             Upcoming
           </NavLink>
         </li>
-        <li>
-          <NavLink
-            to="/login"
-            className="flex items-center justify-center gap-2 bg-[#f98616] rounded mb-4"
+        {user ? (
+          <li
+            onClick={handleLogOut}
+            className="flex items-center justify-center gap-2 bg-[#f98616] rounded mb-4 cursor-pointer"
           >
             Sign Out
-          </NavLink>
-        </li>
+          </li>
+        ) : (
+          <li>
+            <NavLink
+              to="/login"
+              className="flex items-center justify-center gap-2 bg-[#f98616] rounded mb-4"
+            >
+              Sign In
+            </NavLink>
+          </li>
+        )}
       </ul>
     </>
   );
@@ -183,6 +191,7 @@ const Navbar = () => {
   };
   window.addEventListener("scroll", changeNavbarColor);
 
+  // Search for movies/shows/people/all
   const handleSearch = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -200,16 +209,20 @@ const Navbar = () => {
             colorChange ? "bg-blue-gray" : "bg-transparent"
           }`}
         >
+          {/* Logo */}
           <div>
             <Link to="/">
               <img className="w-32 sm:w-40" src={Logo} alt="cineflex logo" />
             </Link>
           </div>
+
+          {/* Desktop Drop-Down Menu Links */}
           <div>
             <ul className="text-white font-Roboto font-medium hidden md:flex gap-x-4 items-end">
               <li>
                 <NavLink to="/">Home</NavLink>
               </li>
+              {/* Movies Drop-Down Menu */}
               <li>
                 <Menu as="div" className="relative inline-block text-left">
                   <div>
@@ -315,6 +328,8 @@ const Navbar = () => {
                   </Transition>
                 </Menu>
               </li>
+
+              {/* TV Shows Drop-Down Menu */}
               <li>
                 <Menu as="div" className="relative inline-block text-left">
                   <div>
@@ -422,6 +437,8 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
+
+          {/* Desktop toggle search filed & sign-in / user-profile dropdown */}
           <div className="relative flex items-center gap-x-6">
             {showSearchField ? (
               <FaXmark
@@ -437,6 +454,7 @@ const Navbar = () => {
               />
             )}
 
+            {/* User profile dropdown / sign in */}
             {user ? (
               <Menu
                 as="div"
@@ -549,6 +567,7 @@ const Navbar = () => {
               </Link>
             )}
 
+            {/* Mobile Devices Toggle Menu Icon */}
             <FaBars
               onClick={() => setShowMenu(!showMenu)}
               size={20}
@@ -556,6 +575,8 @@ const Navbar = () => {
             />
           </div>
         </nav>
+
+        {/* Search Field */}
         {showSearchField && (
           <motion.div
             className={`w-full max-w-[1920px] text-black px-[5%] py-4 mx-auto rounded fixed top-12 sm:top-16 z-10 ${
@@ -599,6 +620,8 @@ const Navbar = () => {
             </form>
           </motion.div>
         )}
+
+        {/* Mobile Devices Menu */}
         {showMenu && (
           <motion.div
             onClick={() => setShowMenu(!showMenu)}
@@ -611,7 +634,7 @@ const Navbar = () => {
               ease: [0, 0.71, 0.2, 1.01],
             }}
           >
-            <div className="backdrop-blur h-screen min-h-full w-[50%] overflow-y-scroll">
+            <div className="backdrop-blur h-screen min-h-full w-[55%] overflow-y-scroll">
               {menuLinks}
             </div>
           </motion.div>
