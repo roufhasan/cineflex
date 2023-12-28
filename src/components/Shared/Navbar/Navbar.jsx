@@ -198,7 +198,7 @@ const Navbar = () => {
     const category = form.category.value;
     const query = form.searchValue.value;
     if (query.length === 0) {
-      toast.error("Please enter name!!");
+      toast.error("Search field can't be empty!!");
       return;
     }
     navigate(`/search/${category.toLowerCase()}/${query.toLowerCase()}`);

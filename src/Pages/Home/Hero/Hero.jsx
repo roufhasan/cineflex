@@ -71,7 +71,7 @@ const Hero = () => {
               ? [Pagination, Navigation]
               : [Autoplay, Pagination, Navigation]
           }
-          className="mySwiper h-screen max-h-[1080px] md:min-h-[600px]"
+          className="mySwiper min-h-[600px] h-screen max-h-[1080px]"
         >
           {movies &&
             movies.length > 0 &&
@@ -114,15 +114,18 @@ const Hero = () => {
                           </div>
                         </div>
                       </div>
-                      <p className="max-w-2xl text-base">
-                        {myshow.overview.slice(0, 170)}...
+                      <p className="max-w-2xl text-base md:hidden">
+                        {myshow.overview.split(" ").slice(0, 20).join(" ")}...
+                      </p>
+                      <p className="max-w-2xl text-base hidden md:block">
+                        {myshow.overview.split(" ").slice(0, 30).join(" ")}...
                       </p>
                       <div className="flex items-center gap-x-6">
                         <motion.div
                           onClick={() => getTrailers(myshow.id)}
                           whileHover={{ translateY: -3 }}
                           whileTap={{ scale: 0.9 }}
-                          className="flex items-center gap-x-2 bg-[#ffb43a] px-6 py-3 rounded-full font-medium cursor-pointer"
+                          className="text-sm flex items-center gap-x-2 bg-[#ffb43a] px-3 py-2 rounded-full font-medium cursor-pointer md:px-6 md:py-3"
                         >
                           <span>Watch Now</span> <FaPlay />
                         </motion.div>
@@ -132,7 +135,7 @@ const Hero = () => {
                         >
                           <Link
                             to={`/movie/${myshow.id}`}
-                            className="bg-blue-gray/40 border-2 px-6 py-3 rounded-full font-medium inline-block"
+                            className="text-sm bg-blue-gray/40 border-2 px-3 py-2 rounded-full font-medium inline-block md:px-6 md:py-3"
                           >
                             <div className="flex items-center gap-x-2">
                               <span>Details</span> <MdArrowForwardIos />
