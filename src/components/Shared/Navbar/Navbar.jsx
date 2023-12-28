@@ -594,9 +594,13 @@ const Navbar = () => {
               onSubmit={handleSearch}
               className="flex w-full bg-white items-center justify-between border"
             >
-              <select name="category" id="" className="px-3 py-3 bg-white">
+              <select
+                name="category"
+                id=""
+                className="w-[84px] bg-white pl-2 border-none outline-none"
+              >
                 <option value="movie">Movies</option>
-                <option value="tv">TV Shows</option>
+                <option value="tv">Shows</option>
                 <option value="person">Person</option>
                 <option value="multi">All</option>
               </select>
@@ -612,9 +616,9 @@ const Navbar = () => {
               <div className="">
                 <button
                   type="submit"
-                  className="inline-block p-3 md:px-6 bg-custom-orange text-custom-white font-semibold"
+                  className="inline-block pr-2 md:px-6 text-custom-white font-semibold"
                 >
-                  Search
+                  <FaMagnifyingGlass className="text-lg text-custom-orange md:text-xl" />
                 </button>
               </div>
             </form>
