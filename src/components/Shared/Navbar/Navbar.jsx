@@ -197,6 +197,10 @@ const Navbar = () => {
     const form = e.target;
     const category = form.category.value;
     const query = form.searchValue.value;
+    if (query.length === 0) {
+      toast.error("Please enter name!!");
+      return;
+    }
     navigate(`/search/${category.toLowerCase()}/${query.toLowerCase()}`);
     setShowSearchField(false);
   };
@@ -613,7 +617,7 @@ const Navbar = () => {
                   className="w-full p-3 md:px-5 outline-none border-l-2"
                 />
               </div>
-              <div className="">
+              <div>
                 <button
                   type="submit"
                   className="inline-block pr-2 md:px-6 text-custom-white font-semibold"
