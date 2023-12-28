@@ -18,14 +18,14 @@ const Card = ({ trending }) => {
           }
           alt={`${title ? title : name} movie poster`}
           loading="lazy"
-          className="w-full h-72 sm:h-[315px] md:h-[352px] 2xl:h-[384px] object-fill"
+          className="w-full h-72 sm:h-[315px] md:h-[352px] 2xl:h-[384px] object-cover rounded-xl"
         />
-        <div className="w-full h-full bg-black/40 opacity-0 group-hover:opacity-100 absolute top-0 left-0  transition ease-in-out group-hover:duration-500">
+        <div className="w-full h-full bg-black/40 opacity-0 rounded-xl absolute top-0 left-0  transition ease-in-out group-hover:opacity-100 group-hover:duration-500">
           <p className="h-full w-full grid place-items-center text-xl font-medium">
             View Details
           </p>
         </div>
-        <div className="w-full flex justify-between bg-gradient-to-t from-black/50 to-black/30 backdrop-blur-sm opacity-100 group-hover:opacity-0 px-2 py-3 absolute bottom-0 left-0 transition ease-in-out group-hover:duration-500">
+        <div className="w-full flex justify-between bg-gradient-to-t from-black/50 to-black/30 backdrop-blur-sm rounded-b-xl opacity-100 group-hover:opacity-0 px-2 py-3 absolute bottom-0 left-0 transition ease-in-out group-hover:duration-500">
           {title && (
             <>
               <p className="font-medium lg:hidden">
