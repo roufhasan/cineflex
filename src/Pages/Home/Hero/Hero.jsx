@@ -93,7 +93,7 @@ const Hero = () => {
                       className="h-full md:w-1/2 flex flex-col justify-center gap-8"
                     >
                       <div>
-                        <h1 className="text-4xl md:text-5xl leading-tight font-bold">
+                        <h1 className="text-3xl md:text-5xl leading-tight font-bold">
                           {myshow.title}
                         </h1>
                         <div className="flex items-center flex-wrap gap-x-3 gap-y-1 md:gap-x-10">
@@ -125,7 +125,7 @@ const Hero = () => {
                           onClick={() => getTrailers(myshow.id)}
                           whileHover={{ translateY: -3 }}
                           whileTap={{ scale: 0.9 }}
-                          className="text-sm flex items-center gap-x-2 bg-[#ffb43a] px-3 py-2 rounded-full font-medium cursor-pointer md:px-6 md:py-3"
+                          className="text-sm flex items-center gap-x-2 bg-[#ffb43a] p-3 rounded-full font-medium cursor-pointer md:px-6 md:py-3"
                         >
                           <span>Watch Now</span> <FaPlay />
                         </motion.div>
@@ -135,7 +135,7 @@ const Hero = () => {
                         >
                           <Link
                             to={`/movie/${myshow.id}`}
-                            className="text-sm bg-blue-gray/40 border-2 px-3 py-2 rounded-full font-medium inline-block md:px-6 md:py-3"
+                            className="text-sm bg-blue-gray/40 border-2 p-3 rounded-full font-medium inline-block md:px-6 md:py-3"
                           >
                             <div className="flex items-center gap-x-2">
                               <span>Details</span> <MdArrowForwardIos />

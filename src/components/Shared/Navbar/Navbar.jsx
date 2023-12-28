@@ -1,7 +1,7 @@
 import { Fragment, useContext, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import Logo from "../../../assets/newLogo.png";
+import Logo from "../../../assets/logo.png";
 import Container from "../Container";
 import {
   FaBars,

@@ -9,7 +9,7 @@ const PersonSlider = ({ personData }) => {
   return (
     <>
       <Swiper
-        slidesPerView={3}
+        slidesPerView={2}
         spaceBetween={30}
         freeMode={true}
         modules={[FreeMode, Navigation]}
@@ -35,7 +35,7 @@ const PersonSlider = ({ personData }) => {
                       person.profile_path
                     }?api_key=${import.meta.env.VITE_TMDB_API_KEY}`}
                     alt=""
-                    className="h-full w-full"
+                    className="h-full w-full rounded"
                   />
                 </Link>
                 <Link

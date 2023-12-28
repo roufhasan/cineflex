@@ -73,14 +73,14 @@ const MovieDetails = () => {
             import.meta.env.VITE_TMDB_API_KEY
           }`}) center/cover no-repeat`,
         }}
-        className="h-full md:h-[96vh] md:max-h-[1080px] flex items-center"
+        className="h-full min-h-[600px] flex items-center md:h-[96vh] md:max-h-[1080px]"
       >
         <div className="pt-20 md:pt-32 pb-12 w-full max-w-[1920px] mx-auto backdrop-blur-3xl md:max-h-[1080px] h-full relative">
           <Container px="5%">
             <div className="md:flex gap-10">
               {/* Movie Poster */}
               <div className="md:w-1/4">
-                <div className="w-full max-w-sm rounded-md">
+                <div className="w-full max-w-sm rounded-md mx-auto">
                   <div className="relative group">
                     <img
                       src={
@@ -178,19 +178,19 @@ const MovieDetails = () => {
                   {videos.results.length > 0 && (
                     <button
                       onClick={findOfficialTrailer}
-                      className="flex items-center gap-x-1 bg-[#ffb43a] px-6 py-3 rounded-md font-medium uppercase text-sm"
+                      className="flex items-center gap-x-1 bg-[#ffb43a] p-3 rounded-md font-medium uppercase text-sm md:px-6 md:py-3"
                     >
                       <FaPlay></FaPlay>play trailer
                     </button>
                   )}
                   {user ? (
-                    <button className="bg-black/40 border-2 px-6 py-3 rounded-md font-medium flex items-center gap-x-1 uppercase text-sm">
+                    <button className="bg-black/40 border-2 p-3 rounded-md font-medium flex items-center gap-x-1 uppercase text-sm md:px-6 md:py-3">
                       <FaPlus /> Watchlist
                     </button>
                   ) : (
                     <Link
                       to="/login"
-                      className="bg-black/40 border-2 px-6 py-3 rounded-md font-medium flex items-center gap-x-1 uppercase text-sm"
+                      className="bg-black/40 border-2 p-3 rounded-md font-medium flex items-center gap-x-1 uppercase text-sm md:px-6 md:py-3"
                     >
                       <FaPlus /> Watchlist
                     </Link>
@@ -232,7 +232,7 @@ const MovieDetails = () => {
             Top Cast
           </p>
           {credits.cast && credits.cast.length > 0 ? (
-            <div className="grid place-items-start grid-cols-2 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+            <div className="flex flex-wrap gap-10">
               {credits.cast.slice(0, 6).map((actor) => (
                 <div key={actor.id} className="text-center">
                   <Link to={`/person/${actor.id}`}>

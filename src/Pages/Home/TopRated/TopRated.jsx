@@ -61,7 +61,7 @@ const TopRated = () => {
                           topRated.name ? topRated.name : topRated.title
                         }`}
                         loading="lazy"
-                        className="w-full object-cover"
+                        className="w-full object-cover rounded"
                       />
                     </Link>
                   </div>

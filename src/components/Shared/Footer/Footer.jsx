@@ -1,5 +1,5 @@
 import FooterBg from "../../../assets/footer-bg.jpg";
-import Logo from "../../../assets/Logo.png";
+import Logo from "../../../assets/logo.png";
 import Container from "../Container";
 
 const Footer = () => {

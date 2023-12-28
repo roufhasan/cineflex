@@ -17,10 +17,15 @@ const Home = () => {
       <div className="lg:flex gap-12 px-[5%] lg:max-h-[1400px]">
         <div className="w-full lg:w-3/4">
           <PopularShows />
-          <PopularPerson />
+          <div className="hidden md:block">
+            <PopularPerson />
+          </div>
         </div>
         <div className="w-full lg:w-1/4">
           <TopRated />
+        </div>
+        <div className="md:hidden">
+          <PopularPerson />
         </div>
       </div>
     </Container>

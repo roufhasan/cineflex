@@ -59,7 +59,7 @@ const PopularShows = () => {
                             popularSeries.poster_path
                           }?api_key=${import.meta.env.VITE_TMDB_API_KEY}`}
                           alt=""
-                          className="w-full h-[500px] object-cover border-2 md:w-80 md:h-80 md:border-0 xl:h-[400px] 2xl:h-[500px]"
+                          className="w-full h-[500px] object-cover border-2 rounded md:w-80 md:h-80 md:border-0 xl:h-[400px] 2xl:h-[500px]"
                         />
                       </Link>
                       <div className="text-xl font-bold py-4 bg-black md:hidden">
