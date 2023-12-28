@@ -25,7 +25,7 @@ import { FaCircleUser } from "react-icons/fa6";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [showSearchField, setShowSearchField] = useState(false);
-  const [showMenu, setShowMenu] = useState(true);
+  const [showMenu, setShowMenu] = useState(false);
   const [colorChange, setColorchange] = useState(false);
   const navigate = useNavigate();
 
