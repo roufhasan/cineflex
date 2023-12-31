@@ -1,16 +1,57 @@
 import { FaStar } from "react-icons/fa6";
-import { BsBookmarkPlus } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { BsBookmarkDash, BsBookmarkPlus } from "react-icons/bs";
+import { Link, useNavigate } from "react-router-dom";
 import CardImg from "../../assets/movie-card.jpg";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
+import toast from "react-hot-toast";
+import useWatchlist from "../../hooks/useWatchlist";
 
 const Card = ({ trending }) => {
   const { id, title, name, poster_path, vote_average } = trending;
+  const { user } = useContext(AuthContext);
+  const [, refetch] = useWatchlist();
+  const navigate = useNavigate();
+  const [watchlistData, setWatchlistData] = useState([]);
 
-  const handleWatchlist = (title) => {
-    if (title) {
-      console.log("it is a movie");
+  useEffect(() => {
+    if (user && user.email) {
+      fetch(`http://localhost:5000/watchlist?email=${user.email}`)
+        .then((res) => res.json())
+        .then((data) => setWatchlistData(data));
+    }
+  }, [user]);
+
+  const isInWatchlist = watchlistData.find((item) => item.tmdbId === id);
+
+  const handleWatchlist = () => {
+    if (user && user.email) {
+      const watchlistItem = {
+        tmdbId: id,
+        poster_path,
+        vote_average,
+        email: user.email,
+        media_type: `${title ? "movie" : "tv"}`,
+        name: `${title ? title : name}`,
+      };
+
+      fetch("http://localhost:5000/watchlist", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(watchlistItem),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.insertedId) {
+            refetch();
+            setWatchlistData((prevData) => [...prevData, watchlistItem]);
+            toast.success("Added to watchlist");
+          }
+        });
     } else {
-      console.log("it is tv shows");
+      navigate("/login");
     }
   };
 
@@ -33,10 +74,14 @@ const Card = ({ trending }) => {
       <div className="w-full h-full bg-black/40 opacity-0 rounded-xl absolute top-0 left-0  transition ease-in-out group-hover:opacity-100 group-hover:duration-500">
         <div className="relative h-full w-full flex items-center justify-center">
           <p
-            onClick={() => handleWatchlist(title)}
+            onClick={handleWatchlist}
             className="absolute right-2 top-2 cursor-pointer"
           >
-            <BsBookmarkPlus size={32} />
+            {isInWatchlist ? (
+              <BsBookmarkDash size={32} color="red" />
+            ) : (
+              <BsBookmarkPlus size={32} />
+            )}
           </p>
           <Link
             to={name ? `/tv/${id}` : `/movie/${id}`}

@@ -22,9 +22,11 @@ import { AuthContext } from "../../../Providers/AuthProvider";
 import { RiShutDownLine } from "react-icons/ri";
 import { FaCircleUser } from "react-icons/fa6";
 import toast from "react-hot-toast";
+import useWatchlist from "../../../hooks/useWatchlist";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [watchlist] = useWatchlist();
   const [showSearchField, setShowSearchField] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [colorChange, setColorchange] = useState(false);
@@ -507,11 +509,21 @@ const Navbar = () => {
                           >
                             {active ? (
                               <div className="flex w-full justify-between items-center">
-                                <p>Watchlist</p>
+                                <p>
+                                  Watchlist
+                                  <span className="text-sm ml-1">
+                                    {watchlist?.length || 0}
+                                  </span>
+                                </p>
                                 <MdArrowForwardIos size={16} />
                               </div>
                             ) : (
-                              "Watchlist"
+                              <p>
+                                Watchlist
+                                <span className="text-custom-orange text-sm ml-1">
+                                  {watchlist?.length || 0}
+                                </span>
+                              </p>
                             )}
                           </Link>
                         )}
