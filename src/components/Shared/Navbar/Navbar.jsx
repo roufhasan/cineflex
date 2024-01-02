@@ -62,7 +62,10 @@ const Navbar = () => {
                 className="flex items-center gap-2 text-sm"
               >
                 <FaRegBookmark />
-                Wacthlist
+                Watchlist
+                <span className="text-custom-orange font-semibold">
+                  {watchlist && watchlist.length > 0 ? watchlist.length : " "}
+                </span>
               </NavLink>
             </li>
             <li>
