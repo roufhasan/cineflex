@@ -83,7 +83,7 @@ const Card = ({ trending }) => {
           className="w-full h-72 sm:h-[315px] md:h-[352px] 2xl:h-[384px] object-cover rounded-xl"
         />
       </Link>
-      <div className="w-full h-full bg-black/40 opacity-0 rounded-xl absolute top-0 left-0  transition ease-in-out group-hover:opacity-100 group-hover:duration-500">
+      <div className="w-full h-full bg-black/40 opacity-0 rounded-xl absolute top-0 left-0  transition ease-in-out group-hover:opacity-100 group-hover:duration-500 hidden md:block">
         <div className="relative h-full w-full flex items-center justify-center">
           <p
             onClick={handleWatchlist}
