@@ -24,17 +24,16 @@ const WatchList = () => {
 
   return (
     <Container px="5%">
-      <section className="pt-20 mb-12 md:pt-32">
+      <section className="pt-20 mb-12 md:pt-32 min-h-[600px] md:h-[95vh]">
         <h3 className="text-xl md:text-3xl font-bold border-l-4 border-custom-orange pl-3 mb-8">
           Your Watchlist
         </h3>
-        <ul className="md:border-2 rounded-md py-8">
-          <li className="border-b font-medium text-gray-600 pb-1 md:px-4">
-            Total Results: {watchlist.length}
-          </li>
-          {watchlist &&
-            watchlist.length > 0 &&
-            watchlist.map((list, index) => (
+        {watchlist && watchlist.length > 0 ? (
+          <ul className="md:border-2 rounded-md py-8">
+            <li className="border-b font-medium text-gray-600 pb-1 md:px-4">
+              Total Results: {watchlist.length}
+            </li>
+            {watchlist.map((list, index) => (
               <li
                 key={index}
                 className="flex gap-4 border-b last:border-b-0 py-3 px-2 md:pl-4"
@@ -76,7 +75,7 @@ const WatchList = () => {
                       className="text-lg font-bold transition-all hover:text-custom-orange/90"
                     >
                       {list.name}
-                      <span className="text-sm text-gray-400 font-normal ml-1">
+                      <span className="text-sm text-gray-400  ml-1">
                         ({list.year})
                       </span>
                     </Link>
@@ -107,7 +106,20 @@ const WatchList = () => {
                 </button>
               </li>
             ))}
-        </ul>
+          </ul>
+        ) : (
+          <div className="text-center">
+            <p className="text-xl md:text-2xl mb-2">
+              No entries in your watchlist yet?
+            </p>
+            <p>
+              <Link to="/" className="text-custom-orange">
+                Start adding your favorite movies or shows to create your
+                personalized watchlist.
+              </Link>
+            </p>
+          </div>
+        )}
       </section>
     </Container>
   );
