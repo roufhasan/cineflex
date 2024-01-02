@@ -3,9 +3,23 @@ import { Link } from "react-router-dom";
 import ErrorImage from "../../assets/icons/image-error.png";
 import { FaStar } from "react-icons/fa6";
 import useWatchlist from "../../hooks/useWatchlist";
+import toast from "react-hot-toast";
 
 const WatchList = () => {
-  const [watchlist] = useWatchlist();
+  const [watchlist, refetch] = useWatchlist();
+
+  const handleDelete = (_id) => {
+    fetch(`http://localhost:5000/watchlist/${_id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.deletedCount > 0) {
+          refetch();
+          toast.success("Removed from watchlist.");
+        }
+      });
+  };
 
   return (
     <Container px="5%">
@@ -22,13 +36,14 @@ const WatchList = () => {
             watchlist.map((list, index) => (
               <li
                 key={index}
-                className="flex gap-4 border-b last:border-b-0 py-3"
+                className="flex gap-4 border-b last:border-b-0 py-3 px-2"
               >
                 <div className="w-14 h-[84px]">
                   <Link
                     to={
-                      (list.type === "movie" && `/movie/${list.tmdbId}`) ||
-                      (list.type === "tv" && `/tv/${list.tmdbId}`)
+                      (list.media_type === "movie" &&
+                        `/movie/${list.tmdbId}`) ||
+                      (list.media_type === "tv" && `/tv/${list.tmdbId}`)
                     }
                   >
                     <img
@@ -53,8 +68,9 @@ const WatchList = () => {
                   <div>
                     <Link
                       to={
-                        (list.type === "movie" && `/movie/${list.tmdbId}`) ||
-                        (list.type === "tv" && `/tv/${list.tmdbId}`)
+                        (list.media_type === "movie" &&
+                          `/movie/${list.tmdbId}`) ||
+                        (list.media_type === "tv" && `/tv/${list.tmdbId}`)
                       }
                       className="text-lg font-bold transition-all hover:text-custom-orange/90"
                     >
@@ -70,11 +86,17 @@ const WatchList = () => {
                         </div>
                       )}
                       <p className="text-sm text-gray-500 uppercase">
-                        {list.type === "tv" && <p>{list.type}</p>}
+                        {list.media_type === "tv" && <p>{list.media_type}</p>}
                       </p>
                     </div>
                   </div>
                 </div>
+                <button
+                  onClick={() => handleDelete(list._id)}
+                  className="bg-red-400 p-2"
+                >
+                  Delete
+                </button>
               </li>
             ))}
         </ul>

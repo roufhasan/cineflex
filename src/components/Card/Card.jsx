@@ -30,8 +30,8 @@ const Card = ({ trending }) => {
         tmdbId: id,
         poster_path,
         vote_average,
-        email: user.email,
-        media_type: `${title ? "movie" : "tv"}`,
+        email: user.email.toLowerCase(),
+        media_type: `${title ? "movie" : "tv"}`.toLowerCase(),
         name: `${title ? title : name}`,
       };
 
@@ -44,11 +44,12 @@ const Card = ({ trending }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          if (data.insertedId) {
+          if (data.acknowledged && data.insertedId) {
             refetch();
             setWatchlistData((prevData) => [...prevData, watchlistItem]);
-            toast.success("Added to watchlist");
+            return toast.success("Added to watchlist");
           }
+          toast.error("Already exist in watchlist.");
         });
     } else {
       navigate("/login");
