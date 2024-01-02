@@ -8,19 +8,19 @@ import toast from "react-hot-toast";
 import useWatchlist from "../../hooks/useWatchlist";
 
 const Card = ({ trending }) => {
-  const { id, title, name, poster_path, vote_average } = trending;
+  const {
+    id,
+    title,
+    name,
+    poster_path,
+    release_date,
+    first_air_date,
+    vote_average,
+  } = trending;
   const { user } = useContext(AuthContext);
   const [, refetch] = useWatchlist();
   const navigate = useNavigate();
   const [watchlistData, setWatchlistData] = useState([]);
-
-  useEffect(() => {
-    if (user && user.email) {
-      fetch(`http://localhost:5000/watchlist?email=${user.email}`)
-        .then((res) => res.json())
-        .then((data) => setWatchlistData(data));
-    }
-  }, [user]);
 
   const isInWatchlist = watchlistData.find((item) => item.tmdbId === id);
 
@@ -33,6 +33,9 @@ const Card = ({ trending }) => {
         email: user.email.toLowerCase(),
         media_type: `${title ? "movie" : "tv"}`.toLowerCase(),
         name: `${title ? title : name}`,
+        year: `${
+          release_date ? release_date.slice(0, 4) : first_air_date.slice(0, 4)
+        }`,
       };
 
       fetch("http://localhost:5000/watchlist", {
@@ -44,7 +47,7 @@ const Card = ({ trending }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          if (data.acknowledged && data.insertedId) {
+          if (data.insertedId) {
             refetch();
             setWatchlistData((prevData) => [...prevData, watchlistItem]);
             return toast.success("Added to watchlist");
@@ -55,6 +58,14 @@ const Card = ({ trending }) => {
       navigate("/login");
     }
   };
+
+  useEffect(() => {
+    if (user && user.email) {
+      fetch(`http://localhost:5000/watchlist?email=${user.email}`)
+        .then((res) => res.json())
+        .then((data) => setWatchlistData(data));
+    }
+  }, [user]);
 
   return (
     <div className="relative group">

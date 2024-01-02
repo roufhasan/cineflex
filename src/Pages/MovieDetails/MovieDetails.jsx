@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import Container from "../../components/Shared/Container";
 import { FaPlay, FaPlus, FaRegCalendar, FaStar } from "react-icons/fa6";
 import { LuClock } from "react-icons/lu";
@@ -11,6 +11,9 @@ import CardImg from "../../assets/movie-card.jpg";
 import { motion } from "framer-motion";
 import { similarMoviesApi } from "../../api/moviesAndShowsApi";
 import { AuthContext } from "../../Providers/AuthProvider";
+import useWatchlist from "../../hooks/useWatchlist";
+import toast from "react-hot-toast";
+import { BsBookmarkDash, BsBookmarkPlus } from "react-icons/bs";
 
 const MovieDetails = () => {
   const { user } = useContext(AuthContext);
@@ -32,10 +35,12 @@ const MovieDetails = () => {
     videos,
     vote_average,
   } = movies;
-
+  const [watchlist, refetch] = useWatchlist();
+  const [seeChanges, setSeeChanges] = useState(false);
   const [similarMovies, setSimilarMovies] = useState([]);
   const [playTrailer, setPlayTrailer] = useState(false);
   const [officialTrailer, setOfficialTrailer] = useState("");
+  const navigate = useNavigate();
 
   const runtimeConvert = (totalMinutes) => {
     const minutes = totalMinutes % 60;
@@ -59,11 +64,51 @@ const MovieDetails = () => {
     setPlayTrailer(true);
   };
 
+  const handleWatchlist = () => {
+    if (user && user.email) {
+      const watchlistItem = {
+        tmdbId: id,
+        poster_path,
+        vote_average,
+        email: user.email.toLowerCase(),
+        media_type: `${title ? "movie" : "tv"}`.toLowerCase(),
+        name: `${title ? title : name}`,
+        year: `${
+          release_date ? release_date.slice(0, 4) : first_air_date.slice(0, 4)
+        }`,
+      };
+
+      fetch("http://localhost:5000/watchlist", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(watchlistItem),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.insertedId) {
+            refetch();
+            setSeeChanges(true);
+            return toast.success("Added to watchlist");
+          }
+          toast.error("Already exist in watchlist.");
+        });
+    } else {
+      navigate("/login");
+    }
+  };
+
+  const isInWatchlist = watchlist.find(
+    (item) =>
+      item.tmdbId === id && (name ? item.name === name : item.title === name)
+  );
+
   useEffect(() => {
     if (id) {
       similarMoviesApi(id, name).then((data) => setSimilarMovies(data));
     }
-  }, [id, name]);
+  }, [id, name, seeChanges]);
 
   return (
     <Container>
@@ -184,9 +229,21 @@ const MovieDetails = () => {
                     </button>
                   )}
                   {user ? (
-                    <button className="bg-black/40 border-2 p-3 rounded-md font-medium flex items-center gap-x-1 uppercase text-sm md:px-6 md:py-3">
-                      <FaPlus /> Watchlist
-                    </button>
+                    <>
+                      <button
+                        onClick={handleWatchlist}
+                        className={`bg-black/40 border-2 p-3 rounded-md font-medium flex items-center gap-x-1 uppercase text-sm md:px-6 md:py-3 ${
+                          isInWatchlist && "border-green-400 text-green-400"
+                        }`}
+                      >
+                        {isInWatchlist ? (
+                          <BsBookmarkDash size={20} />
+                        ) : (
+                          <BsBookmarkPlus size={20} />
+                        )}
+                        Watchlist
+                      </button>
+                    </>
                   ) : (
                     <Link
                       to="/login"

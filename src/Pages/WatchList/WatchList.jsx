@@ -4,6 +4,7 @@ import ErrorImage from "../../assets/icons/image-error.png";
 import { FaStar } from "react-icons/fa6";
 import useWatchlist from "../../hooks/useWatchlist";
 import toast from "react-hot-toast";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const WatchList = () => {
   const [watchlist, refetch] = useWatchlist();
@@ -24,11 +25,11 @@ const WatchList = () => {
   return (
     <Container px="5%">
       <section className="pt-20 mb-12 md:pt-32">
-        <h3 className="text-xl md:text-3xl font-bold border-l-4 border-custom-orange pl-3">
+        <h3 className="text-xl md:text-3xl font-bold border-l-4 border-custom-orange pl-3 mb-8">
           Your Watchlist
         </h3>
-        <ul className="md:border-2 rounded-md md:pl-4 py-8">
-          <li className="border-b font-medium text-gray-600 pb-1">
+        <ul className="md:border-2 rounded-md py-8">
+          <li className="border-b font-medium text-gray-600 pb-1 md:px-4">
             Total Results: {watchlist.length}
           </li>
           {watchlist &&
@@ -36,7 +37,7 @@ const WatchList = () => {
             watchlist.map((list, index) => (
               <li
                 key={index}
-                className="flex gap-4 border-b last:border-b-0 py-3 px-2"
+                className="flex gap-4 border-b last:border-b-0 py-3 px-2 md:pl-4"
               >
                 <div className="w-14 h-[84px]">
                   <Link
@@ -75,6 +76,9 @@ const WatchList = () => {
                       className="text-lg font-bold transition-all hover:text-custom-orange/90"
                     >
                       {list.name}
+                      <span className="text-sm text-gray-400 font-normal ml-1">
+                        ({list.year})
+                      </span>
                     </Link>
                     <div className="flex items-center gap-3">
                       {list.vote_average > 0 && (
@@ -91,11 +95,15 @@ const WatchList = () => {
                     </div>
                   </div>
                 </div>
+
                 <button
                   onClick={() => handleDelete(list._id)}
-                  className="bg-red-400 p-2"
+                  className="md:pr-4"
                 >
-                  Delete
+                  <RiDeleteBin6Line
+                    size={24}
+                    className="hover:text-custom-orange"
+                  />
                 </button>
               </li>
             ))}
