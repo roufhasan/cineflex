@@ -5,12 +5,15 @@ import { FaStar } from "react-icons/fa6";
 import useWatchlist from "../../hooks/useWatchlist";
 import toast from "react-hot-toast";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useState } from "react";
+import DeleteModal from "../../components/DeleteModal/DeleteModal";
 
 const WatchList = () => {
   const [watchlist, refetch] = useWatchlist();
+  let [isOpen, setIsOpen] = useState(false);
 
   const handleDelete = (_id) => {
-    fetch(`http://localhost:5000/watchlist/${_id}`, {
+    fetch(`http://localhost:5000/watchlist/id/${_id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -24,14 +27,24 @@ const WatchList = () => {
 
   return (
     <Container px="5%">
-      <section className="pt-20 mb-12 md:pt-32 min-h-[600px] md:h-[95vh]">
-        <h3 className="text-xl md:text-3xl font-bold border-l-4 border-custom-orange pl-3 mb-8">
-          Your Watchlist
-        </h3>
+      <section className="h-full min-h-[600px] pt-20 mb-12 md:min-h-[95vh] md:pt-32">
+        <div className="flex items-center justify-between mb-8">
+          <h3 className="text-xl md:text-3xl font-bold border-l-4 border-custom-orange pl-3">
+            Your Watchlist
+          </h3>
+          {watchlist && watchlist.length > 0 && (
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="border border-custom-orange px-2 py-1 rounded-md transition-all hover:bg-custom-orange"
+            >
+              Delete All
+            </button>
+          )}
+        </div>
         {watchlist && watchlist.length > 0 ? (
           <ul className="md:border-2 rounded-md py-8">
             <li className="border-b font-medium text-gray-600 pb-1 md:px-4">
-              Total Results: {watchlist.length}
+              Total Listed: {watchlist.length}
             </li>
             {watchlist.map((list, index) => (
               <li
@@ -121,6 +134,9 @@ const WatchList = () => {
           </div>
         )}
       </section>
+      {isOpen && (
+        <DeleteModal isOpen={isOpen} setIsOpen={setIsOpen} refetch={refetch} />
+      )}
     </Container>
   );
 };
