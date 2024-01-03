@@ -4,6 +4,7 @@ import Container from "../../components/Shared/Container";
 import { Link } from "react-router-dom";
 import CardImg from "../../assets/movie-card.jpg";
 import { getGenre } from "../../customData/generateGenre";
+import PageTitle from "../../components/PageTitle/PageTitle";
 
 const MovieLists = ({ mediaType, apiPath, title }) => {
   const [shows, setMovies] = useState([]);
@@ -19,6 +20,7 @@ const MovieLists = ({ mediaType, apiPath, title }) => {
 
   return (
     <Container px="5%">
+      <PageTitle title={`${title} | CineFlex`} />
       <section className="pt-20 md:pt-32 pb-12">
         <h2 className="text-2xl font-semibold inline-block">
           {title} <div className="bg-[#ffb43a] w-[45%] h-1 mt-2"></div>

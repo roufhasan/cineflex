@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useState } from "react";
 import DeleteModal from "../../components/DeleteModal/DeleteModal";
+import PageTitle from "../../components/PageTitle/PageTitle";
 
 const WatchList = () => {
   const [watchlist, refetch] = useWatchlist();
@@ -27,6 +28,7 @@ const WatchList = () => {
 
   return (
     <Container px="5%">
+      <PageTitle title="My Watchlist | CineFlex" />
       <section className="h-full min-h-[600px] pt-20 mb-12 md:min-h-[95vh] md:pt-32">
         <div className="flex items-center justify-between mb-8">
           <h3 className="text-xl md:text-3xl font-bold border-l-4 border-custom-orange pl-3">

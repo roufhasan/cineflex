@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { motion } from "framer-motion";
+import PageTitle from "../../components/PageTitle/PageTitle";
 
 const SignUp = () => {
   const { createUser, loading, updateUserProfile } = useContext(AuthContext);
@@ -79,6 +80,7 @@ const SignUp = () => {
 
   return (
     <Container px="5%">
+      <PageTitle title="Sign Up | CineFlex" />
       <section className="pt-20 md:pt-32 pb-12">
         <div className="text-center mb-10">
           <p className="text-3xl font-medium mb-2">Sign Up</p>

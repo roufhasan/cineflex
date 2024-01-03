@@ -1,3 +1,4 @@
+import PageTitle from "../../../components/PageTitle/PageTitle";
 import Container from "../../../components/Shared/Container";
 import Hero from "../Hero/Hero";
 import NowPlaying from "../NowPlaying/NowPlaying";
@@ -10,6 +11,7 @@ import Upcoming from "../Upcoming/Upcoming";
 const Home = () => {
   return (
     <Container>
+      <PageTitle title={"CineFlex"} />
       <Hero />
       <Trending />
       <NowPlaying />

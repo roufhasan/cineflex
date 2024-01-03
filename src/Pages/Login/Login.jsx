@@ -7,6 +7,7 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import GitHubIcon from "../../assets/icons/github-icon.svg";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
+import PageTitle from "../../components/PageTitle/PageTitle";
 
 const Login = () => {
   const { loading, setLoading, signIn, googleSignIn, gitHubSignIn } =
@@ -70,6 +71,7 @@ const Login = () => {
 
   return (
     <Container px={"5%"}>
+      <PageTitle title={"Sign In | CineFlex"} />
       <section className="pt-20 md:pt-32 pb-12 h-full md:h-screen min-h-[704px]">
         <p className="text-3xl font-medium text-center mb-10">Sign In</p>
         {/* ==> Login Container <== */}

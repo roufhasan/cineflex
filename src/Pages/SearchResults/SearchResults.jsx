@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import CardImg from "../../assets/movie-card.jpg";
 import { getGenre } from "../../customData/generateGenre";
 import { searchApi } from "../../api/searchApi";
+import PageTitle from "../../components/PageTitle/PageTitle";
 
 const SearchResults = () => {
   const { category, query } = useParams();
@@ -20,6 +21,7 @@ const SearchResults = () => {
 
   return (
     <Container px="5%">
+      <PageTitle title={`${query} results | CineFlex`} />
       <section className="pt-20 md:pt-32 pb-12">
         <h2 className="text-2xl font-semibold inline-block">
           Results For <span className="capitalize">{`"${query}"`}</span>

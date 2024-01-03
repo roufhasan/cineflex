@@ -14,6 +14,7 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import useWatchlist from "../../hooks/useWatchlist";
 import toast from "react-hot-toast";
 import { BsBookmarkDash, BsBookmarkPlus } from "react-icons/bs";
+import PageTitle from "../../components/PageTitle/PageTitle";
 
 const MovieDetails = () => {
   const { user } = useContext(AuthContext);
@@ -112,6 +113,7 @@ const MovieDetails = () => {
 
   return (
     <Container>
+      <PageTitle title={`${name ? name : title} | CineFlex`} />
       <div
         style={{
           background: `linear-gradient(to left,rgba(22,24,29,0.8), rgba(22,24,29,0.4)),url(${`https://image.tmdb.org/t/p/w200${backdrop_path}?api_key=${

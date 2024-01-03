@@ -3,6 +3,7 @@ import Biography from "../Biography/Biography";
 import Container from "../../../components/Shared/Container";
 import Photos from "../Photos/Photos";
 import Credits from "../Credits/Credits";
+import PageTitle from "../../../components/PageTitle/PageTitle";
 
 const PersonDetails = () => {
   const personDetails = useLoaderData();
@@ -10,6 +11,7 @@ const PersonDetails = () => {
 
   return (
     <>
+      <PageTitle title={`${personDetails.name} | CineFlex`} />
       <Container px="5%">
         <Biography personDetails={personDetails} />
       </Container>
