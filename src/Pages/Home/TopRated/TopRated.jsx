@@ -10,7 +10,7 @@ const TopRated = () => {
 
   useEffect(() => {
     listOfShows(apiPath ? "tv" : "movie", "top_rated").then((data) =>
-      setTopRatedList(data)
+      setTopRatedList(data?.results)
     );
   }, [apiPath]);
 

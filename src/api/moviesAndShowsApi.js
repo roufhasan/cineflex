@@ -22,15 +22,15 @@ Movies & Tv-Shows API's
 */
 
 // Get movie lists of now playing, popular, top rated, upcoming & also tv series list of popular, top rated, airing today, on the air.
-export const listOfShows = async (mediaType, apiPath) => {
+export const listOfShows = async (mediaType, apiPath, page) => {
   const res = await fetch(
     `https://api.themoviedb.org/3/${mediaType}/${apiPath}?api_key=${
       import.meta.env.VITE_TMDB_API_KEY
-    }`
+    }&language=en-US&page=${page ? page : 1}`
   );
   const data = await res.json();
 
-  return data.results;
+  return data;
 };
 
 /* 

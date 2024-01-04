@@ -23,9 +23,11 @@ import { RiShutDownLine } from "react-icons/ri";
 import { FaCircleUser } from "react-icons/fa6";
 import toast from "react-hot-toast";
 import useWatchlist from "../../../hooks/useWatchlist";
+import { ResetPageContext } from "../../../Providers/ResetPageProvider";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const { resetCurrentPage } = useContext(ResetPageContext);
   const [watchlist] = useWatchlist();
   const [showSearchField, setShowSearchField] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -225,7 +227,7 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Desktop Drop-Down Menu Links */}
+          {/* Mobile Menu Links */}
           <div>
             <ul className="text-white font-Roboto font-medium hidden md:flex gap-x-4 items-end">
               <li>
@@ -252,6 +254,7 @@ const Navbar = () => {
                           {({ active }) => (
                             <Link
                               to="/movies/popular"
+                              onClick={resetCurrentPage}
                               className={`${
                                 active
                                   ? "bg-custom-orange text-white"
@@ -273,6 +276,7 @@ const Navbar = () => {
                           {({ active }) => (
                             <Link
                               to="/movies/top_rated"
+                              onClick={resetCurrentPage}
                               className={`${
                                 active
                                   ? "bg-custom-orange text-white"
@@ -294,6 +298,7 @@ const Navbar = () => {
                           {({ active }) => (
                             <Link
                               to="/movies/now_playing"
+                              onClick={resetCurrentPage}
                               className={`${
                                 active
                                   ? "bg-custom-orange text-white"
@@ -315,6 +320,7 @@ const Navbar = () => {
                           {({ active }) => (
                             <Link
                               to="/movies/upcoming"
+                              onClick={resetCurrentPage}
                               className={`${
                                 active
                                   ? "bg-custom-orange text-white"
@@ -359,6 +365,7 @@ const Navbar = () => {
                           {({ active }) => (
                             <Link
                               to="/tv-shows/popular"
+                              onClick={resetCurrentPage}
                               className={`${
                                 active
                                   ? "bg-custom-orange text-white"
@@ -380,6 +387,7 @@ const Navbar = () => {
                           {({ active }) => (
                             <Link
                               to="/tv-shows/top_rated"
+                              onClick={resetCurrentPage}
                               className={`${
                                 active
                                   ? "bg-custom-orange text-white"
@@ -401,6 +409,7 @@ const Navbar = () => {
                           {({ active }) => (
                             <Link
                               to="/tv-shows/airing_today"
+                              onClick={resetCurrentPage}
                               className={`${
                                 active
                                   ? "bg-custom-orange text-white"
@@ -422,6 +431,7 @@ const Navbar = () => {
                           {({ active }) => (
                             <Link
                               to="/tv-shows/on_the_air"
+                              onClick={resetCurrentPage}
                               className={`${
                                 active
                                   ? "bg-custom-orange text-white"
@@ -535,6 +545,7 @@ const Navbar = () => {
                         {({ active }) => (
                           <Link
                             to="/movies/top_rated"
+                            onClick={resetCurrentPage}
                             className={`${
                               active
                                 ? "bg-custom-orange text-white"

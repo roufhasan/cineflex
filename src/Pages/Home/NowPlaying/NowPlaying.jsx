@@ -9,7 +9,7 @@ const NowPlaying = () => {
 
   useEffect(() => {
     listOfShows("movie", "now_playing")
-      .then((data) => setNowPlaying(data))
+      .then((data) => setNowPlaying(data?.results))
       .catch((err) => console.log(err));
   }, []);
   return (

@@ -19,7 +19,9 @@ const PopularShows = () => {
   };
 
   useEffect(() => {
-    listOfShows("tv", "popular").then((data) => setPopularSeries(data));
+    listOfShows("tv", "popular").then((data) =>
+      setPopularSeries(data?.results)
+    );
   }, []);
   return (
     <section className="py-14">

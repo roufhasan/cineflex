@@ -52,7 +52,9 @@ const Hero = () => {
 
   // Get popular movies
   useEffect(() => {
-    listOfShows("movie", "popular").then((data) => setMovies(data.slice(0, 5)));
+    listOfShows("movie", "popular").then((data) =>
+      setMovies(data?.results?.slice(0, 5))
+    );
   }, []);
 
   return (

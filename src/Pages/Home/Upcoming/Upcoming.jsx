@@ -9,7 +9,7 @@ const Upcoming = () => {
 
   useEffect(() => {
     listOfShows("movie", "upcoming")
-      .then((data) => setUpComing(data))
+      .then((data) => setUpComing(data?.results))
       .catch((err) => console.log(err));
   }, []);
   return (
