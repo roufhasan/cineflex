@@ -72,7 +72,7 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/account"
+                to="/account/settings"
                 className="flex items-center gap-2 text-sm"
               >
                 <FaRegUser />
@@ -544,7 +544,7 @@ const Navbar = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to="/movies/top_rated"
+                            to="/account/settings"
                             onClick={resetCurrentPage}
                             className={`${
                               active

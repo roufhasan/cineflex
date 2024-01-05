@@ -9,6 +9,9 @@ import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute";
 import WatchList from "../Pages/WatchList/WatchList";
+import Account from "../Layout/Account";
+import Profile from "../Pages/AccountLayout/Profile/Profile";
+import Deactive from "../Pages/AccountLayout/Deactive/Deactive";
 
 export const router = createBrowserRouter([
   {
@@ -107,6 +110,7 @@ export const router = createBrowserRouter([
         path: "/search/:category/:query",
         element: <SearchResults />,
       },
+
       // ==> Movie, Tv Shows & Person Details Page <==
       {
         path: "/movie/:id",
@@ -138,6 +142,7 @@ export const router = createBrowserRouter([
             }`
           ),
       },
+
       // ==> Login & Sign Up <==
       {
         path: "/login",
@@ -147,6 +152,8 @@ export const router = createBrowserRouter([
         path: "/signup",
         element: <SignUp />,
       },
+
+      /* ==> Private Pages <== */
       {
         path: "/watchlist",
         element: (
@@ -154,6 +161,25 @@ export const router = createBrowserRouter([
             <WatchList />
           </PrivateRoute>
         ),
+      },
+    ],
+  },
+
+  {
+    path: "/account",
+    element: (
+      <PrivateRoute>
+        <Account />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "/account/settings",
+        element: <Profile />,
+      },
+      {
+        path: "/account/deactive",
+        element: <Deactive />,
       },
     ],
   },
