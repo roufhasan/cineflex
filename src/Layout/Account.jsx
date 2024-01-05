@@ -2,8 +2,8 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 
 const Account = () => {
   return (
-    <section className="w-full max-w-[1920px] min-h-full h-screen max-h-[1080px] bg-blue-gray text-white px-[5%] pt-4 mx-auto">
-      <div className="pb-2 border-b-2 border-custom-white flex items-end justify-between">
+    <section className="w-full max-w-[1920px] min-h-full h-full max-h-[1080px] bg-blue-gray text-white px-[5%] pt-4 mx-auto">
+      <div className="pb-2 flex items-end justify-between border-b">
         <h3 className="text-3xl font-semibold">Acccount info.</h3>
         <Link to="/" className="text-orange-400">
           Back to Home
@@ -32,7 +32,7 @@ const Account = () => {
             Deactive Account
           </NavLink>
         </div>
-        <div className="w-full text-center pt-3">
+        <div className="w-full pt-10 pl-10">
           <Outlet />
         </div>
       </div>
