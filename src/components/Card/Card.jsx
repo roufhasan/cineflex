@@ -21,51 +21,92 @@ const Card = ({ trending }) => {
   const [, refetch] = useWatchlist();
   const navigate = useNavigate();
   const [watchlistData, setWatchlistData] = useState([]);
+  const [reloadWatchlist, setReloadWatchlist] = useState(false);
 
   const isInWatchlist = watchlistData.find((item) => item.tmdbId === id);
 
-  const handleWatchlist = () => {
-    if (user && user.email) {
-      const watchlistItem = {
-        tmdbId: id,
-        poster_path,
-        vote_average,
-        email: user.email.toLowerCase(),
-        media_type: `${title ? "movie" : "tv"}`.toLowerCase(),
-        name: `${title ? title : name}`,
-        year: `${
-          release_date ? release_date.slice(0, 4) : first_air_date.slice(0, 4)
-        }`,
-      };
+  const handleWatchlist = async () => {
+    try {
+      if (user && user.email) {
+        const watchlistItem = {
+          tmdbId: id,
+          poster_path,
+          vote_average,
+          email: user.email.toLowerCase(),
+          media_type: `${title ? "movie" : "tv"}`.toLowerCase(),
+          name: `${title ? title : name}`,
+          year: `${
+            release_date ? release_date.slice(0, 4) : first_air_date.slice(0, 4)
+          }`,
+        };
 
-      fetch("http://localhost:5000/watchlist", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(watchlistItem),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.insertedId) {
-            refetch();
-            setWatchlistData((prevData) => [...prevData, watchlistItem]);
-            return toast.success("Added to watchlist");
-          }
-          toast.error("Already exist in watchlist.");
+        const response = await fetch("http://localhost:5000/watchlist", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(watchlistItem),
         });
-    } else {
-      navigate("/login");
+
+        const data = await response.json();
+
+        if (data.insertedId) {
+          setReloadWatchlist(true);
+          refetch();
+          toast.success("Added to watchlist");
+        } else {
+          toast.error("Already exist in watchlist.");
+        }
+      } else {
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("Error adding to watchlist:", error);
+    }
+  };
+
+  const handleDeleteList = async () => {
+    try {
+      if (isInWatchlist && isInWatchlist._id) {
+        const response = await fetch(
+          `http://localhost:5000/watchlist/id/${isInWatchlist._id}`,
+          {
+            method: "DELETE",
+          }
+        );
+
+        const data = await response.json();
+
+        if (data.deletedCount > 0) {
+          setReloadWatchlist(true);
+          refetch();
+          toast.success("Removed from watchlist.");
+        } else {
+          toast.error("Invalid watchlist item.");
+        }
+      }
+    } catch (error) {
+      console.error("Error deleting from watchlist:", error);
     }
   };
 
   useEffect(() => {
-    if (user && user.email) {
-      fetch(`http://localhost:5000/watchlist?email=${user.email}`)
-        .then((res) => res.json())
-        .then((data) => setWatchlistData(data));
-    }
-  }, [user]);
+    const fetchData = async () => {
+      try {
+        if (user && user.email) {
+          const response = await fetch(
+            `http://localhost:5000/watchlist?email=${user.email}`
+          );
+          const data = await response.json();
+          setWatchlistData(data);
+        }
+      } catch (error) {
+        console.error("Error fetching watchlist data:", error);
+      }
+    };
+
+    fetchData();
+  }, [user, reloadWatchlist]);
 
   return (
     <div className="relative group">
@@ -85,16 +126,21 @@ const Card = ({ trending }) => {
       </Link>
       <div className="w-full h-full bg-black/40 opacity-0 rounded-xl absolute top-0 left-0  transition ease-in-out group-hover:opacity-100 group-hover:duration-500 hidden md:block">
         <div className="relative h-full w-full flex items-center justify-center">
-          <p
-            onClick={handleWatchlist}
-            className="absolute right-2 top-2 cursor-pointer"
-          >
-            {isInWatchlist ? (
+          {isInWatchlist ? (
+            <div
+              onClick={handleDeleteList}
+              className="absolute right-2 top-2 cursor-pointer"
+            >
               <BsBookmarkDash size={32} color="red" />
-            ) : (
+            </div>
+          ) : (
+            <div
+              onClick={handleWatchlist}
+              className="absolute right-2 top-2 cursor-pointer"
+            >
               <BsBookmarkPlus size={32} />
-            )}
-          </p>
+            </div>
+          )}
           <Link
             to={name ? `/tv/${id}` : `/movie/${id}`}
             className="text-xl font-medium border-b transition-all hover:text-custom-orange hover:border-b-custom-orange"
