@@ -1,12 +1,15 @@
 import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import { FaUser } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Profile = () => {
-  const { user } = useContext(AuthContext);
+  const { user, updateUserProfile } = useContext(AuthContext);
   const [name, setName] = useState(user.displayName);
   const [nameReadOnly, setNameReadOnly] = useState(true);
   const [selectedImg, setSelectedImg] = useState();
+  const navigate = useNavigate();
   const imgRef = useRef(null);
 
   const handleImageClick = () => {
@@ -21,7 +24,47 @@ const Profile = () => {
   const handleUpdateProfile = (e) => {
     e.preventDefault();
     const form = e.target;
-    console.log(form.name.value);
+    const name = form.name.value;
+    const image = selectedImg;
+
+    if (image) {
+      const formData = new FormData();
+      formData.append("image", image);
+
+      const url = `https://api.imgbb.com/1/upload?key=${
+        import.meta.env.VITE_Image_Upload_API_Key
+      }`;
+
+      fetch(url, {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((imageData) => {
+          const imageURL = imageData.data.display_url;
+          updateUserProfile(name, imageURL)
+            .then(() => {
+              toast.success("Profile Updated");
+              navigate("/");
+            })
+            .catch((err) => {
+              console.log(err.message);
+            });
+        });
+      return;
+    }
+
+    if (name !== user?.displayName) {
+      updateUserProfile(name, user?.photoURL)
+        .then(() => {
+          toast.success("Profile Updated");
+          navigate("/");
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
+    return;
   };
   return (
     <form onSubmit={handleUpdateProfile}>
