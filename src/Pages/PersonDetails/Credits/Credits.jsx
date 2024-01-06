@@ -106,7 +106,9 @@ const Credits = ({ id }) => {
                       </div>
                     )}
                     <p className="text-sm text-gray-500 uppercase">
-                      {credit.media_type === "tv" && <p>{credit.media_type}</p>}
+                      {credit.media_type === "tv" && (
+                        <span>{credit.media_type}</span>
+                      )}
                     </p>
                   </div>
                   {credit.character && (

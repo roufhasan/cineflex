@@ -55,7 +55,7 @@ const Navbar = () => {
                 className="w-9 h-9 object-cover rounded-full mx-auto mb-1"
               />
               <p className="text-xl font-medium">
-                {user.displayName.split(" ")[0]}
+                {user.displayName?.split(" ")[0]}
               </p>
             </li>
             <li>
@@ -494,7 +494,7 @@ const Navbar = () => {
                     </div>
                     <p>
                       {user.displayName
-                        ? user.displayName.split(" ")[0]
+                        ? user.displayName?.split(" ")[0]
                         : "Mr. X"}
                     </p>
                   </Menu.Button>

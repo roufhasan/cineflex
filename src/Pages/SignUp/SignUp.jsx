@@ -6,9 +6,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { motion } from "framer-motion";
 import PageTitle from "../../components/PageTitle/PageTitle";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
-  const { createUser, loading, updateUserProfile } = useContext(AuthContext);
+  const { createUser, loading, updateUserProfile, setLoading } =
+    useContext(AuthContext);
   const [togglePass, setTogglePass] = useState(false);
   const navigate = useNavigate();
   const {
@@ -19,7 +21,7 @@ const SignUp = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    // ==> Create and update name and profile image <==
+    // ==> Create account along with updating name and upload & update profile picture <==
     if (data && data.image.length > 0) {
       const image = data.image[0];
       const formData = new FormData();
@@ -49,16 +51,30 @@ const SignUp = () => {
                 .then(() => {
                   reset();
                   navigate("/");
+                  toast.success("Sign Up Successful");
                 })
-                .catch((err) => console.log(err.message));
+                .catch((err) => {
+                  console.log(err.message);
+                  setLoading(false);
+                });
             })
-            .catch((err) => console.log(err.message));
+            .catch((err) => {
+              const errorMessage = err.message;
+              if (
+                errorMessage === "Firebase: Error (auth/email-already-in-use)."
+              ) {
+                return toast.error("Email is already in use");
+              }
+              toast.error("Something unexpected happend! Please try again.");
+              setLoading(false);
+            });
         })
         .catch((err) => {
           console.log(err.message);
+          setLoading(false);
         });
     }
-    // ==> Create and Update name <==
+    // ==> Only create account and update name. Does not upload & update profile picture <==
     else {
       createUser(data.email, data.password)
         .then((res) => {
@@ -69,11 +85,15 @@ const SignUp = () => {
               reset();
               navigate("/");
             })
-            .catch((err) => console.log(err.message));
+            .catch((err) => {
+              console.log(err.message);
+              setLoading(false);
+            });
         })
         .catch((err) => {
           const errMsg = err.message;
           console.log(errMsg);
+          setLoading(false);
         });
     }
   };
