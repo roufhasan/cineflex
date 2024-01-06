@@ -1,45 +1,75 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../../../Providers/AuthProvider";
-import { useForm } from "react-hook-form";
+import { FaUser } from "react-icons/fa6";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
   const [name, setName] = useState(user.displayName);
   const [nameReadOnly, setNameReadOnly] = useState(true);
+  const [selectedImg, setSelectedImg] = useState();
+  const imgRef = useRef(null);
 
-  const { register, handleSubmit } = useForm();
+  const handleImageClick = () => {
+    imgRef.current.click();
+  };
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedImg(file);
+  };
+
+  const handleUpdateProfile = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    console.log(form.name.value);
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleUpdateProfile}>
       <div className="flex gap-20 justify-center">
         <div className="text-center">
-          <img
-            src={user?.photoURL}
-            alt=""
-            className="w-40 h-40 object-cover rounded-full mb-7"
-          />
+          {selectedImg ? (
+            <img
+              onClick={handleImageClick}
+              src={URL.createObjectURL(selectedImg)}
+              alt=""
+              className="w-40 h-40 object-cover rounded-full mb-7"
+            />
+          ) : (
+            <>
+              {user.photoURL ? (
+                <img
+                  onClick={handleImageClick}
+                  src={user?.photoURL}
+                  alt=""
+                  className="w-40 h-40 object-cover rounded-full mb-7"
+                />
+              ) : (
+                <FaUser onClick={handleImageClick} className="w-40 h-40 mb-7" />
+              )}
+            </>
+          )}
+
           <label
-            htmlFor="image"
+            onClick={handleImageClick}
             className="cursor-pointer bg-custom-orange font-medium px-3 py-1 rounded-md"
           >
             {user.photoURL ? "Change Photo" : "Upload Photo"}
           </label>
           <input
+            ref={imgRef}
+            onChange={handleImageChange}
             className="hidden"
             type="file"
             id="image"
+            name="image"
             accept="image/*"
-            {...register("image")}
           />
         </div>
 
         <div className="w-1/2 flex flex-col gap-6">
           <div>
             <label htmlFor="name" className="w-full mb-2 flex justify-between">
-              Name{" "}
+              Name
               <span
                 onClick={() => setNameReadOnly(false)}
                 className="text-gray-400 cursor-pointer"
@@ -52,21 +82,19 @@ const Profile = () => {
                 className="w-full h-10 text-black px-4 rounded-md outline-none"
                 type="text"
                 id="name"
+                name="defaultName"
                 readOnly
                 value={name}
               />
             ) : (
               <input
+                onChange={(e) => setName(e.target.value)}
+                onBlur={() => setNameReadOnly(true)}
                 className={`w-full h-10 text-black px-4 rounded-md outline-none border-2 focus:border-custom-orange`}
                 type="text"
                 id="name"
                 value={name}
-                {...register("test", {
-                  onChange: (e) => {
-                    setName(e.target.value);
-                  },
-                  onBlur: () => setNameReadOnly(true),
-                })}
+                name="name"
               />
             )}
           </div>
@@ -78,9 +106,9 @@ const Profile = () => {
               className="w-full h-10 text-black px-4 rounded-md outline-none"
               type="email"
               id="email"
+              name="email"
               readOnly
               value={user.email}
-              {...register("email", { required: true })}
             />
           </div>
         </div>
