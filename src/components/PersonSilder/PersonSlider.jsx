@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
+import errorImg from "../../assets/image-not-found.webp";
 
 const PersonSlider = ({ personData }) => {
   return (
@@ -30,13 +31,21 @@ const PersonSlider = ({ personData }) => {
             <SwiperSlide key={person.id}>
               <div className="group text-center">
                 <Link to={`/person/${person.id}`}>
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500${
-                      person.profile_path
-                    }?api_key=${import.meta.env.VITE_TMDB_API_KEY}`}
-                    alt=""
-                    className="h-full w-full rounded"
-                  />
+                  {person.profile_path ? (
+                    <img
+                      src={`https://image.tmdb.org/t/p/w500${
+                        person?.profile_path
+                      }?api_key=${import.meta.env.VITE_TMDB_API_KEY}`}
+                      alt=""
+                      className="h-full w-full rounded"
+                    />
+                  ) : (
+                    <img
+                      src={errorImg}
+                      alt="image from vecteezy.com"
+                      className="w-full h-full rounded"
+                    />
+                  )}
                 </Link>
                 <Link
                   to={`/person/${person.id}`}
