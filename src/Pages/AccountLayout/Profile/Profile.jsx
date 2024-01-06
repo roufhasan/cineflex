@@ -118,8 +118,13 @@ const Profile = () => {
           Cancel
         </button>
         <button
+          disabled={!selectedImg || name !== user?.displayName}
           type="submit"
-          className="text font-medium bg-custom-orange px-3 py-1 rounded-md"
+          className={`text font-medium px-3 py-1 rounded-md ${
+            selectedImg || name !== user?.displayName
+              ? "bg-custom-orange"
+              : "bg-gray-400"
+          }`}
         >
           Update
         </button>
