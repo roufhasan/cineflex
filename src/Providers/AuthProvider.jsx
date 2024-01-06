@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createContext } from "react";
 import {
   createUserWithEmailAndPassword,
+  deleteUser,
   getAuth,
   GithubAuthProvider,
   GoogleAuthProvider,
@@ -66,6 +67,12 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  // Delete User's Account
+  const deleteAccount = () => {
+    setLoading(true);
+    return deleteUser(auth.currentUser);
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -87,6 +94,7 @@ const AuthProvider = ({ children }) => {
     gitHubSignIn,
     googleSignIn,
     logOut,
+    deleteAccount,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

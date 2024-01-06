@@ -3,7 +3,13 @@ import { Fragment, useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import toast from "react-hot-toast";
 
-const DeleteModal = ({ isOpen, setIsOpen, refetch }) => {
+const DeleteModal = ({
+  isOpen,
+  setIsOpen,
+  refetch,
+  handleAccountDelete,
+  title,
+}) => {
   const { user } = useContext(AuthContext);
 
   const deleteWatchlist = () => {
@@ -55,11 +61,11 @@ const DeleteModal = ({ isOpen, setIsOpen, refetch }) => {
                   as="h3"
                   className="text-xl font-medium leading-6 text-gray-900"
                 >
-                  🚨Warning: Delete Watchlist
+                  🚨Warning: Delete <span className="capitalize">{title}</span>
                 </Dialog.Title>
                 <div className="mt-6">
                   <p className="text-sm text-gray-500">
-                    Deleting this watchlist will permanently erase all saved
+                    Deleting this {title} will permanently erase all saved
                     movies and shows. This action cannot be undone.
                   </p>
                 </div>
@@ -72,7 +78,11 @@ const DeleteModal = ({ isOpen, setIsOpen, refetch }) => {
                     Cancel
                   </button>
                   <button
-                    onClick={deleteWatchlist}
+                    onClick={
+                      handleAccountDelete
+                        ? handleAccountDelete
+                        : deleteWatchlist
+                    }
                     className="bg-custom-orange text-white px-4 py-2 rounded-md transition-all hover:bg-orange-400"
                   >
                     Delete

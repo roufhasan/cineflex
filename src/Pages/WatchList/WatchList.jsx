@@ -11,7 +11,7 @@ import PageTitle from "../../components/PageTitle/PageTitle";
 
 const WatchList = () => {
   const [watchlist, refetch] = useWatchlist();
-  let [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleDelete = (_id) => {
     fetch(`http://localhost:5000/watchlist/id/${_id}`, {
@@ -137,7 +137,12 @@ const WatchList = () => {
         )}
       </section>
       {isOpen && (
-        <DeleteModal isOpen={isOpen} setIsOpen={setIsOpen} refetch={refetch} />
+        <DeleteModal
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          refetch={refetch}
+          title={"watchlist"}
+        />
       )}
     </Container>
   );
