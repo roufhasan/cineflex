@@ -117,17 +117,22 @@ const Profile = () => {
         <button className="text font-medium border px-3 py-1 rounded-md">
           Cancel
         </button>
-        <button
-          disabled={!selectedImg || name !== user?.displayName}
-          type="submit"
-          className={`text font-medium px-3 py-1 rounded-md ${
-            selectedImg || name !== user?.displayName
-              ? "bg-custom-orange"
-              : "bg-gray-400"
-          }`}
-        >
-          Update
-        </button>
+        {selectedImg || name !== user?.displayName ? (
+          <button
+            type="submit"
+            className={`text font-medium bg-custom-orange px-3 py-1 rounded-md`}
+          >
+            Update
+          </button>
+        ) : (
+          <button
+            disabled
+            type="submit"
+            className={`text font-medium bg-gray-400 px-3 py-1 rounded-md`}
+          >
+            Update
+          </button>
+        )}
       </div>
     </form>
   );
