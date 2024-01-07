@@ -8,7 +8,7 @@ const useWatchlist = () => {
     queryKey: ["watchlist", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/watchlist?email=${user.email}`
+        `https://cineflex-server.vercel.app/watchlist?email=${user.email}`
       );
       return res.json();
     },

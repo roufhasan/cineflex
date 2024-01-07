@@ -14,16 +14,18 @@ const WatchList = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleDelete = (_id) => {
-    fetch(`http://localhost:5000/watchlist/id/${_id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.deletedCount > 0) {
-          refetch();
-          toast.success("Removed from watchlist.");
-        }
-      });
+    if (watchlist) {
+      fetch(`https://cineflex-server.vercel.app/watchlist/id/${_id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            refetch();
+            toast.success("Removed from watchlist.");
+          }
+        });
+    }
   };
 
   return (

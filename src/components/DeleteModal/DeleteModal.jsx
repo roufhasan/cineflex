@@ -13,7 +13,7 @@ const DeleteModal = ({
   const { user } = useContext(AuthContext);
 
   const deleteWatchlist = () => {
-    fetch(`http://localhost:5000/watchlist/email/${user?.email}`, {
+    fetch(`https://cineflex-server.vercel.app/watchlist/email/${user?.email}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

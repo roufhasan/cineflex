@@ -18,7 +18,7 @@ const Card = ({ trending }) => {
     vote_average,
   } = trending;
   const { user } = useContext(AuthContext);
-  const [, refetch] = useWatchlist();
+  const [watchlist, refetch] = useWatchlist();
   const navigate = useNavigate();
   const [watchlistData, setWatchlistData] = useState([]);
   const [reloadWatchlist, setReloadWatchlist] = useState(false);
@@ -40,13 +40,16 @@ const Card = ({ trending }) => {
           }`,
         };
 
-        const response = await fetch("http://localhost:5000/watchlist", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(watchlistItem),
-        });
+        const response = await fetch(
+          "https://cineflex-server.vercel.app/watchlist",
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(watchlistItem),
+          }
+        );
 
         const data = await response.json();
 
@@ -69,7 +72,7 @@ const Card = ({ trending }) => {
     try {
       if (isInWatchlist && isInWatchlist._id) {
         const response = await fetch(
-          `http://localhost:5000/watchlist/id/${isInWatchlist._id}`,
+          `https://cineflex-server.vercel.app/watchlist/id/${isInWatchlist._id}`,
           {
             method: "DELETE",
           }
@@ -93,9 +96,9 @@ const Card = ({ trending }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (user && user.email) {
+        if (user && user.email && watchlist) {
           const response = await fetch(
-            `http://localhost:5000/watchlist?email=${user.email}`
+            `https://cineflex-server.vercel.app/watchlist?email=${user.email}`
           );
           const data = await response.json();
           setWatchlistData(data);
@@ -106,7 +109,7 @@ const Card = ({ trending }) => {
     };
 
     fetchData();
-  }, [user, reloadWatchlist]);
+  }, [user, reloadWatchlist, watchlist]);
 
   return (
     <div className="relative group">

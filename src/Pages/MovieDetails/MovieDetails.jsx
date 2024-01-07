@@ -79,7 +79,7 @@ const MovieDetails = () => {
         }`,
       };
 
-      fetch("http://localhost:5000/watchlist", {
+      fetch("https://cineflex-server.vercel.app/watchlist", {
         method: "POST",
         headers: {
           "content-type": "application/json",
