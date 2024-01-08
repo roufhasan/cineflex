@@ -37,11 +37,18 @@ const Deactive = () => {
       });
   };
   return (
-    <div>
-      <p>Permenetly Delete Your Account.</p>
-      <button onClick={() => setIsOpen(true)} className="text-red-400">
-        Deactivate
-      </button>
+    <div className="min-h-[calc(100vh-181px)]">
+      <div className="md:flex md:justify-between ">
+        <p className="text-xl font-semibold mb-2">
+          Permenetly Delete Your Account?
+        </p>
+        <button
+          onClick={() => setIsOpen(true)}
+          className="bg-custom-orange/75 text-gray-100 text-sm font-bold rounded-md px-2 py-1 transition-all hover:bg-custom-orange md:text-base"
+        >
+          Delete
+        </button>
+      </div>
       {isOpen && (
         <DeleteModal
           isOpen={isOpen}

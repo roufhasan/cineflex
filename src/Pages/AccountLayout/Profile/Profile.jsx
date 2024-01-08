@@ -67,8 +67,8 @@ const Profile = () => {
     return;
   };
   return (
-    <form onSubmit={handleUpdateProfile}>
-      <div className="flex gap-20 justify-center">
+    <form onSubmit={handleUpdateProfile} className="min-h-[calc(100vh-181px)]">
+      <div className="flex flex-col items-center justify-center gap-10 md:flex-row md:items-start md:gap-20">
         <div className="text-center">
           {selectedImg ? (
             <img
@@ -94,7 +94,7 @@ const Profile = () => {
 
           <label
             onClick={handleImageClick}
-            className="cursor-pointer bg-custom-orange font-medium px-3 py-1 rounded-md"
+            className="bg-custom-orange font-medium rounded-md px-3 py-1 cursor-pointer"
           >
             {user.photoURL ? "Change Photo" : "Upload Photo"}
           </label>
@@ -109,9 +109,9 @@ const Profile = () => {
           />
         </div>
 
-        <div className="w-1/2 flex flex-col gap-6">
+        <div className="flex flex-col gap-6 md:w-1/2">
           <div>
-            <label htmlFor="name" className="w-full mb-2 flex justify-between">
+            <label htmlFor="name" className="w-full flex justify-between mb-2">
               Name
               <span
                 onClick={() => setNameReadOnly(false)}
@@ -122,7 +122,7 @@ const Profile = () => {
             </label>
             {nameReadOnly ? (
               <input
-                className="w-full h-10 text-black px-4 rounded-md outline-none"
+                className="w-full h-10 text-black rounded-md outline-none px-4"
                 type="text"
                 id="name"
                 name="defaultName"
@@ -133,7 +133,7 @@ const Profile = () => {
               <input
                 onChange={(e) => setName(e.target.value)}
                 onBlur={() => setNameReadOnly(true)}
-                className={`w-full h-10 text-black px-4 rounded-md outline-none border-2 focus:border-custom-orange`}
+                className={`w-full h-10 text-black border-2 rounded-md outline-none px-4 focus:border-custom-orange`}
                 type="text"
                 id="name"
                 value={name}
@@ -142,11 +142,11 @@ const Profile = () => {
             )}
           </div>
           <div>
-            <label htmlFor="email" className="w-full mb-2 inline-block">
+            <label htmlFor="email" className="w-full inline-block mb-2">
               Email
             </label>
             <input
-              className="w-full h-10 text-black px-4 rounded-md outline-none"
+              className="w-full h-10 text-black rounded-md outline-none px-4"
               type="email"
               id="email"
               name="email"
@@ -157,13 +157,13 @@ const Profile = () => {
         </div>
       </div>
       <div className="flex items-center justify-center gap-10 mt-20">
-        <button className="text font-medium border px-3 py-1 rounded-md">
+        <button className="text font-medium border rounded-md px-3 py-1">
           Cancel
         </button>
         {selectedImg || name !== user?.displayName ? (
           <button
             type="submit"
-            className={`text font-medium bg-custom-orange px-3 py-1 rounded-md`}
+            className={`bg-custom-orange font-medium rounded-md px-3 py-1`}
           >
             Update
           </button>
@@ -171,7 +171,7 @@ const Profile = () => {
           <button
             disabled
             type="submit"
-            className={`text font-medium bg-gray-400 px-3 py-1 rounded-md`}
+            className={`bg-gray-400 font-medium rounded-md px-3 py-1`}
           >
             Update
           </button>
