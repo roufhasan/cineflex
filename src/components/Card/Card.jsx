@@ -124,35 +124,12 @@ const Card = ({ trending }) => {
           }
           alt={`${title ? title : name} movie poster`}
           loading="lazy"
-          className="w-full h-72 sm:h-[315px] md:h-[352px] 2xl:h-[384px] object-cover rounded-xl"
+          className="w-full h-72 object-cover rounded-xl sm:h-[315px] md:h-[352px] 2xl:h-[384px]"
         />
       </Link>
-      <div className="w-full h-full bg-black/40 opacity-0 rounded-xl absolute top-0 left-0  transition ease-in-out group-hover:opacity-100 group-hover:duration-500 hidden md:block">
-        <div className="relative h-full w-full flex items-center justify-center">
-          {isInWatchlist ? (
-            <div
-              onClick={handleDeleteList}
-              className="absolute right-2 top-2 cursor-pointer"
-            >
-              <BsBookmarkDash size={32} color="red" />
-            </div>
-          ) : (
-            <div
-              onClick={handleWatchlist}
-              className="absolute right-2 top-2 cursor-pointer"
-            >
-              <BsBookmarkPlus size={32} />
-            </div>
-          )}
-          <Link
-            to={name ? `/tv/${id}` : `/movie/${id}`}
-            className="text-xl font-medium border-b transition-all hover:text-custom-orange hover:border-b-custom-orange"
-          >
-            View Details
-          </Link>
-        </div>
-      </div>
-      <div className="w-full flex justify-between bg-gradient-to-t from-black/50 to-black/30 backdrop-blur-sm rounded-b-xl opacity-100 group-hover:opacity-0 px-2 py-3 absolute bottom-0 left-0 transition ease-in-out group-hover:duration-500">
+
+      {/* Name and Ratings */}
+      <div className="w-full bg-gradient-to-t from-black/50 to-black/30 opacity-100 backdrop-blur-sm flex justify-between rounded-b-xl absolute bottom-0 left-0 px-2 py-3 transition ease-in-out group-hover:opacity-0 group-hover:duration-500">
         {title && (
           <>
             <p className="font-medium lg:hidden">
@@ -176,6 +153,58 @@ const Card = ({ trending }) => {
         <div className="flex items-center gap-1 sm:gap-3 font-medium">
           <FaStar color="#f5c518" />
           {vote_average > 0 && vote_average.toFixed(1)}
+        </div>
+      </div>
+
+      {/* Add and Remove From Watchlist for mobile to medium devices */}
+      <div className="md:hidden">
+        {isInWatchlist ? (
+          <div
+            onClick={handleDeleteList}
+            className="absolute right-0 top-0 cursor-pointer"
+          >
+            <BsBookmarkDash
+              size={34}
+              className="bg-black/60 text-custom-orange rounded-bl-lg rounded-tr-xl p-1"
+            />
+          </div>
+        ) : (
+          <div
+            onClick={handleWatchlist}
+            className="absolute right-0 top-0 cursor-pointer"
+          >
+            <BsBookmarkPlus
+              size={34}
+              className="bg-black/60 rounded-bl-lg rounded-tr-xl p-1"
+            />
+          </div>
+        )}
+      </div>
+
+      {/* View Details and Watchlist Button On Hover */}
+      <div className="hidden w-full h-full bg-black/40 opacity-0 rounded-xl absolute top-0 left-0 transition ease-in-out group-hover:opacity-100 group-hover:duration-500 md:block">
+        <div className="h-full w-full flex items-center justify-center relative">
+          {isInWatchlist ? (
+            <div
+              onClick={handleDeleteList}
+              className="absolute right-2 top-2 cursor-pointer"
+            >
+              <BsBookmarkDash size={32} color="red" />
+            </div>
+          ) : (
+            <div
+              onClick={handleWatchlist}
+              className="absolute right-2 top-2 cursor-pointer"
+            >
+              <BsBookmarkPlus size={32} />
+            </div>
+          )}
+          <Link
+            to={name ? `/tv/${id}` : `/movie/${id}`}
+            className="text-xl font-medium border-b transition-all hover:text-custom-orange hover:border-b-custom-orange"
+          >
+            View Details
+          </Link>
         </div>
       </div>
     </div>
