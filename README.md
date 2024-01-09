@@ -80,4 +80,7 @@ Customize your profile, keep track of your must-see movies, and immerse yourself
 
 I'd like to express my gratitude to the TMDb (The Movie Database) team for their API, which played a crucial role in fetching movie and TV show information for this project. Explore TMDb [here](https://www.themoviedb.org/documentation/api).
 
-Explore **[CineFlex](https://cineflex1.netlify.app/)**
+## Site Links
+
+- CineFlex Server Side Repo: [CineFlex Server](https://github.com/roufhasan/cineflex-server)
+- Live Site **[CineFlex](https://cineflex1.netlify.app/)**
