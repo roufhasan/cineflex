@@ -8,11 +8,13 @@ import GitHubIcon from "../../assets/icons/github-icon.svg";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 import PageTitle from "../../components/PageTitle/PageTitle";
+import ForgotPassModal from "../../components/ForgotPassModal/ForgotPassModal";
 
 const Login = () => {
   const { loading, setLoading, signIn, googleSignIn, gitHubSignIn } =
     useContext(AuthContext);
   const [togglePass, setTogglePass] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -231,13 +233,17 @@ const Login = () => {
           </div>
         </div>
         <div className="text-sm md:text-base text-center mt-16">
-          <p className="capitalize underline font-medium">
+          <p
+            onClick={() => setIsOpen(true)}
+            className="capitalize underline font-medium"
+          >
             <span className="cursor-pointer">Forgot password?</span>
           </p>
           <p className="text-sm text-gray-400 mt-2">
             Secure sign in with Firebase Authenticaion
           </p>
         </div>
+        {isOpen && <ForgotPassModal isOpen={isOpen} setIsOpen={setIsOpen} />}
       </section>
     </Container>
   );
