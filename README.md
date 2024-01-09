@@ -55,6 +55,27 @@ Customize your profile, keep track of your must-see movies, and immerse yourself
 - Dynamic Pagination
 - Carousel for Interactive Experience
 
+## Technologies Used
+
+### Authentication
+
+- Firebase
+
+### Front-End
+
+- TailwindCSS,
+- React.js,
+- Framer Motion
+- HeadlessUi
+- React Hook Form,
+- React Youtube
+- React Hot Toast
+
+### Back-End
+
+- ExpressJS
+- MongoDB
+
 ## Acknowledgments
 
 I'd like to express my gratitude to the TMDb (The Movie Database) team for their API, which played a crucial role in fetching movie and TV show information for this project. Explore TMDb [here](https://www.themoviedb.org/documentation/api).
