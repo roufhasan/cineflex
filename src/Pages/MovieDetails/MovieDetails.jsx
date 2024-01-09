@@ -1,6 +1,6 @@
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import Container from "../../components/Shared/Container";
-import { FaPlay, FaPlus, FaRegCalendar, FaStar } from "react-icons/fa6";
+import { FaPlay, FaRegCalendar, FaStar } from "react-icons/fa6";
 import { LuClock } from "react-icons/lu";
 import { PiTelevision } from "react-icons/pi";
 import { useContext, useEffect, useState } from "react";
@@ -37,11 +37,16 @@ const MovieDetails = () => {
     vote_average,
   } = movies;
   const [watchlist, refetch] = useWatchlist();
-  const [seeChanges, setSeeChanges] = useState(false);
+  const [reloadWatchlist, setReloadWatchlist] = useState(false);
   const [similarMovies, setSimilarMovies] = useState([]);
   const [playTrailer, setPlayTrailer] = useState(false);
   const [officialTrailer, setOfficialTrailer] = useState("");
   const navigate = useNavigate();
+
+  const isInWatchlist = watchlist.find(
+    (item) =>
+      item.tmdbId === id && (name ? item.name === name : item.title === name)
+  );
 
   const runtimeConvert = (totalMinutes) => {
     const minutes = totalMinutes % 60;
@@ -65,51 +70,79 @@ const MovieDetails = () => {
     setPlayTrailer(true);
   };
 
-  const handleWatchlist = () => {
-    if (user && user.email) {
-      const watchlistItem = {
-        tmdbId: id,
-        poster_path,
-        vote_average,
-        email: user.email.toLowerCase(),
-        media_type: `${title ? "movie" : "tv"}`.toLowerCase(),
-        name: `${title ? title : name}`,
-        year: `${
-          release_date ? release_date.slice(0, 4) : first_air_date.slice(0, 4)
-        }`,
-      };
+  const handleWatchlist = async () => {
+    try {
+      if (user && user.email) {
+        const watchlistItem = {
+          tmdbId: id,
+          poster_path,
+          vote_average,
+          email: user.email.toLowerCase(),
+          media_type: `${title ? "movie" : "tv"}`.toLowerCase(),
+          name: `${title ? title : name}`,
+          year: `${
+            release_date ? release_date.slice(0, 4) : first_air_date.slice(0, 4)
+          }`,
+        };
 
-      fetch("https://cineflex-server.vercel.app/watchlist", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(watchlistItem),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.insertedId) {
-            refetch();
-            setSeeChanges(true);
-            return toast.success("Added to watchlist");
+        const response = await fetch(
+          "https://cineflex-server.vercel.app/watchlist",
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(watchlistItem),
           }
+        );
+
+        const data = await response.json();
+
+        if (data.insertedId) {
+          setReloadWatchlist(true);
+          refetch();
+          toast.success("Added to watchlist");
+        } else {
           toast.error("Already exist in watchlist.");
-        });
-    } else {
-      navigate("/login");
+        }
+      } else {
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("Error adding to watchlist:", error);
     }
   };
 
-  const isInWatchlist = watchlist.find(
-    (item) =>
-      item.tmdbId === id && (name ? item.name === name : item.title === name)
-  );
+  const handleDeleteList = async () => {
+    try {
+      if (isInWatchlist && isInWatchlist._id) {
+        const response = await fetch(
+          `https://cineflex-server.vercel.app/watchlist/id/${isInWatchlist._id}`,
+          {
+            method: "DELETE",
+          }
+        );
+
+        const data = await response.json();
+
+        if (data.deletedCount > 0) {
+          setReloadWatchlist(true);
+          refetch();
+          toast.success("Removed from watchlist.");
+        } else {
+          toast.error("Invalid watchlist item.");
+        }
+      }
+    } catch (error) {
+      console.error("Error deleting from watchlist:", error);
+    }
+  };
 
   useEffect(() => {
     if (id) {
       similarMoviesApi(id, name).then((data) => setSimilarMovies(data));
     }
-  }, [id, name, seeChanges]);
+  }, [id, name, reloadWatchlist]);
 
   return (
     <Container>
@@ -230,29 +263,20 @@ const MovieDetails = () => {
                       <FaPlay></FaPlay>play trailer
                     </button>
                   )}
-                  {user ? (
-                    <>
-                      <button
-                        onClick={handleWatchlist}
-                        className={`bg-black/40 border-2 p-3 rounded-md font-medium flex items-center gap-x-1 uppercase text-sm md:px-6 md:py-3 ${
-                          isInWatchlist && "border-green-400 text-green-400"
-                        }`}
-                      >
-                        {isInWatchlist ? (
-                          <BsBookmarkDash size={20} />
-                        ) : (
-                          <BsBookmarkPlus size={20} />
-                        )}
-                        Watchlist
-                      </button>
-                    </>
+                  {isInWatchlist ? (
+                    <button
+                      onClick={handleDeleteList}
+                      className="bg-black/40 text-custom-orange border-2 border-custom-orange p-3 rounded-md font-medium flex items-center gap-x-1 uppercase text-sm md:px-6 md:py-3"
+                    >
+                      <BsBookmarkDash size={22} /> Watchlist
+                    </button>
                   ) : (
-                    <Link
-                      to="/login"
+                    <button
+                      onClick={handleWatchlist}
                       className="bg-black/40 border-2 p-3 rounded-md font-medium flex items-center gap-x-1 uppercase text-sm md:px-6 md:py-3"
                     >
-                      <FaPlus /> Watchlist
-                    </Link>
+                      <BsBookmarkPlus size={22} /> Watchlist
+                    </button>
                   )}
                 </div>
               </div>
