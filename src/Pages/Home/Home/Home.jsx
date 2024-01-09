@@ -1,34 +1,69 @@
-import PageTitle from "../../../components/PageTitle/PageTitle";
+import React, { Suspense } from "react";
 import Container from "../../../components/Shared/Container";
-import Hero from "../Hero/Hero";
-import NowPlaying from "../NowPlaying/NowPlaying";
-import PopularPerson from "../PopularPerson/PopularPerson";
-import PopularShows from "../PopularShows/PopularShows";
-import TopRated from "../TopRated/TopRated";
-import Trending from "../Trending/Trending";
-import Upcoming from "../Upcoming/Upcoming";
+import PageTitle from "../../../components/PageTitle/PageTitle";
+const Hero = React.lazy(() => import("../Hero/Hero"));
+const Trending = React.lazy(() => import("../Trending/Trending"));
+const NowPlaying = React.lazy(() => import("../NowPlaying/NowPlaying"));
+const Upcoming = React.lazy(() => import("../Upcoming/Upcoming"));
+const PopularShows = React.lazy(() => import("../PopularShows/PopularShows"));
+const TopRated = React.lazy(() => import("../TopRated/TopRated"));
+const PopularPerson = React.lazy(() =>
+  import("../PopularPerson/PopularPerson")
+);
 
 const Home = () => {
   return (
     <Container>
       <PageTitle title={"CineFlex"} />
-      <Hero />
-      <Trending />
-      <NowPlaying />
-      <Upcoming />
+
+      {/* Hero */}
+      <Suspense fallback={""}>
+        <Hero />
+      </Suspense>
+
+      {/* Trending */}
+      <Suspense fallback={""}>
+        <Trending />
+      </Suspense>
+
+      {/* Now Playing */}
+      <Suspense fallback={""}>
+        <NowPlaying />
+      </Suspense>
+
+      {/* Upcoming */}
+      <Suspense fallback={""}>
+        <Upcoming />
+      </Suspense>
+
       <div className="lg:flex gap-12 px-[5%] lg:max-h-[1400px]">
+        {/* Popular TV Shows */}
         <div className="w-full lg:w-3/4">
-          <PopularShows />
-          <div className="hidden md:block">
+          <Suspense fallback={""}>
+            <PopularShows />
+          </Suspense>
+
+          {/* Popular Person */}
+          <Suspense fallback={""}>
+            <div className="hidden md:block">
+              <PopularPerson />
+            </div>
+          </Suspense>
+        </div>
+
+        {/* Top Rated */}
+        <Suspense fallback={<p>Now plyaing loading..</p>}>
+          <div className="w-full lg:w-1/4">
+            <TopRated />
+          </div>
+        </Suspense>
+
+        {/* Popular Person */}
+        <Suspense fallback={<p>Now plyaing loading..</p>}>
+          <div className="md:hidden">
             <PopularPerson />
           </div>
-        </div>
-        <div className="w-full lg:w-1/4">
-          <TopRated />
-        </div>
-        <div className="md:hidden">
-          <PopularPerson />
-        </div>
+        </Suspense>
       </div>
     </Container>
   );

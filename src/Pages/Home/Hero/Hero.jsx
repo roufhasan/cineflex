@@ -66,7 +66,7 @@ const Hero = () => {
           centeredSlides={true}
           loop={true}
           autoplay={
-            playTrailer ? null : { delay: 7500, disableOnInteraction: false }
+            playTrailer ? null : { delay: 8300, disableOnInteraction: false }
           }
           modules={
             playTrailer
