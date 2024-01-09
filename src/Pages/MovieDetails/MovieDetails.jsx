@@ -315,7 +315,7 @@ const MovieDetails = () => {
             Top Cast
           </p>
           {credits.cast && credits.cast.length > 0 ? (
-            <div className="flex flex-wrap gap-10">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-6 gap-y-10">
               {credits.cast.slice(0, 6).map((actor) => (
                 <div key={actor.id} className="text-center">
                   <Link to={`/person/${actor.id}`}>
