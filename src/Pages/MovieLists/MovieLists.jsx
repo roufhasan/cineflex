@@ -10,7 +10,7 @@ import { ResetPageContext } from "../../Providers/ResetPageProvider";
 
 const MovieLists = ({ mediaType, apiPath, title }) => {
   const { currentPage, setCurrentPage } = useContext(ResetPageContext);
-  const [shows, setMovies] = useState([]);
+  const [shows, setAllShows] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
 
   const showGenreNames = (genreIds) => {
@@ -20,7 +20,7 @@ const MovieLists = ({ mediaType, apiPath, title }) => {
 
   useEffect(() => {
     listOfShows(mediaType, apiPath, currentPage).then((data) => {
-      setMovies(data.results);
+      setAllShows(data.results);
       setTotalPages(data?.total_pages);
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
